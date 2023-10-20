@@ -1,0 +1,199 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+<https://rdf.equinor.com/fam/Att4f6c1ef0-725d-4655-8a88-bf314957e54f> {
+    _:b0 <http://spdx.org/rdf/terms#algorithm> <http://spdx.org/rdf/terms#checksumAlgorithm_md5>;
+         <http://spdx.org/rdf/terms#checksumValue> "1f3ca2af85dc14d9bb37c0ea6bf52ee6"^^xsd:hexBinary.
+    <https://rdf.equinor.com/fam/Att4f6c1ef0-725d-4655-8a88-bf314957e54f> <http://spdx.org/rdf/terms#checksum> _:b0;
+                                                                          <http://spdx.org/rdf/terms#fileName> "MEL.XLSX";
+                                                                          a <https://rdf.equinor.com/ontology/record/Record>,
+                                                                            "https://rdf.equinor.com/ontology/attachment/File";
+                                                                          <http://www.w3.org/ns/dcat#byteSize> 21395 ;
+                                                                          <http://www.w3.org/ns/prov#generatedAtTime> "2023-06-29"^^xsd:date;
+                                                                          <https://rdf.equinor.com/ontology/attachment/DocumentType> "57";
+                                                                          <https://rdf.equinor.com/ontology/attachment/FileExtension> ".XLSX";
+                                                                          <https://rdf.equinor.com/ontology/attachment/ModelType> "MasterEquipmentList";
+                                                                          <https://rdf.equinor.com/ontology/record/describes> <https://rdf.equinor.com/fam/Att4f6c1ef0-725d-4655-8a88-bf314957e54f>;
+                                                                          <https://rdf.equinor.com/ontology/record/isInScope> <http://example.com/data/weight>,
+                                                                                                                              <https://commonlib.equinor.com/rdf/code/Contract/1JjvqAHFRbED1YPuaX>,
+                                                                                                                              <https://commonlib.equinor.com/rdf/code/Facility/FM5LkvTN>,
+                                                                                                                              <https://commonlib.equinor.com/rdf/code/LCIContractor/HR16JgI3PXZS>,
+                                                                                                                              <https://commonlib.equinor.com/rdf/code/Project/11PC64Stca>,
+                                                                                                                              <https://rdf.equinor.com/fam/document/GRA/C277-BV-T-LA-00002>;
+                                                                          <https://rdf.equinor.com/ontology/record/isSubRecordOf> <https://rdf.equinor.com/fam/Docf0db40c3-575c-4614-a6c1-0ca151b086a3>.
+}
+
+<https://rdf.equinor.com/fam/Docf0db40c3-575c-4614-a6c1-0ca151b086a3> {
+    <https://commonlib.equinor.com/rdf/code/Facility/FM5LkvTN> a <https://commonlib.equinor.com/rdf/code/Facility>;
+                                                               rdfs:label "GRA".
+    <https://rdf.equinor.com/fam/Docf0db40c3-575c-4614-a6c1-0ca151b086a3> a <https://rdf.equinor.com/ontology/record/Record>;
+                                                                          <http://www.w3.org/ns/prov#generatedAtTime> "2023-06-29"^^xsd:date;
+                                                                          <https://rdf.equinor.com/ontology/record/describes> <https://rdf.equinor.com/fam/document/GRA/C277-BV-T-LA-00002>;
+                                                                          <https://rdf.equinor.com/ontology/record/isInScope> <http://example.com/data/weight>,
+                                                                                                                              <https://commonlib.equinor.com/rdf/code/Contract/1JjvqAHFRbED1YPuaX>,
+                                                                                                                              <https://commonlib.equinor.com/rdf/code/Facility/FM5LkvTN>,
+                                                                                                                              <https://commonlib.equinor.com/rdf/code/LCIContractor/HR16JgI3PXZS>,
+                                                                                                                              <https://commonlib.equinor.com/rdf/code/Project/11PC64Stca>,
+                                                                                                                              <https://rdf.equinor.com/fam/document/GRA/C277-BV-T-LA-00002>.
+    <https://rdf.equinor.com/fam/document/GRA/C277-BV-T-LA-00002> a <https://rdf.equinor.com/ontology/fam/v1/MelDocument>;
+                                                                  rdfs:label "C277-BV-T-LA-00002";
+                                                                  <http://www.w3.org/2004/02/skos/core#related> <https://commonlib.equinor.com/rdf/code/Facility/FM5LkvTN>.
+}
+
+<https://rdf.equinor.com/fam/DocRevca455451-06fc-469e-8f5f-7e92883e1c54> {
+    <https://commonlib.equinor.com/rdf/code/Contract/1JjvqAHFRbED1YPuaX> a <https://commonlib.equinor.com/rdf/code/Contract>;
+                                                                         rdfs:label "1111000011".
+    <https://commonlib.equinor.com/rdf/code/Discipline/11PDuY8qef> a <https://commonlib.equinor.com/rdf/code/Discipline>;
+                                                                   rdfs:label "I".
+    <https://commonlib.equinor.com/rdf/code/DocType/JnOkUwxMfRaC5G6x> a <https://commonlib.equinor.com/rdf/code/Document>;
+                                                                      rdfs:label "57".
+    <https://commonlib.equinor.com/rdf/code/Facility/FM5LkvTN> a <https://commonlib.equinor.com/rdf/code/Facility>;
+                                                               rdfs:label "GRA".
+    <https://commonlib.equinor.com/rdf/code/LCIContractor/HR16JgI3PXZS> a <https://commonlib.equinor.com/rdf/code/LCIContractor>;
+                                                                        rdfs:label "AIB".
+    <https://commonlib.equinor.com/rdf/code/Project/11PC64Stca> a <https://commonlib.equinor.com/rdf/code/Project>;
+                                                                rdfs:label "TEST".
+    <https://rdf.equinor.com/fam/DocRevca455451-06fc-469e-8f5f-7e92883e1c54> a <https://rdf.equinor.com/ontology/record/Record>;
+                                                                             <http://www.w3.org/ns/prov#generatedAtTime> "2023-06-29"^^xsd:date;
+                                                                             <https://rdf.equinor.com/ontology/record/describes> <https://rdf.equinor.com/fam/document/GRA/C277-BV-T-LA-00002/revision/01>;
+                                                                             <https://rdf.equinor.com/ontology/record/isInScope> <http://example.com/data/weight>,
+                                                                                                                                 <https://commonlib.equinor.com/rdf/code/Contract/1JjvqAHFRbED1YPuaX>,
+                                                                                                                                 <https://commonlib.equinor.com/rdf/code/Facility/FM5LkvTN>,
+                                                                                                                                 <https://commonlib.equinor.com/rdf/code/LCIContractor/HR16JgI3PXZS>,
+                                                                                                                                 <https://commonlib.equinor.com/rdf/code/Project/11PC64Stca>,
+                                                                                                                                 <https://rdf.equinor.com/fam/document/GRA/C277-BV-T-LA-00002>,
+                                                                                                                                 <https://rdf.equinor.com/fam/document/GRA/C277-BV-T-LA-00002/revision/01>;
+                                                                             <https://rdf.equinor.com/ontology/record/isSubRecordOf> <https://rdf.equinor.com/fam/Docf0db40c3-575c-4614-a6c1-0ca151b086a3>.
+    <https://rdf.equinor.com/fam/document/GRA/C277-BV-T-LA-00002/revision/01> a <https://rdf.equinor.com/ontology/TIE#OfficialRevision>,
+                                                                                <https://rdf.equinor.com/ontology/TIE#RevisionForInformation>,
+                                                                                <https://rdf.equinor.com/ontology/revision/DocumentRevision>;
+                                                                              rdfs:label "C277-BV-T-LA-00002.01",
+                                                                                         "Test MEL";
+                                                                              <http://www.w3.org/2004/02/skos/core#related> <https://commonlib.equinor.com/rdf/code/Contract/1JjvqAHFRbED1YPuaX>,
+                                                                                                                            <https://commonlib.equinor.com/rdf/code/Discipline/11PDuY8qef>,
+                                                                                                                            <https://commonlib.equinor.com/rdf/code/DocType/JnOkUwxMfRaC5G6x>,
+                                                                                                                            <https://commonlib.equinor.com/rdf/code/Facility/FM5LkvTN>,
+                                                                                                                            <https://commonlib.equinor.com/rdf/code/LCIContractor/HR16JgI3PXZS>,
+                                                                                                                            <https://commonlib.equinor.com/rdf/code/Project/11PC64Stca>;
+                                                                              <http://www.w3.org/ns/prov#generatedAtTime> "2022-10-22"^^xsd:date;
+                                                                              <https://rdf.equinor.com/ontology/TIE#wasIssuedForReason> "Issued for testing";
+                                                                              <https://rdf.equinor.com/ontology/revision/containsRecord> <https://rdf.equinor.com/fam/Att4f6c1ef0-725d-4655-8a88-bf314957e54f>,
+                                                                                                                                         <https://rdf.equinor.com/fam/Docf0db40c3-575c-4614-a6c1-0ca151b086a3>,
+                                                                                                                                         <https://rdf.equinor.com/record/0b9c6c24-30bb-4bb4-a1ee-a318aadb5a01>;
+                                                                              <https://rdf.equinor.com/ontology/revision/describes> <https://rdf.equinor.com/fam/document/GRA/C277-BV-T-LA-00002>;
+                                                                              <https://rdf.equinor.com/ontology/revision/hasSequenceNumber> 1 ;
+                                                                              <https://rdf.equinor.com/ontology/revision/revisionNumber> "01".
+}
+
+<https://rdf.equinor.com/ontology/bravo-data/Transaction/TSTG/2> {
+    <https://rdf.equinor.com/ontology/bravo-data/Transaction/TSTG/2> rdf:label "Transaction 2 on TSTG";
+                                                                     a <https://rdf.equinor.com/ontology/bravo-api#Transaction>,
+                                                                       <https://rdf.equinor.com/ontology/record/Record>;
+                                                                     rdfs:comment "SqlBravoTransaction { TransactionNumber = 2, PreviousTransaction = SqlBravoTransaction { TransactionNumber = 1, PreviousTransaction = , BranchId = root, Status = Approved, Records = , SoftDeletedAt =  }, BranchId = TSTG, Status = Closed, Records = System.Collections.Generic.List`1[Bravo.WebApi.Data.SqlRecord], SoftDeletedAt =  }";
+                                                                     <http://www.w3.org/ns/prov#generatedAtTime> "2023-06-29"^^xsd:dateTime;
+                                                                     <http://www.w3.org/ns/prov#hadMember> <https://rdf.equinor.com/fam/Att4f6c1ef0-725d-4655-8a88-bf314957e54f>,
+                                                                                                           <https://rdf.equinor.com/fam/DocRevca455451-06fc-469e-8f5f-7e92883e1c54>,
+                                                                                                           <https://rdf.equinor.com/fam/Docf0db40c3-575c-4614-a6c1-0ca151b086a3>,
+                                                                                                           <https://rdf.equinor.com/record/0b9c6c24-30bb-4bb4-a1ee-a318aadb5a01>;
+                                                                     <https://rdf.equinor.com/ontology/record/describes> <https://rdf.equinor.com/ontology/bravo-data/Transaction/TSTG/2>;
+                                                                     <https://rdf.equinor.com/ontology/record/isInScope> <https://rdf.equinor.com/ontology/bravo-data/Branch/TSTG>.
+}
+
+<https://rdf.equinor.com/record/0b9c6c24-30bb-4bb4-a1ee-a318aadb5a01> {
+    <https://commonlib.equinor.com/rdf/code/Facility/FM5LkvTN/32b9012c-689a-43f6-be16-9141c29372ff> <https://rdf.equinor.com/source/mel#Allowance%20%0A%28%25%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Area> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Building%20block> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Capacity%20%0A%28mcubed%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Content%20Weight%20%0A%28kg%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Cost%0A%5BProj.%20currency%5D> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Cost%20Code%20%0ACOR> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Cost%20Date> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Discipline%20Equinor> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Discipline%20Siemens> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Dry%20CoG%0AEast%20%28mm%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Dry%20CoG%0AElevation%20%28mm%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Dry%20CoG%0ANorth%20%28mm%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Equinor%20Equipment%20Category%20%281%20-%204%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Equipment%20Sub%20Type> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Equipment%20Type%0ADescription> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Exch.%20rate> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Flow%20rate%201%0A%28mcubed%2Fhr%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Flow%20rate%202%0A%28mcubed%2Fhr%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Footprint%20%0A%28msquared%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Function%20Area> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Gross%20Dry%20Weight%20%0A%28kg%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#H%20%2F%20TT%20%0A%28mm%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Heat%20Exchanged%20per%20Unit%20%28kW%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Heat%20Transfer%20Surface%20Area%0A%5Bmsquared%5D> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Heat%20transfer%20medium%20%28type%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#L%20%2F%20TT%20%0A%28mm%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Material%201> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Material%202> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Modification%20Construction%20Code> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Modification%20Handling%20Code> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Modification%20Phase%20Code> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#NOK> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Needs%20sea%20fastening%20%28Yes%2FNo%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Net%20Dry%20Weight%20%0A%28kg%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#PO%20Package%0A%20Number> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Pressure%201%0A%28Barg%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Pressure%202%0A%28Barg%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Price%20Source> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Rated%20Power%20%28kW%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Reference%0A%2FSource> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Reference%0Adoc.%2C%20dwg.%2C%20%0AP%26ID%20etc.> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Remarks> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Risk%20comments> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Risk%3A%0ADesign%20basis> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Risk%3A%0AFootprint%20accuracy> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Risk%3A%0AWeight%20accuracy> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Shaft%20Power%20%28kW%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Skid%20Ref.> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Speed%0A%28RPM%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Sub%20%0AArea> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#System%20Number> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Tag%20Category> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Tag%20Number> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Tag%20Number%20%28NEW%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Tag%20Status> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Temp%201%0A%28degreesC%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Temp%202%0A%28degreesC%29> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#Top%20Tag> "DUMMY";
+                                                                                                    <https://rdf.equinor.com/source/mel#W%20%2F%20ID%20%0A%28mm%29> "DUMMY".
+    <https://commonlib.equinor.com/rdf/code/Facility/FM5LkvTN/88128172-00eb-48af-a701-9a4397d731e4> <https://rdf.equinor.com/source/mel#Tag%20Status> "General Main Equipment".
+    <https://commonlib.equinor.com/rdf/code/Facility/FM5LkvTN/b7f65c99-4d9e-4c85-8755-b91dd2fc0678> <https://rdf.equinor.com/source/mel#Building%20block> "A";
+                                                                                                    <https://rdf.equinor.com/source/mel#Discipline%20Equinor> "E";
+                                                                                                    <https://rdf.equinor.com/source/mel#Discipline%20Siemens> "F";
+                                                                                                    <https://rdf.equinor.com/source/mel#Equinor%20Equipment%20Category%20%281%20-%204%29> "2";
+                                                                                                    <https://rdf.equinor.com/source/mel#Equipment%20Type%0ADescription> "ex";
+                                                                                                    <https://rdf.equinor.com/source/mel#Reference%0A%2FSource> "1";
+                                                                                                    <https://rdf.equinor.com/source/mel#Reference%0Adoc.%2C%20dwg.%2C%20%0AP%26ID%20etc.> "2";
+                                                                                                    <https://rdf.equinor.com/source/mel#Remarks> "abc";
+                                                                                                    <https://rdf.equinor.com/source/mel#Risk%20comments> "abc";
+                                                                                                    <https://rdf.equinor.com/source/mel#Risk%3A%0ADesign%20basis> "5";
+                                                                                                    <https://rdf.equinor.com/source/mel#Risk%3A%0AFootprint%20accuracy> "4";
+                                                                                                    <https://rdf.equinor.com/source/mel#Risk%3A%0AWeight%20accuracy> "33";
+                                                                                                    <https://rdf.equinor.com/source/mel#System%20Number> "3";
+                                                                                                    <https://rdf.equinor.com/source/mel#Tag%20Category> "A";
+                                                                                                    <https://rdf.equinor.com/source/mel#Tag%20Number> "A1";
+                                                                                                    <https://rdf.equinor.com/source/mel#Tag%20Status> "NEW";
+                                                                                                    <https://rdf.equinor.com/source/mel#Top%20Tag> "NO".
+    <https://commonlib.equinor.com/rdf/code/Facility/FM5LkvTN/cfbad396-4c60-41d8-b517-9c0b8660923b> <https://rdf.equinor.com/source/mel#Tag%20Status> "NOTES".
+    <https://commonlib.equinor.com/rdf/code/Facility/FM5LkvTN/fcb67694-5505-48b6-8c62-501b8993abbf> <https://rdf.equinor.com/source/mel#Tag%20Status> "- Entries marked in red: under special consideration".
+    <https://rdf.equinor.com/fam/GRA/MasterEquipmentList/C277-BV-T-LA-00002> <http://www.w3.org/ns/prov#hadMember> <https://commonlib.equinor.com/rdf/code/Facility/FM5LkvTN/32b9012c-689a-43f6-be16-9141c29372ff>,
+                                                                                                                   <https://commonlib.equinor.com/rdf/code/Facility/FM5LkvTN/88128172-00eb-48af-a701-9a4397d731e4>,
+                                                                                                                   <https://commonlib.equinor.com/rdf/code/Facility/FM5LkvTN/b7f65c99-4d9e-4c85-8755-b91dd2fc0678>,
+                                                                                                                   <https://commonlib.equinor.com/rdf/code/Facility/FM5LkvTN/cfbad396-4c60-41d8-b517-9c0b8660923b>,
+                                                                                                                   <https://commonlib.equinor.com/rdf/code/Facility/FM5LkvTN/fcb67694-5505-48b6-8c62-501b8993abbf>.
+    <https://rdf.equinor.com/record/0b9c6c24-30bb-4bb4-a1ee-a318aadb5a01> a <https://rdf.equinor.com/ontology/record/Record>;
+                                                                          <https://rdf.equinor.com/ontology/record/describes> <https://rdf.equinor.com/fam/GRA/MasterEquipmentList/C277-BV-T-LA-00002>;
+                                                                          <https://rdf.equinor.com/ontology/record/isInScope> <http://example.com/data/weight>,
+                                                                                                                              <https://commonlib.equinor.com/rdf/code/Contract/1JjvqAHFRbED1YPuaX>,
+                                                                                                                              <https://commonlib.equinor.com/rdf/code/Facility/FM5LkvTN>,
+                                                                                                                              <https://commonlib.equinor.com/rdf/code/LCIContractor/HR16JgI3PXZS>,
+                                                                                                                              <https://commonlib.equinor.com/rdf/code/Project/11PC64Stca>,
+                                                                                                                              <https://rdf.equinor.com/fam/document/GRA/C277-BV-T-LA-00002>;
+                                                                          <https://rdf.equinor.com/ontology/record/isSubRecordOf> <https://rdf.equinor.com/fam/Docf0db40c3-575c-4614-a6c1-0ca151b086a3>.
+}
+

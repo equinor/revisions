@@ -1,0 +1,72 @@
+{
+  "@id": "<content-record-iri>",
+  "@graph": [
+    {
+      "@id": "<mel-row-iri>",
+      "<some-mel-property>": [
+        {
+          "@value": "<somevalue>"
+        }
+      ],
+      "<another property>": [
+        {
+          "@value": "<someothervalue>"
+        }
+      ]
+    },
+    {
+      "@id": "<another-mel-row-iri>",
+      "<some-mel-property>": [
+        {
+          "@value": "<somevalue>"
+        }
+      ],
+      "<another property>": [
+        {
+          "@value": "<someothervalue>"
+        }
+      ]
+    },
+    {
+      "@id": "<content-record-iri>",
+      "@type": [
+        "https://rdf.equinor.com/ontology/record/Record"
+      ],
+      "https://rdf.equinor.com/ontology/record/isInScope": [
+        {
+          "@id": "<document-iri>"
+        },
+        {
+          "@id": "<mel-scope>"
+        },
+        {
+          "@id": "https://rdf.equinor.com/ontology/bravo-api#Content"
+        }
+      ],
+      "https://rdf.equinor.com/ontology/record/isSubRecordOf": [
+        {
+          "@id": "<document-record-iri>"
+        }
+      ],
+      "https://rdf.equinor.com/ontology/record/describes": [
+        {
+          "@id": "<document-iri>"
+        }
+      ]
+    },
+    {
+      "@id": "<document-iri>",
+      "@type": [
+        "https://rdf.equinor.com/ontology/mel/v1#MasterEquipmentList"
+      ],
+      "http://www.w3.org/ns/prov#hadMember": [
+        {
+          "@id": "<mel-row-iri>"
+        },
+        {
+          "@id": "<another-mel-row-iri>"
+        }
+      ]
+    }
+  ]
+}
