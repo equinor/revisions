@@ -1,0 +1,22 @@
+@prefix ex-data: <https://rdf.equinor.com/fam/DocRev> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rec: <https://rdf.equinor.com/ontology/record/> .
+@prefix rev: <https://rdf.equinor.com/ontology/revision/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tie: <https://rdf.equinor.com/ontology/TIE#> .
+@prefix commonlib: <https://commonlib.equinor.com/> .
+@prefix TR: <https://rdf.equinor.com/ontology/technical-requirement/v1#> .
+
+ex-data:document-record-iri {
+    ex-data:document-record-iri a rec:Record ;
+            prov:generatedAtTime  "2023-06-01"^^xsd:date ;
+            rec:isInScope         ex-data:document-iri, TR:MelReportingTemplate;
+            rec:describes         ex-data:document-iri .
+    ex-data:document-iri a TR:MelReportingTemplate ;
+            rdfs:label              "Document Number" ;
+            tie:hasTitle            "TR1244:Title" ;
+            skos:related            commonlib:doctype-iri, commonlib:discipline-iri, commonlib:doccategory-iri .
+}
