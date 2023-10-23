@@ -28,7 +28,7 @@ We recommend putting the revision in a separate record for ease of manual readin
 The mel rows are connected both to the document and to the revision. The revision is related to the record containing the rows as described above,
 and the mel document is directly related to the row IRIs. We recommend putting the triples of the latter relation in the same record as the actual row.
 
-![](revision/rev1.png)
+![](img/rev1.png)
 
 ```trig
 eq:rec1 {
@@ -94,7 +94,7 @@ while content can be split up in any way.
 
 
 
-![](revisions.png)
+![](img/revisions.png)
 
 
 ## Content
