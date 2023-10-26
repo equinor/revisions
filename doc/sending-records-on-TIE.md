@@ -23,13 +23,13 @@ If any of the attributes listed above is missing, or if the values is not accord
 ### Example TIE message
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<InterfaceData GUID="00000001-0000-0000-0000-000000000001" PackageGuid="00000000-0000-0000-0000-000000000000" TimeStamp="2023-09-27T10:42:01.9616546+02:00" Action="APPEND" Site="AHA" Project="0000" ObjectClass="RecordSet" ObjectType="RecordSet" MessageVersion="001.1">
+<InterfaceData GUID="00000001-0000-0000-0000-000000000001" PackageGuid="00000000-0000-0000-0000-000000000000" TimeStamp="2023-10-25T12:42:01.12345+02:00" Action="APPEND" Site="Site" Project="Project" ObjectClass="RecordSet" ObjectType="RecordSet" MessageVersion="001.1">
   <MetaData />
   <Objects>
-    <Object Class="RecordSet" Site="AHA" Project="0000" Method="APPEND" GUID="00000003-0000-0000-0000-000000000003">
+    <Object Class="RecordSet" Site="Site" Project="Project" Method="APPEND" GUID="00000003-0000-0000-0000-000000000003">
 	  <Attributes>
-	    <Attribute Name="Contract">1111000011</Attribute>
-		<Attribute Name="Contractor">AS</Attribute>
+	    <Attribute Name="Contract">Contract</Attribute>
+		<Attribute Name="Contractor">Contractor</Attribute>
 	  </Attributes>
 	  <SubObjects />
 	  <Files>
