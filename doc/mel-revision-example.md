@@ -34,7 +34,7 @@ and the mel document is directly related to the row IRIs. We recommend putting t
 eq:rec1 {
     eq:rec1 a rec:Record ;
             prov:generatedAtTime  "2023-06-01"^^xsd:date ;
-            rec:isInScope         eq:doc1, TR:MelReportingTemplate;
+            rec:isInScope         eq:doc1, TR:MelReportingTemplate, TR:TR1244Document;
             rec:describes         eq:doc1 .
     eq:doc1 a TR:MelReportingTemplate ;
             rdfs:label              "doc 1" ;
@@ -45,10 +45,10 @@ eq:rec1 {
 eq:rec3 {
     eq:rec3 a rec:Record ;
             prov:generatedAtTime  "2023-06-01"^^xsd:date ;
-            rec:isInScope      eq:doc1, TR:MelReportingTemplate, TR:TR1244Document, <https://rdf.equinor.com/ontology/bravo-api#Content> ;
-            rec:isSubRecordOf  eq:doc1 ;
-            rec:describes      eq:content1 .
-    eq:content1  a rev:DocumentRevision, tie:OfficialRevision, tie:RevisionForInformation ;
+            rec:isInScope      eq:doc1, TR:MelReportingTemplate, TR:TR1244Document, bravo-api#Content ;
+            rec:isSubRecordOf  eq:rec1 ;
+            rec:describes      eq:doc1 .
+    eq:doc1  a TR:MelReportingTemplate ;
             prov:hadMember  ex-data:melrow1, ex-data:melrow2 .
     ex-data:melrow1  TR:some_mel_property  "value" .
     ex-data:melrow2  TR:some_mel_property  "value2" .
