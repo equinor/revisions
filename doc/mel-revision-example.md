@@ -1,22 +1,20 @@
 # Revision Example
 
-This is an adaptation of the records and revision formats from https://github.com/equinor/records to the TR1244 format
-at https://commonlib.equinor.com/Schema#/specification/TR1244 also using some types defined in tie.ttl in the
-ti-spine-ontologies repo.
+For general introduction see the [readme](../README.md)
+
 
 There are three main types of objects, the individual **MEL rows**, the **MEL document**, and the **revision**.
 
 ## MEL rows
-The rows are the smallest part of the MEL document. Each row has information about one part of what it describes, like its name, its weight, its size, and so on. 
+The rows are the content and not defined here, so therefore the smallest part of the MEL document. Each row has information about one part of what it describes, like its name, its weight, its size, and so on. 
 The individual MEL rows (often called "content" here) are identified by persistent IRIs created by the contractor.
 
 ## MEL document
-The MEL document has information about the whole project, like its name, its number, its site, and so on.
+The MEL document is an instance of the "document" described in the [readme](../README.md), and has information about the whole project, like its name, its number, its site, and so on.
 The MEL document is identified by the combination of site and document number and represents the concept of weight estimates for a given contract. 
-The MEL document does not represent a version or concrete doument, it rather represents the collection of information, evolving over time.
-Any information that does not change over time, should be put as properties on the MEL document.
 
 ## Revision
+Revisions are also described in the [readme](../README.md). For the Mel case is identified uniquely by the combination of site, document number and revision number.
 Revisions have information about when and how a document was changed. For example, if you add a new part to a machine or change the weight of an existing part, you need to make a new revision.
 The revision represents a specific version of data, frozen at some moment in time. It is identified uniquely by the combination of site, document number and revision number. 
 It is meant to represent the existing revision concept and should support review processes.
