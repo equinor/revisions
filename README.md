@@ -23,8 +23,13 @@ Non-rdf documents should be represented as attachments to the Rdf.
 Revisions have information about when and how data changed. For example, if you add a new part to a machine or change the weight of an existing part, you need to make a new revision.
 The revision represents a specific version of data, frozen at some moment in time. 
 It is meant to represent the existing revision concept and should support review processes.
-The revision is related to all records that contain the data of that revision with the relation "rev:containsRecord". The triples of this relation _must_ be in the record describing the revision.
+
+The object property "rev:containsRecord" relates the revision to the records that contain the revision content. 
+
+The triples of this relation _must_ be in the record describing the revision. That is, this relation should not be used in any other records than the one describing the revision.
+
 If the revision is delivered as one big record with document, revision and data, this relation is unnecessary.
+
 We recommend putting the revision in a separate record for ease of manual reading during investigation.
 
 ## Document
