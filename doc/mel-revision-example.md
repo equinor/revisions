@@ -2,6 +2,8 @@
 
 For general introduction see the [readme](../README.md)
 
+The example is about transmitting MasterEquipmentList according to to the TR1244 format
+at https://commonlib.equinor.com/Schema#/specification/TR1244. However, it should be applicable to other use cases with small changes.
 
 There are three main types of objects, the individual **MEL rows**, the **MEL document**, and the **revision**.
 

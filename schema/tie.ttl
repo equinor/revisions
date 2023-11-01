@@ -1,0 +1,126 @@
+@prefix : <https://rdf.equinor.com/ontology/TIE#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tie: <https://rdf.equinor.com/ontology/TIE#> .
+@base <https://rdf.equinor.com/ontology/TIE> .
+
+<https://rdf.equinor.com/ontology/TIE> rdf:type owl:Ontology ;
+                                           owl:versionIRI <https://rdf.equinor.com/ontology/TIE/v1.0> ;
+                                           owl:imports <https://rdf.equinor.com/ontology/revision/v1.0> ;
+                                           rdfs:comment "Encoding of parts of TR3111 that are relevant for revisions" .
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://rdf.equinor.com/ontology/TIE#wasIssuedForReason
+tie:wasIssuedForReason rdf:type owl:DatatypeProperty ;
+                          rdfs:domain <https://rdf.equinor.com/ontology/revision/Revision> ;
+                          rdfs:range xsd:string ;
+                          rdfs:comment """REASON_FOR_ISSUE, CHAR, 40
+Reason for issue of the revision""" .
+
+###  https://rdf.equinor.com/ontology/TIE#hasTitle
+tie:hasTitle rdf:type owl:DatatypeProperty ;
+                          rdfs:domain <https://rdf.equinor.com/ontology/revision/Document> ;
+                          rdfs:range xsd:string ;
+                          rdfs:label "Document title" ;
+                          rdfs:comment """Document title. Plain text characterizing the content of the
+                                          document""" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  https://rdf.equinor.com/ontology/TIE#OfficialProject
+tie:OfficialProject rdf:type owl:Class ;
+                       rdfs:subClassOf tie:RevisionWithStatus ;
+                       rdfs:comment """REV_STATUS OF-P
+In case of updates to existing LCI, only documents with
+revision status OF-P can be transferred.""" ;
+                       rdfs:label "OF-P Official Project" .
+
+
+###  https://rdf.equinor.com/ontology/TIE#OfficialRevision
+tie:OfficialRevision rdf:type owl:Class ;
+                        rdfs:subClassOf tie:RevisionWithStatus ;
+                        rdfs:comment """REV_STATUS OF
+Official""" ;
+                        rdfs:label "OF Official" .
+
+
+###  https://rdf.equinor.com/ontology/TIE#RevisionForInformation
+tie:RevisionForInformation rdf:type owl:Class ;
+                              rdfs:subClassOf tie:RevisionWithPurpose ;
+                              owl:disjointWith tie:RevisionForReview ;
+                              rdfs:comment """SR118731 PURPOSE_CODE = I
+For information (Default value, if attribute is not in TIE
+message""" ;
+                              rdfs:label "For information" .
+
+
+###  https://rdf.equinor.com/ontology/TIE#RevisionForReview
+tie:RevisionForReview rdf:type owl:Class ;
+                         rdfs:subClassOf tie:RevisionWithPurpose ;
+                         rdfs:comment "SR118731 PURPOSE_CODE R For review" ;
+                         rdfs:label "For Review" .
+
+
+###  https://rdf.equinor.com/ontology/TIE#RevisionWithPurpose
+tie:RevisionWithPurpose rdf:type owl:Class ;
+                           rdfs:subClassOf <https://rdf.equinor.com/ontology/revision/Revision> ;
+                           owl:disjointUnionOf ( tie:RevisionForInformation
+                                                 tie:RevisionForReview
+                                               ) .
+
+
+###  https://rdf.equinor.com/ontology/TIE#RevisionWithStatus
+tie:RevisionWithStatus rdf:type owl:Class ;
+                          rdfs:subClassOf <https://rdf.equinor.com/ontology/revision/Revision> .
+
+
+###  https://rdf.equinor.com/ontology/TIE#TIERevision
+tie:TIERevision rdf:type owl:Class ;
+                   rdfs:subClassOf tie:RevisionWithPurpose ,
+                                   tie:RevisionWithStatus ,
+                                   <https://rdf.equinor.com/ontology/revision/DocumentRevision> ;
+                   rdfs:comment "A revision as sent through TIE, valid according to TR3111" .
+
+
+###  https://rdf.equinor.com/ontology/TIE#WorkOngoing
+tie:WorkOngoing rdf:type owl:Class ;
+                   rdfs:subClassOf tie:RevisionWithStatus ;
+                   rdfs:comment """UA : Work Ongoing (indicates someone is working with a
+revision). (This code is included for information purposes).""" ;
+                   rdfs:label "UA Work Ongoing" .
+
+
+###  https://rdf.equinor.com/ontology/revision/DocumentRevision
+<https://rdf.equinor.com/ontology/revision/DocumentRevision> rdf:type owl:Class .
+
+
+###  https://rdf.equinor.com/ontology/revision/Revision
+<https://rdf.equinor.com/ontology/revision/Revision> rdf:type owl:Class ;
+                                                     owl:disjointUnionOf ( tie:OfficialProject
+                                                                           tie:OfficialRevision
+                                                                           tie:RevisionWithPurpose
+                                                                         ) .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( tie:OfficialProject
+                tie:OfficialRevision
+                tie:WorkOngoing
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

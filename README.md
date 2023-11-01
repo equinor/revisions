@@ -3,9 +3,9 @@
 
 Data model and examples for representing revisions and tracking information in rdf.
 
-This is an adaptation of the records format from https://github.com/equinor/records to the TR1244 format
-at https://commonlib.equinor.com/Schema#/specification/TR1244 also using some types defined in tie.ttl in the
-ti-spine-ontologies repo.
+This is an adaptation of the records format from https://github.com/equinor/records 
+
+# Introduction
 
 There are three main types of objects, the actual engineering **Content**, the **Document**, and the **Revision**.
 
@@ -32,5 +32,15 @@ The work processes we support also need a navigation path into the data called "
 The document does not represent a version or concrete doument, it rather represents the collection of information, evolving over time.
 Any information that does not change over time, could be put as properties on the document, in stead of on each revision.
 
-## Examples
-[MasterEquipmentList]('doc/mel-revision-example.md')
+# Examples
+[MasterEquipmentList](doc/mel-revision-example.md)
+
+# Repository map
+
+## [schema/](schema): Ontologies and Schema
+### [schema/revision.ttl](schema/revision.ttl) and [schema/revision.shacl](schema/revision.shacl): Generic format for sending revisions of data
+### [schema/comment.ttl](schema/comment.ttl) and [schema/comment.shacl](schema/comment.shacl): Extension of the revision format for sending comments and reviews
+### [schema/tie.ttl](schema/tie.ttl) : Reference data necessary for the mel use case/example below
+
+## [doc/](doc): Documentation and example
+### [doc/mel-revision-example.md](doc/mel-revision-example.md) A full example of revision and record usage for the Mel use case. Should be easy to transfer to other use cases
