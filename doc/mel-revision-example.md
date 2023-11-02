@@ -60,7 +60,7 @@ eq:rec2 {
             rec:isSubRecordOf  eq:rec1 ;
             rec:describes      eq:rev1 ;
             rec:isInScope         ex-data:document-iri, ex-data:revision-iri, TR:MelReportingTemplate, TR:TR1244Document .
-    ex-data:revision-iri a rev:DocumentRevision, tie:OfficialRevision, tie:RevisionForInformation ;
+    eq:rev1 a rev:DocumentRevision, tie:OfficialRevision, tie:RevisionForInformation ;
             rdfs:label              "Rev1" ;
             prov:generatedAtTime    "2023-02-27"^^xsd:date ;
             tie:wasIssuedForReason  "Issued for review" ;
