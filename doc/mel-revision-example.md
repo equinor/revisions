@@ -57,7 +57,7 @@ eq:rec3 {
 eq:rec2 {
     eq:rec2 a rec:Record ;
             prov:generatedAtTime  "2023-06-01"^^xsd:date ;
-            rec:isSubRecordOf  eq:doc1 ;
+            rec:isSubRecordOf  eq:rec1 ;
             rec:describes      eq:rev1 ;
             rec:isInScope         ex-data:document-iri, ex-data:revision-iri, TR:MelReportingTemplate, TR:TR1244Document .
     ex-data:revision-iri a rev:DocumentRevision, tie:OfficialRevision, tie:RevisionForInformation ;
