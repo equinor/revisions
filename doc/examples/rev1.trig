@@ -1,51 +1,48 @@
-@prefix ex-data: <https://rdf.equinor.com/fam/DocRev> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rec: <https://rdf.equinor.com/ontology/record/> .
 @prefix rev: <https://rdf.equinor.com/ontology/revision/> .
-@prefix prov: <http://www.w3.org/ns/prov#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix tie: <https://rdf.equinor.com/ontology/TIE#> .
-@prefix commonlib: <https://commonlib.equinor.com/> .
 @prefix TR: <https://rdf.equinor.com/ontology/technical-requirement/v1#> .
-@prefix eq: <https://equinor.com/example> .
+@prefix bravo: <https://rdf.equinor.com/ontology/bravo-api#> .
+@prefix ex: <https://example.com/data> .
 
-eq:rec1 {
-    eq:rec1 a rec:Record ;
+ex:rec1 {
+    ex:rec1 a rec:Record ;
             prov:generatedAtTime  "2023-06-01"^^xsd:date ;
-            rec:isInScope         eq:doc1, TR:MelReportingTemplate, TR:TR1244Document;
-            rec:describes         eq:doc1 .
-    eq:doc1 a TR:MelReportingTemplate ;
-            rdfs:label              "doc 1" ;
-            tie:hasTitle            "doc 1" ;
-            skos:related            commonlib:doctype-iri, commonlib:discipline-iri, commonlib:doccategory-iri .
+            rec:isInScope         ex:doc1, TR:MelReportingTemplate, TR:TR1244Document;
+            rec:describes         ex:doc1 .
+    ex:doc1 a TR:MelReportingTemplate ;
+            rdfs:label              "A123-AB-A-AB-0001" ;
+            tie:hasTitle            "MEL Alternative 1" .
 }
 
-eq:rec3 {
-    eq:rec3 a rec:Record ;
+ex:rec3 {
+    ex:rec3 a rec:Record ;
             prov:generatedAtTime  "2023-06-01"^^xsd:date ;
-            rec:isInScope      eq:doc1, TR:MelReportingTemplate, TR:TR1244Document, bravo-api#Content ;
-            rec:isSubRecordOf  eq:rec1 ;
-            rec:describes      eq:doc1 .
-    eq:doc1  a TR:MelReportingTemplate ;
-            prov:hadMember  ex-data:melrow1, ex-data:melrow2 .
-    ex-data:melrow1  TR:some_mel_property  "value" .
-    ex-data:melrow2  TR:some_mel_property  "value2" .
+            rec:isInScope      ex:doc1, TR:MelReportingTemplate, TR:TR1244Document, bravo:Content ;
+            rec:isSubRecordOf  ex:rec1 ;
+            rec:describes      ex:doc1 .
+    ex:doc1  a TR:MelReportingTemplate ;
+            prov:hadMember  ex:melrow1, ex:melrow2 .
+    ex:melrow1  TR:some_mel_property  "value" .
+    ex:melrow2  TR:some_mel_property  "value2" .
 }
 
-eq:rec2 {
-    eq:rec2 a rec:Record ;
+ex:rec2 {
+    ex:rec2 a rec:Record ;
             prov:generatedAtTime  "2023-06-01"^^xsd:date ;
-            rec:isSubRecordOf  eq:rec1 ;
-            rec:describes      eq:rev1 ;
-            rec:isInScope         ex-data:document-iri, ex-data:revision-iri, TR:MelReportingTemplate, TR:TR1244Document .
-    eq:rev1 a rev:DocumentRevision, tie:OfficialRevision, tie:RevisionForInformation ;
+            rec:isSubRecordOf  ex:rec1 ;
+            rec:describes      ex:rev1 ;
+            rec:isInScope         ex:document-iri, ex:revision-iri, TR:MelReportingTemplate, TR:TR1244Document .
+    ex:rev1 a rev:DocumentRevision, tie:OfficialRevision, tie:RevisionForInformation ;
             rdfs:label              "Rev1" ;
             prov:generatedAtTime    "2023-02-27"^^xsd:date ;
             tie:wasIssuedForReason  "Issued for review" ;
-            rev:containsRecord      eq:rec1, eq:rec3 ;
-            rev:describes           eq:doc1 ;
-            skos:related            commonlib:doctype-iri, commonlib:discipline-iri ;
+            rev:containsRecord      ex:rec1, ex:rec3 ;
+            rev:describes           ex:doc1 ;
             rev:revisionNumber      "01" .
 }
