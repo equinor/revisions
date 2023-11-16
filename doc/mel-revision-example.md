@@ -154,10 +154,11 @@ And in json-ld
 
 ```json
 {
-  "@id": "<content-record-iri>",
+  "@id": "ex:content-record-iri",
   "@graph": [
+    
     {
-      "@id": "<mel-row-iri>",
+      "@id": "ex:melrow1",
       "<TR:some-mel-property>": [
         {
           "@value": "<somevalue>"
@@ -170,7 +171,7 @@ And in json-ld
       ]
     },
     {
-      "@id": "<another-mel-row-iri>",
+      "@id": "ex:melrow2",
       "<TR:some-mel-property>": [
         {
           "@value": "value"
@@ -183,7 +184,7 @@ And in json-ld
       ]
     },
     {
-      "@id": "<content-record-iri>",
+      "@id": "ex:content-record-iri",
       "@type": [
         "https://rdf.equinor.com/ontology/record/Record"
       ],
@@ -213,16 +214,16 @@ And in json-ld
       ]
     },
     {
-      "@id": "<document-iri>",
+      "@id": "ex:document-iri",
       "@type": [
         "https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate"
       ],
       "http://www.w3.org/ns/prov#hadMember": [
         {
-          "@id": "<mel-row-iri>"
+          "@id": "ex:melrow1"
         },
         {
-          "@id": "<another-mel-row-iri>"
+          "@id": "ex:melrow2"
         }
       ]
     }
@@ -305,7 +306,7 @@ ex:revision-record-iri {
       ],
       "https://rdf.equinor.com/ontology/revision/describes": [
         {
-          "@id": "<document-iri>"
+          "@id": "ex:document-iri"
         }
       ],
       "https://rdf.equinor.com/ontology/revision/containsRecord": [
@@ -313,7 +314,7 @@ ex:revision-record-iri {
           "@id": "<document-record-iri>"
         },
         {
-          "@id": "<content-record-iri>"
+          "@id": "ex:content-record-iri"
         }
       ],
       "https://rdf.equinor.com/ontology/TIE#wasIssuedForReason": [
@@ -340,7 +341,7 @@ ex:revision-record-iri {
       ],
       "https://rdf.equinor.com/ontology/record/isInScope": [
         {
-          "@id": "<document-iri>"
+          "@id": "ex:document-iri"
         },
         {
           "@id": "<https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate>"
@@ -399,7 +400,7 @@ ex:document-record-iri {
   "@id": "<document-record-iri>",
   "@graph": [
     {
-      "@id": "<document-iri>",
+      "@id": "ex:document-iri",
       "@type": [
         "https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate"
       ],
@@ -427,7 +428,7 @@ ex:document-record-iri {
       ],
       "https://rdf.equinor.com/ontology/record/isInScope": [
         {
-          "@id": "<document-iri>"
+          "@id": "ex:document-iri"
         },
         {
           "@id": "<https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate>"
@@ -438,7 +439,7 @@ ex:document-record-iri {
       ],
       "https://rdf.equinor.com/ontology/record/describes": [
         {
-          "@id": "<document-iri>"
+          "@id": "ex:document-iri"
         }
       ]
     }
@@ -459,7 +460,7 @@ Otherwise they are interpreted as a branching, which is currently not allowed fo
     "@id": "<content-record-iri-2>",
     "@graph": [
       {
-        "@id": "<mel-row-iri>",
+        "@id": "ex:melrow1",
         "<some-mel-property>": [
           {
             "@value": "<somevalue>"
@@ -478,7 +479,7 @@ Otherwise they are interpreted as a branching, which is currently not allowed fo
         ],
         "https://rdf.equinor.com/ontology/record/isInScope": [
           {
-            "@id": "<document-iri>"
+            "@id": "ex:document-iri"
           },
           {
             "@id": "<https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate>"
@@ -494,7 +495,12 @@ Otherwise they are interpreted as a branching, which is currently not allowed fo
         ],
         "https://rdf.equinor.com/ontology/record/describes": [
           {
-            "@id": "<mel-row-iri>"
+            "@id": "ex:melrow1"
+          }
+        ],
+        "https://rdf.equinor.com/ontology/record/replaces": [
+          {
+            "@id": "ex:content-record-iri"
           }
         ]
       }
@@ -504,7 +510,7 @@ Otherwise they are interpreted as a branching, which is currently not allowed fo
     "@id": "<content-record-iri-3>",
     "@graph": [
       {
-        "@id": "<another-mel-row-iri>",
+        "@id": "ex:melrow2",
         "<some-mel-property>": [
           {
             "@value": "<somevalue3>"
@@ -517,7 +523,7 @@ Otherwise they are interpreted as a branching, which is currently not allowed fo
         ]
       },
       {
-        "@id": "<third-mel-row-iri>",
+        "@id": "ex:melrow3",
         "<some-mel-property>": [
           {
             "@value": "<somevalue6>"
@@ -536,7 +542,7 @@ Otherwise they are interpreted as a branching, which is currently not allowed fo
         ],
         "https://rdf.equinor.com/ontology/record/isInScope": [
           {
-            "@id": "<document-iri>"
+            "@id": "ex:document-iri"
           },
           {
             "@id": "<https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate>"
@@ -552,10 +558,15 @@ Otherwise they are interpreted as a branching, which is currently not allowed fo
         ],
         "https://rdf.equinor.com/ontology/record/describes": [
           {
-            "@id": "<another-mel-row-iri>"
+            "@id": "ex:melrow2"
           },
           {
-            "@id": "<third-mel-row-iri>"
+            "@id": "ex:melrow3"
+          }
+        ],
+        "https://rdf.equinor.com/ontology/record/replaces": [
+          {
+            "@id": "ex:content-record-iri"
           }
         ]
       }
@@ -571,13 +582,16 @@ Otherwise they are interpreted as a branching, which is currently not allowed fo
         ],
         "https://rdf.equinor.com/ontology/record/isInScope": [
           {
-            "@id": "<document-iri>"
+            "@id": "ex:document-iri"
           },
           {
             "@id": "<https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate>"
           },
           {
             "@id": "<https://rdf.equinor.com/ontology/technical-requirement/v1#TR1244Document>"
+          },
+          {
+            "@id": "bravo:Content"
           }
         ],
         "https://rdf.equinor.com/ontology/record/isSubRecordOf": [
@@ -587,21 +601,26 @@ Otherwise they are interpreted as a branching, which is currently not allowed fo
         ],
         "https://rdf.equinor.com/ontology/record/describes": [
           {
-            "@id": "<mel-document-iri>"
+            "@id": "ex:document-iri"
+          }
+        ],
+        "https://rdf.equinor.com/ontology/record/replaces": [
+          {
+            "@id": "ex:content-record-iri"
           }
         ]
       },
       {
-        "@id": "<mel-document-iri>",
+        "@id": "ex:document-iri",
         "http://www.w3.org/ns/prov#hadMember": [
           {
-            "@id": "<mel-row-iri>"
+            "@id": "ex:melrow1"
           },
           {
-            "@id": "<another-mel-row-iri>"
+            "@id": "ex:melrow2"
           },
           {
-            "@id": "<third-mel-row-iri>"
+            "@id": "ex:melrow3"
           }
         ]
       }
@@ -646,7 +665,7 @@ The revision below could be sent after (or at the same time) as the new content 
       ],
       "https://rdf.equinor.com/ontology/revision/describes": [
         {
-          "@id": "<document-iri>"
+          "@id": "ex:document-iri"
         }
       ],
       "https://rdf.equinor.com/ontology/revision/isNewRevisionOf": [
@@ -692,7 +711,7 @@ The revision below could be sent after (or at the same time) as the new content 
       ],
       "https://rdf.equinor.com/ontology/record/isInScope": [
         {
-          "@id": "<document-iri>"
+          "@id": "ex:document-iri"
         },
         {
           "@id": "<https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate>"
