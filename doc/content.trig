@@ -1,4 +1,3 @@
-@prefix ex-data: <https://rdf.equinor.com/fam/DocRev> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -7,16 +6,18 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix tie: <https://rdf.equinor.com/ontology/TIE#> .
 @prefix TR: <https://rdf.equinor.com/ontology/technical-requirement/v1#> .
+@prefix bravo: <https://rdf.equinor.com/ontology/bravo-api#> .
+@prefix ex: <https://example.com/data> .
 
-ex-data:content-record-iri {
-    ex-data:content-record-iri
+ex:content-record-iri {
+    ex:content-record-iri
             rdf:type           rec:Record ;
             prov:generatedAtTime  "2023-06-01"^^xsd:date ;
-            rec:isInScope      ex-data:document-iri, TR:MelReportingTemplate, TR:TR1244Document, <https://rdf.equinor.com/ontology/bravo-api#Content> ;
-            rec:isSubRecordOf  ex-data:document-record-iri ;
-            rec:describes      ex-data:document-iri .
-    ex-data:document-iri a TR:MelReportingTemplate ;
-            prov:hadMember  ex-data:melrow1, ex-data:melrow2 .
-    ex-data:melrow1  TR:some_mel_property  "value" .
-    ex-data:melrow2  TR:some_mel_property  "value2" .
+            rec:isInScope      ex:document-iri, TR:MelReportingTemplate, TR:TR1244Document, bravo:Content ;
+            rec:isSubRecordOf  ex:document-record-iri ;
+            rec:describes      ex:document-iri .
+    ex:document-iri a TR:MelReportingTemplate ;
+            prov:hadMember  ex:melrow1, ex:melrow2 .
+    ex:melrow1  TR:some_mel_property  "value" .
+    ex:melrow2  TR:some_mel_property  "value2" .
 }

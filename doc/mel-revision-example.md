@@ -31,42 +31,52 @@ and the mel document is directly related to the row IRIs. We recommend putting t
 ![](img/rev1.png)
 
 ```trig
-eq:rec1 {
-    eq:rec1 a rec:Record ;
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rec: <https://rdf.equinor.com/ontology/record/> .
+@prefix rev: <https://rdf.equinor.com/ontology/revision/> .
+@prefix tie: <https://rdf.equinor.com/ontology/TIE#> .
+@prefix TR: <https://rdf.equinor.com/ontology/technical-requirement/v1#> .
+@prefix bravo: <https://rdf.equinor.com/ontology/bravo-api#> .
+@prefix ex: <https://example.com/data> .
+
+ex:rec1 {
+    ex:rec1 a rec:Record ;
             prov:generatedAtTime  "2023-06-01"^^xsd:date ;
-            rec:isInScope         eq:doc1, TR:MelReportingTemplate, TR:TR1244Document;
-            rec:describes         eq:doc1 .
-    eq:doc1 a TR:MelReportingTemplate ;
-            rdfs:label              "doc 1" ;
-            tie:hasTitle            "doc 1" ;
-            skos:related            commonlib:doctype-iri, commonlib:discipline-iri, commonlib:doccategory-iri .
+            rec:isInScope         ex:doc1, TR:MelReportingTemplate, TR:TR1244Document;
+            rec:describes         ex:doc1 .
+    ex:doc1 a TR:MelReportingTemplate ;
+            rdfs:label              "A123-AB-A-AB-0001" ;
+            tie:hasTitle            "MEL Alternative 1" .
 }
 
-eq:rec3 {
-    eq:rec3 a rec:Record ;
+ex:rec3 {
+    ex:rec3 a rec:Record ;
             prov:generatedAtTime  "2023-06-01"^^xsd:date ;
-            rec:isInScope      eq:doc1, TR:MelReportingTemplate, TR:TR1244Document, bravo-api#Content ;
-            rec:isSubRecordOf  eq:rec1 ;
-            rec:describes      eq:doc1 .
-    eq:doc1  a TR:MelReportingTemplate ;
-            prov:hadMember  ex-data:melrow1, ex-data:melrow2 .
-    ex-data:melrow1  TR:some_mel_property  "value" .
-    ex-data:melrow2  TR:some_mel_property  "value2" .
+            rec:isInScope      ex:doc1, TR:MelReportingTemplate, TR:TR1244Document, bravo:Content ;
+            rec:isSubRecordOf  ex:rec1 ;
+            rec:describes      ex:doc1 .
+    ex:doc1  a TR:MelReportingTemplate ;
+            prov:hadMember  ex:melrow1, ex:melrow2 .
+    ex:melrow1  TR:some_mel_property  "value" .
+    ex:melrow2  TR:some_mel_property  "value2" .
 }
 
-eq:rec2 {
-    eq:rec2 a rec:Record ;
+ex:rec2 {
+    ex:rec2 a rec:Record ;
             prov:generatedAtTime  "2023-06-01"^^xsd:date ;
-            rec:isSubRecordOf  eq:rec1 ;
-            rec:describes      eq:rev1 ;
-            rec:isInScope         ex-data:document-iri, ex-data:revision-iri, TR:MelReportingTemplate, TR:TR1244Document .
-    eq:rev1 a rev:DocumentRevision, tie:OfficialRevision, tie:RevisionForInformation ;
+            rec:isSubRecordOf  ex:rec1 ;
+            rec:describes      ex:rev1 ;
+            rec:isInScope         ex:document-iri, ex:revision-iri, TR:MelReportingTemplate, TR:TR1244Document .
+    ex:rev1 a rev:DocumentRevision, tie:OfficialRevision, tie:RevisionForInformation ;
             rdfs:label              "Rev1" ;
             prov:generatedAtTime    "2023-02-27"^^xsd:date ;
             tie:wasIssuedForReason  "Issued for review" ;
-            rev:containsRecord      eq:rec1, eq:rec3 ;
-            rev:describes           eq:doc1 ;
-            skos:related            commonlib:doctype-iri, commonlib:discipline-iri ;
+            rev:containsRecord      ex:rec1, ex:rec3 ;
+            rev:describes           ex:doc1 ;
             rev:revisionNumber      "01" .
 }
 
@@ -111,25 +121,34 @@ The exception is the relation to the top level "document-iri", which is describe
   In lack of a central id registry we suggest this IRI: https://rdf.equinor.com/fam/document/<Facility>/<DocumentNo>.
 - revision-iri: The persistent identifier of the TR1244 Revision based on the TR1244 fields Facility, DocumentNo and
   RevNo. In lack of a central id registry we suggest this IRI: <document-iri>/revision/<RevNo>
-- mel-scope: The iri of "mel" or weight-estimation as a work process. Currently (
-  temporarily) http://example.com/data/weight
-- commonlib-<x>-iri: The commonlib IRI of an entity in library x. For
-  example https://commonlib.equinor.com/rdf/code/Discipline/11PE8dMkmw for DocCategory DOC in site JSV.
+
 
 Example in trig
 ```trig
-ex-data:content-record-iri {
-    ex-data:content-record-iri
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rec: <https://rdf.equinor.com/ontology/record/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tie: <https://rdf.equinor.com/ontology/TIE#> .
+@prefix TR: <https://rdf.equinor.com/ontology/technical-requirement/v1#> .
+@prefix bravo: <https://rdf.equinor.com/ontology/bravo-api#> .
+@prefix ex: <https://example.com/data> .
+
+ex:content-record-iri {
+    ex:content-record-iri
             rdf:type           rec:Record ;
             prov:generatedAtTime  "2023-06-01"^^xsd:date ;
-            rec:isInScope      ex-data:document-iri, TR:MelReportingTemplate, TR:TR1244Document, <https://rdf.equinor.com/ontology/bravo-api#Content> ;
-            rec:isSubRecordOf  ex-data:document-record-iri ;
-            rec:describes      ex-data:document-iri .
-    ex-data:document-iri a TR:MelReportingTemplate ;
-            prov:hadMember  ex-data:melrow1, ex-data:melrow2 .
-    ex-data:melrow1  TR:some_mel_property  "value" .
-    ex-data:melrow2  TR:some_mel_property  "value2" .
+            rec:isInScope      ex:document-iri, TR:MelReportingTemplate, TR:TR1244Document, bravo:Content ;
+            rec:isSubRecordOf  ex:document-record-iri ;
+            rec:describes      ex:document-iri .
+    ex:document-iri a TR:MelReportingTemplate ;
+            prov:hadMember  ex:melrow1, ex:melrow2 .
+    ex:melrow1  TR:some_mel_property  "value" .
+    ex:melrow2  TR:some_mel_property  "value2" .
 }
+
 ```
 And in json-ld
 
@@ -139,12 +158,12 @@ And in json-ld
   "@graph": [
     {
       "@id": "<mel-row-iri>",
-      "<some-mel-property>": [
+      "<TR:some-mel-property>": [
         {
           "@value": "<somevalue>"
         }
       ],
-      "<another property>": [
+      "<TR:another property>": [
         {
           "@value": "<someothervalue>"
         }
@@ -152,14 +171,14 @@ And in json-ld
     },
     {
       "@id": "<another-mel-row-iri>",
-      "<some-mel-property>": [
+      "<TR:some-mel-property>": [
         {
-          "@value": "<somevalue>"
+          "@value": "value"
         }
       ],
-      "<another property>": [
+      "<TR:another property>": [
         {
-          "@value": "<someothervalue>"
+          "@value": "value2"
         }
       ]
     },
@@ -173,7 +192,10 @@ And in json-ld
           "@id": "<document-iri>"
         },
         {
-          "@id": "<mel-scope>"
+          "@id": "https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate"
+        },
+        {
+          "@id": "https://rdf.equinor.com/ontology/technical-requirement/v1#TR1244Document"
         },
         {
           "@id": "https://rdf.equinor.com/ontology/bravo-api#Content"
@@ -193,7 +215,7 @@ And in json-ld
     {
       "@id": "<document-iri>",
       "@type": [
-        "https://rdf.equinor.com/ontology/mel/v1#MasterEquipmentList"
+        "https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate"
       ],
       "http://www.w3.org/ns/prov#hadMember": [
         {
@@ -227,21 +249,31 @@ The types on revision are:
 Example in trig
 
 ```trig
-ex-data:revision-record-iri {
-    ex-data:revision-record-iri a rec:Record ;
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rec: <https://rdf.equinor.com/ontology/record/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tie: <https://rdf.equinor.com/ontology/TIE#> .
+@prefix TR: <https://rdf.equinor.com/ontology/technical-requirement/v1#> .
+@prefix ex: <https://example.com/data> .
+
+ex:revision-record-iri {
+    ex:revision-record-iri a rec:Record ;
             prov:generatedAtTime  "2023-06-01"^^xsd:date ;
-            rec:isInScope         ex-data:document-iri, ex-data:revision-iri, TR:MelReportingTemplate, TR:TR1244Document ;
-            rec:describes         ex-data:revision-iri ;
-            rec:isSubRecordOf     ex-data:document-record-iri .
-    ex-data:revision-iri a rev:DocumentRevision, tie:OfficialRevision, tie:RevisionForInformation ;
+            rec:isInScope         ex:document-iri, ex:revision-iri, TR:MelReportingTemplate, TR:TR1244Document ;
+            rec:describes         ex:revision-iri ;
+            rec:isSubRecordOf     ex:document-record-iri .
+    ex:revision-iri a rev:DocumentRevision, tie:OfficialRevision, tie:RevisionForInformation ;
             rdfs:label              "MEL-01.01" ;
             prov:generatedAtTime    "2023-02-27"^^xsd:date ;
             tie:wasIssuedForReason  "Issued for debug" ;
-            rev:containsRecord      ex-data:content-record-iri, ex-data:document-record-iri ;
-            rev:describes           ex-data:document-iri ;
-            skos:related            commonlib:doctype-iri, commonlib:discipline-iri ;
+            rev:containsRecord      ex:content-record-iri, ex:document-record-iri ;
+            rev:describes           ex:document-iri ;
             rev:revisionNumber      "01" .
 }
+
 ```
 
 ```json
@@ -284,14 +316,6 @@ ex-data:revision-record-iri {
           "@id": "<content-record-iri>"
         }
       ],
-      "http://www.w3.org/2004/02/skos/core#related": [
-        {
-          "@id": "<commonlib-discipline-iri>"
-        },
-        {
-          "@id": "<commonlib-doctype-iri>"
-        }
-      ],
       "https://rdf.equinor.com/ontology/TIE#wasIssuedForReason": [
         {
           "@value": "<TR1244: ReasonForIssue>"
@@ -319,7 +343,10 @@ ex-data:revision-record-iri {
           "@id": "<document-iri>"
         },
         {
-          "@id": "<mel-scope>"
+          "@id": "<https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate>"
+        },
+        {
+          "@id": "<https://rdf.equinor.com/ontology/technical-requirement/v1#TR1244Document>"
         },
         {
           "@id": "<revision-iri>"
@@ -345,16 +372,26 @@ ex-data:revision-record-iri {
 
 Example in trig
 ```trig
-ex-data:document-record-iri {
-    ex-data:document-record-iri a rec:Record ;
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rec: <https://rdf.equinor.com/ontology/record/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tie: <https://rdf.equinor.com/ontology/TIE#> .
+@prefix TR: <https://rdf.equinor.com/ontology/technical-requirement/v1#> .
+@prefix ex: <https://example.com/data> .
+
+ex:document-record-iri {
+    ex:document-record-iri a rec:Record ;
             prov:generatedAtTime  "2023-06-01"^^xsd:date ;
-            rec:isInScope         ex-data:document-iri, TR:MelReportingTemplate;
-            rec:describes         ex-data:document-iri .
-    ex-data:document-iri a TR:MelReportingTemplate ;
+            rec:isInScope         ex:document-iri, TR:MelReportingTemplate;
+            rec:describes         ex:document-iri .
+    ex:document-iri a TR:MelReportingTemplate ;
             rdfs:label              "Document Number" ;
-            tie:hasTitle            "TR1244:Title" ;
-            skos:related            commonlib:doctype-iri, commonlib:discipline-iri, commonlib:doccategory-iri .
+            tie:hasTitle            "TR1244:Title" .
 }
+
 ```
 
 ```json
@@ -364,7 +401,7 @@ ex-data:document-record-iri {
     {
       "@id": "<document-iri>",
       "@type": [
-        "https://rdf.equinor.com/ontology/fam/v1/MelDocument"
+        "https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate"
       ],
       "http://www.w3.org/2000/01/rdf-schema#label": [
         {
@@ -375,18 +412,7 @@ ex-data:document-record-iri {
         {
           "@value": "<TR1244:Title>"
         }
-      ],
-      "http://www.w3.org/2004/02/skos/core#related": [
-        {
-          "@id": "<commonlib-discipline-iri>"
-        },
-        {
-          "@id": "<commonlib-doctype-iri>"
-        },
-        {
-          "@id": "<commonlib-doccategory-iri>"
-        }
-      ]
+      ]     
     },
     {
       "@id": "<document-record-iri>",
@@ -404,7 +430,10 @@ ex-data:document-record-iri {
           "@id": "<document-iri>"
         },
         {
-          "@id": "<mel-scope>"
+          "@id": "<https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate>"
+        },
+        {
+          "@id": "<https://rdf.equinor.com/ontology/technical-requirement/v1#TR1244Document>"
         }
       ],
       "https://rdf.equinor.com/ontology/record/describes": [
@@ -452,8 +481,11 @@ Otherwise they are interpreted as a branching, which is currently not allowed fo
             "@id": "<document-iri>"
           },
           {
-            "@id": "<mel-scope>"
-          }
+            "@id": "<https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate>"
+          },
+          {
+            "@id": "<https://rdf.equinor.com/ontology/technical-requirement/v1#TR1244Document>"
+        }
         ],
         "https://rdf.equinor.com/ontology/record/isSubRecordOf": [
           {
@@ -507,7 +539,10 @@ Otherwise they are interpreted as a branching, which is currently not allowed fo
             "@id": "<document-iri>"
           },
           {
-            "@id": "<mel-scope>"
+            "@id": "<https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate>"
+          },
+          {
+            "@id": "<https://rdf.equinor.com/ontology/technical-requirement/v1#TR1244Document>"
           }
         ],
         "https://rdf.equinor.com/ontology/record/isSubRecordOf": [
@@ -539,7 +574,10 @@ Otherwise they are interpreted as a branching, which is currently not allowed fo
             "@id": "<document-iri>"
           },
           {
-            "@id": "<mel-scope>"
+            "@id": "<https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate>"
+          },
+          {
+            "@id": "<https://rdf.equinor.com/ontology/technical-requirement/v1#TR1244Document>"
           }
         ],
         "https://rdf.equinor.com/ontology/record/isSubRecordOf": [
@@ -630,14 +668,6 @@ The revision below could be sent after (or at the same time) as the new content 
           "@id": "<content-record-iri-4>"
         }
       ],
-      "http://www.w3.org/2004/02/skos/core#related": [
-        {
-          "@id": "<commonlib-discipline-iri>"
-        },
-        {
-          "@id": "<commonlib-doctype-iri>"
-        }
-      ],
       "https://rdf.equinor.com/ontology/TIE#wasIssuedForReason": [
         {
           "@value": "<TR1244: ReasonForIssue>"
@@ -665,7 +695,10 @@ The revision below could be sent after (or at the same time) as the new content 
           "@id": "<document-iri>"
         },
         {
-          "@id": "<mel-scope>"
+          "@id": "<https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate>"
+        },
+        {
+          "@id": "<https://rdf.equinor.com/ontology/technical-requirement/v1#TR1244Document>"
         },
         {
           "@id": "<revision2-iri>"
@@ -692,4 +725,3 @@ The revision below could be sent after (or at the same time) as the new content 
 
 - What IRI should the doument and revision have, and could the document and revision name be in some central register?
 - Could commonlib have a query for the type or even the triples about some commonlib iri
-- Some of the scope IRIs and types have weird IRIs, most pressing "weight", but also the MelDocument type
