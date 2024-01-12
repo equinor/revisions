@@ -43,6 +43,7 @@ We create this
 
 
 
+
 exdata:RecordID123.1 {
     exdata:RecordID123.1 a rec:Record;
         rdfs:comment "This is the revision";
@@ -55,6 +56,7 @@ exdata:RecordID123.1 {
                         rec:describes exdoc:A123-BC-D-EF-00001.F01.
     exdoc:A123-BC-D-EF-00001.F01 a rev:Revision;
         rev:describes exdoc:A123-BC-D-EF-00001.
+    exdoc:A123-BC-D-EF-00001.F01row1 mel:tagNumber "00X0001".
 }
 
 exdata:RecordID123.5 {
@@ -85,42 +87,29 @@ exdata:RecordID123.5 {
                                 rdfs:label "<p>Test1</p>"^^xsd:string;
                                 rev:issuedBy "Turi Skogen";
                                 prov:generatedAtTime "2024-01-10"^^xsd:date;
-                                rev:aboutObject  [
-                                    a owl:Restriction;
-                                    owl:onProperty mel:tagNumber;
-                                    owl:hasValue "00X0001"
-                                ] .
+                                rev:aboutObject exdoc:A123-BC-D-EF-00001.F01row1 .
+
     exdata:ee66ec08-f11c-48c8-88a9-83da73c37686 a rev:Comment;
                                 rdfs:label "<p>Test2</p>"^^xsd:string;
                                 rev:issuedBy "Turi Skogen";
                                 prov:generatedAtTime "2024-01-10"^^xsd:date;
-                                rev:aboutObject [
-                                    a owl:Restriction;
-                                    owl:onProperty mel:tagNumber;
-                                    owl:hasValue "00X0001"
-                                ] .
+                                rev:aboutObject exdoc:A123-BC-D-EF-00001.F01row1 .
+                            
     exdata:20ae854e-ddb0-4abc-89b8-21ed98eecc4d a rev:Comment;
                                 rdfs:label "<p>Test3</p>"^^xsd:string;
                                 rev:issuedBy "Turi Skogen";
                                 prov:generatedAtTime "2024-01-10"^^xsd:date;
-                                rev:aboutObject [
-                                    a owl:Restriction;
-                                    owl:onProperty mel:tagNumber;
-                                    owl:hasValue "00X0001"
-                                ] .
+                                rev:aboutObject exdoc:A123-BC-D-EF-00001.F01row1 .
 
 # This is a status information on the tag, this was not in the original example.
     exdata:guid123 a rev:Code2;
                                 rev:issuedBy "Turi Skogen";
                                 prov:generatedAtTime "2024-01-10"^^xsd:date;
-                                rev:aboutObject [
-                                    a owl:Restriction;
-                                    owl:onProperty mel:tagNumber;
-                                    owl:hasValue "00X0001"
-                                ];
+                                rev:aboutObject exdoc:A123-BC-D-EF-00001.F01row1;
                                 rev:hasComment exdata:a9168f1c-4289-406c-9714-151902bd4ae9 .
                                 
 }
+
 
 ```
 ### Some of the IDs here are copied from the input revision
@@ -134,3 +123,4 @@ exdata:RecordID123.5 {
 * The ID of the Reply. It must be unique for the revision, but otherwise anything goes - the link to the revision is in the aboutRevision property
 
 
+![Graphical representation of the graph above](comments2.png)
