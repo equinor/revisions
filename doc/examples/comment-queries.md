@@ -134,13 +134,13 @@ prefix rev: <https://rdf.equinor.com/ontology/revision/>
 SELECT distinct ?document ?revision ?comment_text ?author ?comment_responsible ?date WHERE {
     ?reply a rev:Reply;
         rev:issuedBy ?comment_responsible;
-        rev:describes ?revision;
+        rev:aboutRevision ?revision;
         rev:hasComment ?comment.
     ?comment a rev:Comment;
         rdfs:label ?comment_text;
         rev:issuedBy ?author;
         prov:generatedAtTime ?date;
-        rev:describes exdata:tagNo20PG123N.
+        rev:aboutObject exdata:tagNo20PG123N.
     ?revision rev:describes ?document.
 }
 ```
