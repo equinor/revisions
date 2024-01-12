@@ -124,9 +124,9 @@ exdata:RecordID123.5 {
 
 ```
 ### Some of the IDs here are copied from the input revision
-* All scopes except rev:Reply. (Facility, Project, COntract, Contractor, and MelReportingTemplate)
-* The object of the releation rev:aboutRevision
-* The tag number values, the objects of owl:hasValue
+* All scopes except rev:Reply. (Facility, Project, COntract, Contractor, and MelReportingTemplate). Including all scopes from the revision is also ok, although perhaps slightly misleading. 
+* The object of the relation rev:aboutRevision
+* Where used, the tag number values, the objects of owl:hasValue
 
 ### Some of the IDs are generated
 * The record IRI (antyhing goes, but must be unique)
