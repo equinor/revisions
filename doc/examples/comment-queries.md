@@ -16,10 +16,10 @@ SELECT ?status_name ?comment_text ?author WHERE {
         ?new rev:replaces ?r.
     }
     ?reply a rev:Reply;
-        rev:describes ?r;
+        rev:aboutRevision ?r;
         rev:hasStatus ?s.
     ?s a ?status;
-        rev:describes ?object;
+        rev:aboutObject ?object;
         rev:issuedBy ?author.
     ?status rdfs:subClassOf rev:RevisionState;
         rdfs:label ?status_name .
@@ -32,7 +32,7 @@ SELECT ?status_name ?comment_text ?author WHERE {
 ### Example answers
 <table>
 <tr><td>status_name	   </td><td> object	      </td><td>      comment_text	                 </td><td>           author
-<tr><td>Out of scope	</td><td> ex:tagNo20PG123N</td><td>	Too complicated pump, find smaller model	</td><td>Trude Luth
+<tr><td>Out of scope	</td><td> exdata:melrowguid1234</td><td>	Too complicated pump, find smaller model	</td><td>Trude Luth
 <tr><td>Resubmit	</td><td>    ex:tagNo20PG123O	</td><td>	                                    </td><td>    Trude Luth
 <tr><td>Resubmit	</td><td>    ex:tagNo20PG123P	</td><td>	                                    </td><td>    Trude Luth
 </td></tr></table>
@@ -46,9 +46,9 @@ prefix rev: <https://rdf.equinor.com/ontology/revision/>
 
 SELECT distinct ?object ?comment ?author ?property WHERE {
     ?reply a rev:Reply;
-        rev:describes exdoc:B123-EX-W-LA-00001.F01;
+        rev:aboutRevision exdoc:B123-EX-W-LA-00001.F01;
         rev:hasComment ?c.
-    ?c rev:describes ?object ;
+    ?c rev:aboutObject ?object ;
         rdfs:label ?comment ;
         rev:issuedBy ?author.
     OPTIONAL {
@@ -95,7 +95,7 @@ prefix rev: <https://rdf.equinor.com/ontology/revision/>
 SELECT distinct ?document ?newest_revision_name ?status_name ?reply_name ?reply_date ?comment_responsible WHERE {
     GRAPH ?record1 {
         ?reply a rev:Reply, ?status;
-            rev:describes ?revision;
+            rev:aboutRevision ?revision;
             rdfs:label ?reply_name;
             prov:generatedAtTime ?reply_date;
             rev:issuedBy ?comment_responsible.
