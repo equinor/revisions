@@ -1,0 +1,14 @@
+prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
+prefix rdfox: <http://oxfordsemantic.tech/RDFox#>
+prefix schema: <http://oxfordsemantic.tech/shacl#>
+prefix ex: <http://example.com/data/>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+prefix prov: <http://www.w3.org/ns/prov#>
+prefix ex: <http://example.com/data/> 
+prefix rec: <https://rdf.equinor.com/ontology/record/> 
+prefix rev: <https://rdf.equinor.com/ontology/revision/>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix exdata: <https://example.com/data/>
+prefix exdoc: <https://example.com/doc/>
+prefix rdl: <http://example.com/rdl/>
+prefix mel:            <https://rdf.equinor.com/ontology/mel/v1#> 
