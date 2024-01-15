@@ -1,0 +1,24 @@
+# Script for running the comments2 example in rdfox
+# Expects to be run from this folder from inside rdfox after endpoint start
+dstore create comment
+active comment
+set output out
+prefixes.rdfox
+
+#Import ontologies
+import > rec:HeadContent  ../../../schema/revision.ttl
+import > rec:HeadContent  ../../../schema/comment.ttl
+import > rec:HeadContent  ../../../../records/schema/record-syntax.ttl
+importaxioms rec:HeadContent  > rec:HeadContent 
+
+
+#Import shacl shapes
+import > ex:schema ../../../schema/comment.shacl
+import > ex:schema ../../../schema/revision.shacl
+
+
+commitproc set commit-procedure.q
+
+#Import data
+import ../comments2.trig
+

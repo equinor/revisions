@@ -16,7 +16,7 @@ exdata:RecordID123.5 {
                         rec:describes exdoc:B123-EX-W-LA-00001.F01.
 
     exdoc:reply-B123-EX-W-LA-00001.F01 a rev:Reply;
-                                rev:describes exdoc:B123-EX-W-LA-00001.F01;
+                                rev:aboutRevision exdoc:B123-EX-W-LA-00001.F01;
                                 rev:issuedBy "Turi Skogen";
                                 prov:generatedAtTime "2023-06-15"^^xsd:date;
                                 rdf:type rev:Code1;
@@ -27,27 +27,27 @@ exdata:RecordID123.5 {
     exdata:12348 rdf:type rev:Code4 ;
         prov:generatedAtTime "2023-06-09"^^xsd:date;
         rev:issuedBy "Trude Luth";
-        rev:describes exdata:tagNo20PG123N ;
+        rev:aboutObject exdata:melrowguid1234 ;
         rev:hasComment exdata:12345 .
 
     exdata:12349 rdf:type rev:Code3 ;
-        rev:describes exdata:tagNo20PG123O, exdata:tagNo20PG123P .
+        rev:aboutObject exdata:tagNo20PG123O, exdata:tagNo20PG123P .
     
     exdata:12345 a rev:Comment;
                                 rdfs:label "Too complicated pump, find smaller model"^^xsd:string;
                                 rev:issuedBy "Trude Luth";
                                 prov:generatedAtTime "2023-06-15"^^xsd:date;
-                                rev:describes exdata:tagNo20PG123N.
+                                rev:aboutObject exdata:tagNo20PG123N.
     exdata:12346 a rev:Comment;
                                 rdfs:label "This is too heavy, please find a smaller version"^^xsd:string;
                                 rev:issuedBy "Ola Nordmann";
                                 prov:generatedAtTime "2023-06-15"^^xsd:date;
-                                rev:describes exdata:tagNo20PG123NMass.
+                                rev:aboutObject exdata:tagNo20PG123NMass.
     exdata:12347 a rev:Comment;
                                 rdfs:label "This number seems too round, is it really exactly 2000?"^^xsd:string;
                                 rev:issuedBy "Kari Nordkvinne";
                                 prov:generatedAtTime "2023-06-15"^^xsd:date;
-                                rev:describes exdata:tagNo20PG123O, exdata:tagNo20PG124O;
+                                rev:aboutObject exdata:tagNo20PG123O, exdata:tagNo20PG124O;
                                 rev:aboutProperty rdl:weight_in_kgs, rdl:weight_in_tons.
                                 
 }
