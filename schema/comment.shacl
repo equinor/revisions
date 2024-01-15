@@ -66,7 +66,7 @@ rev:ReviewedWithCommentsShape
         sh:maxCount 1;
         sh:minCount 1;
         sh:name "RevisionStateRevision";
-        sh:message "A revision state 2 (reviewd with comments) must have at least one comment";
+        sh:message "A revision state 2 (reviewed with comments) must have at least one comment";
         sh:severity sh:Violation
     ].
 
