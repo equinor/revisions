@@ -1,0 +1,86 @@
+@prefix sh: <http://www.w3.org/ns/shacl#>.
+@prefix rec: <https://rdf.equinor.com/ontology/record/>.
+@prefix rev: <https://rdf.equinor.com/ontology/revision/>.
+@prefix review: <https://rdf.equinor.com/ontology/review/>.
+@prefix rdfs: 	<http://www.w3.org/2000/01/rdf-schema#>.
+@prefix lis: <http://standards.iso.org/iso/15926/part14/>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+review:ReviewShape
+    a sh:NodeShape ;
+    rdf:comment "This shape is for a reply to a revision." ;
+    sh:targetClass review:Review ;
+    sh:property [ 
+        sh:path review:issuedBy;
+        sh:minCount 1;
+        sh:maxCount 1;
+        sh:name "CommentResponsible";
+        sh:message "A reply has exactly one comment responsible";
+        sh:severity sh:Violation;
+    ] , 
+    [ 
+        sh:path review:hasComment;
+        sh:minCount 1;
+        sh:class review:Comment;
+        sh:name "ReviewComment";
+        sh:message "A reply must have at least one comment";
+        sh:severity sh:Violation;
+    ] , 
+    [ 
+        sh:path review:aboutReview;
+        sh:minCount 1;
+        sh:maxCount 1;
+        sh:class rev:Revision;
+        sh:name "ReviewRevision";
+        sh:message "A reply is about exactly one revision";
+        sh:severity sh:Violation;
+    ] .
+
+review:ReviewedWithCommentsShape
+    a sh:NodeShape ;
+    sh:targetClass review:Code2 ;
+    sh:property [
+        sh:path  rev:hasComment ;
+        sh:class review:Comment;
+        sh:minCount 1;
+        sh:name "ReviewedWithCommentsComment";
+        sh:message "A review with code 2 (reviewed with comments) must have at least one comment";
+        sh:severity sh:Violation
+    ].
+
+
+rev:RevisionReplyShape
+    a sh:NodeShape ;
+    sh:targetClass rev:Revision ;
+    sh:property 
+    [ 
+        sh:path [ sh:inversePath review:aboutVersion ];
+        sh:class review:Review;
+        sh:maxCount 1;
+        sh:name "RevisionReviewPath";
+        sh:message "A revision has at most one review";
+        sh:severity sh:Violation;
+    ] .
+    
+rev:CommentReviewShape
+    a sh:NodeShape ;
+    sh:targetClass review:Comment ;
+    sh:property 
+    [ 
+        sh:path [ sh:inversePath review:hasComment ];
+        sh:minCount 1;
+        sh:maxCount 1;
+        sh:name "ReviewComment";
+        sh:message "A comment belongs to exactly one review";
+        sh:severity sh:Violation;
+    ] ,
+    [ 
+        sh:path review:aboutObject ;
+        sh:minCount 1;
+        sh:maxCount 1;
+        sh:name "ReviewCommentObject";
+        sh:message "A comment is about exactly one object";
+        sh:severity sh:Violation;
+    ]
+     .

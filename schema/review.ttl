@@ -1,4 +1,5 @@
-@prefix : <https://rdf.equinor.com/ontology/revision/> .
+@prefix : <https://rdf.equinor.com/ontology/review/> .
+@prefix rev: <https://rdf.equinor.com/ontology/revision/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -6,7 +7,7 @@
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@base <https://rdf.equinor.com/ontology/revision> .
+@base <https://rdf.equinor.com/ontology/review> .
 
 <https://rdf.equinor.com/ontology/comment> rdf:type owl:Ontology ;
                                              owl:versionIRI :v1.0 ;
@@ -25,7 +26,7 @@ xsd:date rdf:type rdfs:Datatype .
 #################################################################
 
 
-###  https://rdf.equinor.com/ontology/revision#aboutObject
+###  https://rdf.equinor.com/ontology/review/aboutObject
 :aboutObject rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf prov:wasAssociatedWith ;
                 rdf:type owl:AsymmetricProperty ,
@@ -33,7 +34,7 @@ xsd:date rdf:type rdfs:Datatype .
                 rdfs:domain :Comment ;
                 rdfs:comment "Relates a comment to the object it is about." .
 
-###  https://rdf.equinor.com/ontology/revision#aboutProperty
+###  https://rdf.equinor.com/ontology/review/aboutProperty
 :aboutProperty rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf prov:wasAssociatedWith ;
                 rdf:type owl:AsymmetricProperty ,
@@ -42,33 +43,31 @@ xsd:date rdf:type rdfs:Datatype .
                 rdfs:range owl:DatatypeProperty ;
                 rdfs:comment "Relates a comment to the object it is about." .
 
-###  https://rdf.equinor.com/ontology/revision#aboutRevision
-:aboutRevision rdf:type owl:ObjectProperty ;
+###  https://rdf.equinor.com/ontology/review/aboutRevision
+:aboutVersion rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf prov:wasAssociatedWith ;
                 rdf:type owl:AsymmetricProperty ,
                          owl:IrreflexiveProperty ;
                 rdfs:domain :Comment ;
-                rdfs:range :Revision ;
-                rdfs:comment "A revision contains one or more records. They represent the imutable state which the revision author(s) used for the revision process." .
+                rdfs:comment "A review must be about a certain version or revision of data. In the case of rev:Revision, the latter contains one or more records. They represent the imutable state which the revision author(s) used for the revision process." .
 
-###  https://rdf.equinor.com/ontology/revision#hasComment
+###  https://rdf.equinor.com/ontology/review/hasComment
 :hasComment rdf:type owl:ObjectProperty ;
             owl:inverseOf :isCommentOn ;
             rdfs:range :Comment ;
-            rdfs:domain :Revision ;
-            owl:inverseOf :aboutRevision ;
+            rdfs:domain :Review ;
             rdfs:comment "Relates any object to a revision comment about it." ;
             rdfs:label "has comment" .
 
-###  https://rdf.equinor.com/ontology/revision#hasStatus
+###  https://rdf.equinor.com/ontology/review/hasStatus
 :hasStatus rdf:type owl:ObjectProperty ;
-            rdfs:range :RevisionState ;
-            rdfs:domain :Reply ;
+            rdfs:range :ReviewState ;
+            rdfs:domain :Review ;
             rdfs:comment "Relates a reply to a tag status update in it." ;
             rdfs:label "has status" .
 
 
-###  https://rdf.equinor.com/ontology/revision#hasReply
+###  https://rdf.equinor.com/ontology/review/hasReply
 :hasReply rdf:type owl:ObjectProperty ,
                    owl:InverseFunctionalProperty ;
           rdfs:domain :Comment ;
@@ -90,10 +89,9 @@ prov:wasAttributedTo rdf:type owl:DatatypeProperty ;
                     rdfs:comment "Attribution is the ascribing of an entity to an agent." .
 
 
-###  https://rdf.equinor.com/ontology/revision/issuedBy
+###  https://rdf.equinor.com/ontology/review/issuedBy
 :issuedBy rdf:type owl:DatatypeProperty ;
           rdfs:subPropertyOf prov:wasAttributedTo ;
-          rdfs:domain :DocumentRevision ;
           rdfs:range xsd:string ;
           rdfs:comment "The author or responsible for a revision or a comment" .
 
@@ -103,51 +101,51 @@ prov:wasAttributedTo rdf:type owl:DatatypeProperty ;
 #################################################################
 
 
-###  https://rdf.equinor.com/ontology/revision/Reply
-:Reply rdf:type owl:Class ;
+###  https://rdf.equinor.com/ontology/review/Review
+:Review rdf:type owl:Class ;
           rdfs:subClassOf prov:Entity ;
-          rdfs:comment "A reply to a revision." ;
+          rdfs:comment "A reply to a review." ;
           rdfs:label "Reply" .
 
 
-###  https://rdf.equinor.com/ontology/revision/Comment
+###  https://rdf.equinor.com/ontology/review/Comment
 :Comment rdf:type owl:Class ;
           rdfs:subClassOf prov:Entity ;
-          rdfs:comment "A comment is about some information in a revision." ;
+          rdfs:comment "A comment is about some information in a review." ;
           rdfs:label "Comment" .
 
-###  https://rdf.equinor.com/ontology/revision#RevisionState
-:RevisionState rdf:type owl:Class ;
+###  https://rdf.equinor.com/ontology/review/ReviewState
+:ReviewState rdf:type owl:Class ;
                rdfs:comment "Corresponds to the revision code 1-4" .
 
 
 
-###  https://rdf.equinor.com/ontology/revision#Code1
+###  https://rdf.equinor.com/ontology/review/Code1
 :Code1 rdf:type owl:Class ;
-        rdfs:subClassOf :RevisionState ;
+        rdfs:subClassOf :ReviewState ;
       rdfs:label "Reviewed" ;
-       rdfs:comment "Revision code 1 means accepted" .
+       rdfs:comment "Review code 1 means accepted" .
 
 
-###  https://rdf.equinor.com/ontology/revision#Code2
+###  https://rdf.equinor.com/ontology/review/Code2
 :Code2 rdf:type owl:Class ;
-        rdfs:subClassOf :RevisionState ;
+        rdfs:subClassOf :ReviewState ;
        rdfs:label "Reviewed with comments" ;
-       rdfs:comment "Revision code 2 is a conditional acceptance with minor changes are needed" .
+       rdfs:comment "Review code 2 is a conditional acceptance with minor changes are needed" .
 
 
-###  https://rdf.equinor.com/ontology/revision#Code3
+###  https://rdf.equinor.com/ontology/review/Code3
 :Code3 rdf:type owl:Class ;
-        rdfs:subClassOf :RevisionState ;
+        rdfs:subClassOf :ReviewState ;
       rdfs:label "Resubmit" ;
-       rdfs:comment "Revision code 3 means revise and resubmit: major changes are needed" .
+       rdfs:comment "Review code 3 means revise and resubmit: major changes are needed" .
 
 
-###  https://rdf.equinor.com/ontology/revision#Code4
+###  https://rdf.equinor.com/ontology/review/Code4
 :Code4 rdf:type owl:Class ;
-        rdfs:subClassOf :RevisionState ;
+        rdfs:subClassOf :ReviewState ;
       rdfs:label "Out of scope" ;
-       rdfs:comment "Revision code 4 means the design is completely off and must be redone" .
+       rdfs:comment "Review code 4 means the design is completely off and must be redone" .
 
 
 

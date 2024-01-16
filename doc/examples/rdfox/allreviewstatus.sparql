@@ -1,0 +1,20 @@
+SELECT distinct ?document ?newest_revision_name ?status_name ?reply_name ?reply_date ?comment_responsible WHERE {
+    GRAPH ?record1 {
+        ?reply a review:Review, ?status;
+            review:aboutVersion ?revision;
+            rdfs:label ?reply_name;
+            prov:generatedAtTime ?reply_date;
+            review:issuedBy ?comment_responsible.
+    }
+    GRAPH ?record2 {
+        ?revision rdfs:label ?newest_revision_name;
+            rev:describes ?document.
+    }
+    FILTER NOT EXISTS {
+        GRAPH ?record3 {
+            ?newRevision rev:replaces ?revision.
+        }
+    }
+    ?status rdfs:subClassOf review:ReviewState;
+        rdfs:label ?status_name.
+}
