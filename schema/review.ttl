@@ -105,7 +105,7 @@ prov:wasAttributedTo rdf:type owl:DatatypeProperty ;
 :Review rdf:type owl:Class ;
           rdfs:subClassOf prov:Entity ;
           rdfs:comment "A review of something for example a revision." ;
-          rdfs:label "Reply" .
+          rdfs:label "Review" .
 
 
 ###  https://rdf.equinor.com/ontology/review/Comment
