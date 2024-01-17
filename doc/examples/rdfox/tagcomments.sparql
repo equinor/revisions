@@ -1,0 +1,15 @@
+SELECT distinct ?document ?revision ?comment_text ?author ?comment_responsible ?date ?tag WHERE {
+    GRAPH rec:HeadContent {
+        ?reply a review:Review;
+            review:issuedBy ?comment_responsible;
+            review:aboutVersion ?revision;
+            review:hasComment ?comment.
+        ?comment a review:Comment;
+            rdfs:label ?comment_text;
+            review:issuedBy ?author;
+            prov:generatedAtTime ?date;
+            review:aboutObject ?row.
+        ?row mel:tagNumber ?tag.
+        ?revision rev:describes ?document.
+    }
+}

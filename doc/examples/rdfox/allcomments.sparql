@@ -1,0 +1,14 @@
+SELECT ?reply ?comment ?object ?author  WHERE {
+    GRAPH rec:HeadContent {
+  
+    ?reply a review:Review;
+        review:aboutVersion exdoc:A123-BC-D-EF-00001.F01;
+        review:hasComment ?c.
+    ?c review:aboutObject ?object ;
+        rdfs:label ?comment ;
+        review:issuedBy ?author.
+    OPTIONAL {
+        ?c review:aboutProperty ?property.
+    }
+    }
+} 

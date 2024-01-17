@@ -5,80 +5,58 @@ The first two queries assume that all relevant data is put into the default un-n
 They also assume that [../schema/comment.ttl]() is loaded into this un-named graph
 
 ## Query 1
-Get all status updates in the newest revision. Include comment if exists
+Get status of the newest revision.
 ```sparql
 prefix rec: <https://rdf.equinor.com/ontology/record/>
 prefix rev: <https://rdf.equinor.com/ontology/revision/>
 
-SELECT ?status_name ?comment_text ?author WHERE {
+SELECT ?r ?status_name ?author WHERE {
     ?r a rev:Revision.
     FILTER NOT EXISTS {
         ?new rev:replaces ?r.
     }
-    ?reply a rev:Reply;
-        rev:aboutRevision ?r;
-        rev:hasStatus ?s.
-    ?s a ?status;
-        rev:aboutObject ?object;
-        rev:issuedBy ?author.
-    ?status rdfs:subClassOf rev:RevisionState;
+    ?review a review:Review;
+        review:aboutVersion ?r.
+    ?review a ?status;
+        review:issuedBy ?author.
+    ?status rdfs:subClassOf review:ReviewState;
         rdfs:label ?status_name .
-    OPTIONAL {
-        ?s rev:hasComment ?comment.
-            ?comment rdfs:label ?comment_text.
-    }
 }
 ```
-### Example answers
+### Example answer
 <table>
-<tr><td>status_name	   </td><td> object	      </td><td>      comment_text	                 </td><td>           author
-<tr><td>Out of scope	</td><td> exdata:melrowguid1234</td><td>	Too complicated pump, find smaller model	</td><td>Trude Luth
-<tr><td>Resubmit	</td><td>    ex:tagNo20PG123O	</td><td>	                                    </td><td>    Trude Luth
-<tr><td>Resubmit	</td><td>    ex:tagNo20PG123P	</td><td>	                                    </td><td>    Trude Luth
-</td></tr></table>
-
+<tr>
+exdoc:A123-BC-D-EF-00001.F01 "Reviewed" "Turi Skogen" .
+</tr>
+</table>
 ## Query 2
  Get all comments on a specific revision
 
 ```sparql
 prefix rec: <https://rdf.equinor.com/ontology/record/>
 prefix rev: <https://rdf.equinor.com/ontology/revision/>
+prefix review: <https://rdf.equinor.com/ontology/review/>
 
-SELECT distinct ?object ?comment ?author ?property WHERE {
-    ?reply a rev:Reply;
-        rev:aboutRevision exdoc:B123-EX-W-LA-00001.F01;
-        rev:hasComment ?c.
-    ?c rev:aboutObject ?object ;
+SELECT ?reply ?comment ?object ?author  WHERE {
+  
+    ?reply a review:Review;
+        review:aboutVersion exdoc:A123-BC-D-EF-00001.F01;
+        review:hasComment ?c.
+    ?c review:aboutObject ?object ;
         rdfs:label ?comment ;
-        rev:issuedBy ?author.
+        review:issuedBy ?author.
     OPTIONAL {
-        ?c rev:aboutProperty ?property.
+        ?c review:aboutProperty ?property.
     }
-}
+} 
 ```
 
 ### Example answers 
 <table>
 <tr>
-<td>object	     </td><td>           comment	                                  </td><td>                   author	     </td><td>   property
-</tr>
-<tr>
-<td>ex:tagNo20PG123N</td><td>	    Too complicated pump, find smaller model	        </td><td>         Trude Luth
-</tr>
-<tr>
-<td>ex:tagNo20PG123O</td><td>	    This number seems too round, is it really exactly 2000?</td><td>	Kari Nordkvinne	  </td><td>  exRds:weight_in_kgs
-</tr>
-<tr>
-<td>ex:tagNo20PG123O	    </td><td>This number seems too round, is it really exactly 2000?</td><td>	Kari Nordkvinne	 </td><td>   exRds:weight_in_tons
-</tr>
-<tr>
-<td>ex:tagNo20PG124O</td><td>	    This number seems too round, is it really exactly 2000?</td><td>	Kari Nordkvinne	 </td><td>   exRds:weight_in_kgs
-</tr>
-<tr>
-<td>ex:tagNo20PG124O	  </td><td>  This number seems too round, is it really exactly 2000?</td><td>	Kari Nordkvinne	  </td><td>  exRds:weight_in_tons
-</tr>
-<tr>
-<td>ex:tagNo20PG123NMass</td><td>	This is too heavy, please find a smaller version	   </td><td>      Ola Nordmann
+exdoc:reply-A123-BC-D-EF-00001.F01 "<p>Test1</p>" exdoc:A123-BC-D-EF-00001.F01row1 "Turi Skogen" .
+</tr><tr>
+exdoc:reply-A123-BC-D-EF-00001.F01 "<p>Test2</p>" exdoc:A123-BC-D-EF-00001.F01row1 "Turi Skogen" .
 </tr>
 </table>
 
@@ -94,11 +72,11 @@ prefix rev: <https://rdf.equinor.com/ontology/revision/>
 
 SELECT distinct ?document ?newest_revision_name ?status_name ?reply_name ?reply_date ?comment_responsible WHERE {
     GRAPH ?record1 {
-        ?reply a rev:Reply, ?status;
-            rev:aboutRevision ?revision;
+        ?reply a review:Review, ?status;
+            review:aboutVersion ?revision;
             rdfs:label ?reply_name;
             prov:generatedAtTime ?reply_date;
-            rev:issuedBy ?comment_responsible.
+            review:issuedBy ?comment_responsible.
     }
     GRAPH ?record2 {
         ?revision rdfs:label ?newest_revision_name;
@@ -109,7 +87,7 @@ SELECT distinct ?document ?newest_revision_name ?status_name ?reply_name ?reply_
             ?newRevision rev:replaces ?revision.
         }
     }
-    ?status rdfs:subClassOf rev:RevisionState;
+    ?status rdfs:subClassOf review:ReviewState;
         rdfs:label ?status_name.
 }
 ```
@@ -119,37 +97,42 @@ SELECT distinct ?document ?newest_revision_name ?status_name ?reply_name ?reply_
 <td>document</td>	<td>newest_revision_name</td> 	<td>status_name</td>	<td>reply_name</td><td>reply_date</td>	<td>comment_responsible</td>
 </tr>
 <tr>
-<td> exdoc:B123-EX-W-LA-00001</td>	<td>First delivered revision of MEL</td>	<td>Reviewed</td>	<td>Reply to revision F02</td>	<td>2023-06-15</td>	<td>Turi Skogen</td>
+<td>exdoc:A123-BC-D-EF-00001</td><td> "Revision F01 of A123-BC-D-EF-00001" </td><td>"Reviewed" </td><td>"Review of revision F01" </td><td>"2024-01-11"^^xsd:date </td><td>"Turi Skogen"</td>
 </tr>
 </table>
 
 
 ## Query 4
-This query gets all comments on an object (from any revisions and replies). Here we again assume all relevant data is materialized to the unnamed graph. 
+This query gets all comments and the tag they are on(from any revisions and reviews). Here we assume all relevant data is materialized to the named graph rec:HeadContent. 
 
 ```sparql
 prefix rec: <https://rdf.equinor.com/ontology/record/>
 prefix rev: <https://rdf.equinor.com/ontology/revision/>
+prefix review: <https://rdf.equinor.com/ontology/review/>
 
-SELECT distinct ?document ?revision ?comment_text ?author ?comment_responsible ?date WHERE {
-    ?reply a rev:Reply;
-        rev:issuedBy ?comment_responsible;
-        rev:aboutRevision ?revision;
-        rev:hasComment ?comment.
-    ?comment a rev:Comment;
-        rdfs:label ?comment_text;
-        rev:issuedBy ?author;
-        prov:generatedAtTime ?date;
-        rev:aboutObject exdata:tagNo20PG123N.
-    ?revision rev:describes ?document.
+SELECT distinct ?document ?revision ?comment_text ?author ?comment_responsible ?date ?tag WHERE {
+    GRAPH rec:HeadContent {
+        ?reply a review:Review;
+            review:issuedBy ?comment_responsible;
+            review:aboutVersion ?revision;
+            review:hasComment ?comment.
+        ?comment a review:Comment;
+            rdfs:label ?comment_text;
+            review:issuedBy ?author;
+            prov:generatedAtTime ?date;
+            review:aboutObject ?row.
+        ?row mel:tagNumber ?tag.
+        ?revision rev:describes ?document.
+    }
 }
 ```
 ### Example answers
 <table>
 <tr>
-<td>document</td>	<td>revision</td> 	<td>comment_text</td>	<td>author</td>	<td>comment_responsible</td><td>date</td>
-</tr>
-<tr>
-<td> exdoc:B123-EX-W-LA-00001</td>	<td>exdoc:B123-EX-W-LA-00001.F01</td>	<td>Too complicated pump, find smaller model</td>	<td>Trude Luth</td>		<td>Turi Skogen</td> <td>2023-06-15</td>
+exdoc:A123-BC-D-EF-00001 exdoc:A123-BC-D-EF-00001.F01 "<p>Test1</p>" "Turi Skogen" "Turi Skogen" "2024-01-10"^^xsd:date "00X0001" .
+</tr><tr>
+exdoc:A123-BC-D-EF-00001 exdoc:A123-BC-D-EF-00001.F01 "<p>Test2</p>" "Turi Skogen" "Turi Skogen" "2024-01-10"^^xsd:date "00X0001" .
+</tr><tr>
+exdoc:A123-BC-D-EF-00001 exdoc:A123-BC-D-EF-00001.F01 "<p>Test3</p>" "Turi Skogen" "Turi Skogen" "2024-01-10"^^xsd:date "00X0001" .
 </tr>
 </table>

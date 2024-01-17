@@ -1,0 +1,14 @@
+SELECT ?r ?status_name ?author WHERE {
+  GRAPH rec:HeadContent {
+    ?r a rev:Revision.
+    FILTER NOT EXISTS {
+        ?new rev:replaces ?r.
+    }
+    ?review a review:Review;
+        review:aboutVersion ?r.
+    ?review a ?status;
+        review:issuedBy ?author.
+    ?status rdfs:subClassOf review:ReviewState;
+        rdfs:label ?status_name .
+  }
+}
