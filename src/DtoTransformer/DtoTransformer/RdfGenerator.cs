@@ -5,7 +5,6 @@ using VDS.RDF.Writing;
 internal class RdfGenerator
 {
     public static string GenerateRdf(ReviewDTO reviewDto) {
-        // Create a Graph object
         var graph = new Graph();
 
         graph.NamespaceMap.AddNamespace("rdf", new Uri("http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
@@ -53,7 +52,6 @@ internal class RdfGenerator
                 graph.Assert(new Triple(aboutObject, propertyNode, valueNode));
             }
 
-            // Assert Comments triples
             graph.Assert(new Triple(commentId, graph.CreateUriNode("rdf:type"), graph.CreateUriNode("review:Comment")));
             graph.Assert(new Triple(commentId, graph.CreateUriNode("rdfs:label"), commentText));
             graph.Assert(new Triple(commentId, graph.CreateUriNode("prov:generatedAtTime"), commentGeneratedAtTime));

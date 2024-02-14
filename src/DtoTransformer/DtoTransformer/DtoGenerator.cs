@@ -31,10 +31,8 @@ public class DtoGenerator
         FILTER (?reviewStatus != review:Review)
     }";
 
-        // Initialise ReviewDto
         ReviewDTO reviewDto = new ReviewDTO();
 
-        // Parse all results from sparql query and populate ReviewDto fields
         SparqlResultSet results = (SparqlResultSet)graph.ExecuteQuery(query);
         if (results.Count > 0)
         {
@@ -48,7 +46,7 @@ public class DtoGenerator
             reviewDto.HasComments = new List<CommentDto>();
         }
 
-        // Run second sparql query (More advanced ?dataelement is a list property path, group concat, Group_comncat filterProperty and filterValues)
+        // Run second sparql query retriving comments data
         query = @"
     PREFIX review: <https://rdf.equinor.com/ontology/review/>
     PREFIX prov: <http://www.w3.org/ns/prov#>
@@ -69,11 +67,10 @@ public class DtoGenerator
     }
     GROUP BY ?commentId ?commentText ?issuedBy ?generatedAtTime";
 
-        // Parse all results from sparql query and populate CommentDto fields
+
         results = (SparqlResultSet)graph.ExecuteQuery(query);
         foreach (SparqlResult result in results)
         {
-            // Create a CommentDTO object
             CommentDto commentDto = new CommentDto();
             commentDto.CommentId = result["commentId"].ToString();
             commentDto.CommentText = result["commentText"].ToString().Split("^^")[0];
@@ -98,11 +95,9 @@ public class DtoGenerator
                 }
             }
 
-            // ReviewDto must append all the CommentDto
             reviewDto.HasComments.Add(commentDto);
         }
 
-        // Return ReviewDto
         return reviewDto;
 
     }
