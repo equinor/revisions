@@ -29,7 +29,7 @@ internal class RdfGenerator
 
         // Assert Reviews triples
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("rdf:type"), graph.CreateUriNode("review:Review")));
-        graph.Assert(new Triple(reviewId, graph.CreateUriNode("rdf:typeFIX"), reviewStatus));
+        graph.Assert(new Triple(reviewId, graph.CreateUriNode("rdf:type"), reviewStatus));
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("rdfs:label"), label));
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("prov:generatedAtTime"), generatedAtTime));
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("review:aboutVersion"), aboutVersion));

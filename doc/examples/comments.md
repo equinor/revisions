@@ -31,7 +31,7 @@ Based on this
     },
     {
         "UniqueId": "00X0001",
-        "Text": "<p>Test2</p>",
+        "Text": "Test2>",
         "DocumentName": "A123-BC-D-EF-00001",
         "Revision": "F01",
         "User": "Turi Skogen",
@@ -52,7 +52,7 @@ Based on this
     },
     {
         "UniqueId": "00X0002",
-        "Text": "<p>Test1</p>",
+        "Text": "Test1",
         "DocumentName": "A123-BC-D-EF-00001",
         "Revision": "F02",
         "User": "Kari Nordmann",

@@ -26,8 +26,9 @@ public class DtoGenerator
                   review:aboutVersion ?aboutVersion ;
                   review:issuedBy ?issuedBy ;
                   prov:generatedAtTime ?generatedAtTime ;
-                  rdf:typeFIX ?reviewStatus ;
+                  rdf:type ?reviewStatus ;
                   rdfs:label ?label .
+        FILTER (?reviewStatus != review:Review)
     }";
 
         // Initialise ReviewDto
