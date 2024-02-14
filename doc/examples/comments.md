@@ -7,7 +7,7 @@ Based on this
         "Text": "Test1",
         "DocumentName": "A123-BC-D-EF-00001",
         "Revision": "F01",
-        "User": "Turi Skogen",
+        "User": "Line Danser",
         "Guid": "cb086a54-b4af-11ee-9f99-37a86e9a48aa",
         "AboutData": [
             "https://example.com/doc/A123-BC-D-EF-00001.F01row1",
@@ -31,7 +31,7 @@ Based on this
     },
     {
         "UniqueId": "00X0001",
-        "Text": "Test2>",
+        "Text": "Test2",
         "DocumentName": "A123-BC-D-EF-00001",
         "Revision": "F01",
         "User": "Turi Skogen",
@@ -52,9 +52,9 @@ Based on this
     },
     {
         "UniqueId": "00X0002",
-        "Text": "Test1",
+        "Text": "Test3",
         "DocumentName": "A123-BC-D-EF-00001",
-        "Revision": "F02",
+        "Revision": "F01",
         "User": "Kari Nordmann",
         "Guid": "ff086a54-b4af-11ee-9f99-37a86e9a48aa",
         "AboutData": [
@@ -124,9 +124,9 @@ exdata:RecordID123.5 {
                                 prov:generatedAtTime "2024-01-11"^^xsd:date;
                                 rdf:type review:Code1;
                                 rdfs:label "Reply to revision F01";
-                                review:hasComment exdata:a9168f1c-4289-406c-9714-151902bd4ae9, 
-                                    exdata:ee66ec08-f11c-48c8-88a9-83da73c37686, 
-                                    exdata:20ae854e-ddb0-4abc-89b8-21ed98eecc4d.
+                                review:hasComment exdata:cb086a54-b4af-11ee-9f99-37a86e9a48aa, 
+                                    exdata:d24cca6c-b4af-11ee-ad44-df4f729a38a3, 
+                                    exdata:ff086a54-b4af-11ee-9f99-37a86e9a48aa.
                             
     exdata:cb086a54-b4af-11ee-9f99-37a86e9a48aa a review:Comment;
                                                 rdfs:label "Test1";
@@ -138,27 +138,25 @@ exdata:RecordID123.5 {
                                                                     mel:tagNumber "the tag number";
                                                                     mel:weightHandlingCode "The handling code";
                                                                     mel:importantField "The important field"];
-                                                review:issuedBy "Turi Skogen".
+                                                review:issuedBy "Line Danser".
 
     exdata:d24cca6c-b4af-11ee-ad44-df4f729a38a3 a review:Comment;
                                                 rdfs:label "Test2";
-                                                prov:generatedAtTime "2022-01-02"^^xsd:date;
-                                                review:aboutData (<https://example.com/doc/A123-BC-D-EF-00001.F01row1>,
-                                                                <https://example.com/doc/A123-BC-D-EF-00001.F01row3>);
-                                                review:aboutObject [a review:FilterObject ;
-                                                                    mel:tagNumber "the tag number";
-                                                                    mel:weightHandlingCode "The handling code";
-                                                                    mel:importantField "The important field"];
-                                                review:issuedBy "Turi Skogen".
-
-    exdata:20ae854e-ddb0-4abc-89b8-21ed98eecc4d a review:Comment;
-                                                rdfs:label "Test3";
                                                 prov:generatedAtTime "2022-01-02"^^xsd:date;
                                                 review:aboutData (<https://example.com/doc/A123-BC-D-EF-00001.F01row1>);
                                                 review:aboutObject [a review:FilterObject ;
                                                                     mel:tagNumber "the tag number";
                                                                     mel:weightHandlingCode "The handling code"];
                                                 review:issuedBy "Turi Skogen".
+
+    exdata:ff086a54-b4af-11ee-9f99-37a86e9a48aa a review:Comment;
+                                                rdfs:label "Test3";
+                                                prov:generatedAtTime "2022-01-02"^^xsd:date;
+                                                review:aboutData (<https://example.com/doc/A123-BC-D-EF-00001.F01row5> <https://example.com/doc/A123-BC-D-EF-00001.F01row7>);
+                                                review:aboutObject [a review:FilterObject ;
+                                                                    mel:tagNumber "the tag number";
+                                                                    mel:weightHandlingCode "The handling code"];
+                                                review:issuedBy "Kari Nordmann".
 }
 
 
