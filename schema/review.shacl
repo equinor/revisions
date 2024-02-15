@@ -78,9 +78,27 @@ rev:CommentReviewShape
     [ 
         sh:path review:aboutObject ;
         sh:minCount 1;
-        sh:maxCount 1;
         sh:name "ReviewCommentObject";
         sh:message "A comment is about exactly one object";
         sh:severity sh:Violation;
-    ]
-     .
+        sh:node [ # This is the shape of the value node
+            a sh:NodeShape ;
+            sh:targetClass review:FilterObject ;
+        ] ;
+    ] ,
+    [ 
+        sh:path review:issuedBy;
+        sh:minCount 1;
+        sh:maxCount 1;
+        sh:name "CommentResponsible";
+        sh:message "A reply has exactly one comment responsible";
+        sh:severity sh:Violation;
+    ] , 
+    [ 
+        sh:path review:aboutData ;
+        sh:minCount 1;
+        sh:name "ReviewCommentData";
+        sh:message "The comment is on one or several rows ";
+        sh:severity sh:Violation;
+    ] .
+

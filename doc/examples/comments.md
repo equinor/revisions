@@ -131,8 +131,8 @@ exdata:RecordID123.5 {
     exdata:cb086a54-b4af-11ee-9f99-37a86e9a48aa a review:Comment;
                                                 rdfs:label "Test1";
                                                 prov:generatedAtTime "2022-01-02"^^xsd:date;
-                                                review:aboutData (<https://example.com/doc/A123-BC-D-EF-00001.F01row1>,
-                                                                <https://example.com/doc/A123-BC-D-EF-00001.F01row3>,
+                                                review:aboutData (<https://example.com/doc/A123-BC-D-EF-00001.F01row1>
+                                                                <https://example.com/doc/A123-BC-D-EF-00001.F01row3>
                                                                 <https://example.com/doc/A123-BC-D-EF-00001.F01row10>);
                                                 review:aboutObject [a review:FilterObject ;
                                                                     mel:tagNumber "the tag number";
