@@ -81,7 +81,7 @@ rev:CommentReviewShape
         sh:name "ReviewCommentObject";
         sh:message "A comment is about exactly one object";
         sh:severity sh:Violation;
-        sh:node [ # This is the shape of the value node
+        sh:node [
             a sh:NodeShape ;
             sh:targetClass review:FilterObject ;
         ] ;
@@ -92,6 +92,22 @@ rev:CommentReviewShape
         sh:maxCount 1;
         sh:name "CommentResponsible";
         sh:message "A reply has exactly one comment responsible";
+        sh:severity sh:Violation;
+    ] , 
+    [ 
+        sh:path review:label;
+        sh:minCount 1;
+        sh:maxCount 1;
+        sh:name "ReviewCommentComment;
+        sh:message "A reply has exactly one comment";
+        sh:severity sh:Violation;
+    ] , 
+    [ 
+        sh:path review:generatedAtTime;
+        sh:minCount 1;
+        sh:maxCount 1;
+        sh:name "ReviewCommentTime;
+        sh:message "A reply has exactly one value stating the time of generation";
         sh:severity sh:Violation;
     ] , 
     [ 
