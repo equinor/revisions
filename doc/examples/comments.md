@@ -121,7 +121,7 @@ exdata:RecordID123.5 {
     exdoc:reply-A123-BC-D-EF-00001.F01 a review:Review;
                                 review:aboutVersion exdoc:A123-BC-D-EF-00001.F01;
                                 review:issuedBy "Turi Skogen";
-                                prov:generatedAtTime "2024-01-11"^^xsd:date;
+                                prov:generatedAtTime "2022-01-02"^^xsd:date;
                                 rdf:type review:Code1;
                                 rdfs:label "Reply to revision F01";
                                 review:hasComment exdata:cb086a54-b4af-11ee-9f99-37a86e9a48aa, 

@@ -1,5 +1,6 @@
 ﻿public class CommentDto
 {
+    //Id of comment
     public string CommentId { get; set; }
     //Actual commenttext
     public string CommentText { get; set; }

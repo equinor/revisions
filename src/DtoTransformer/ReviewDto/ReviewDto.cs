@@ -1,7 +1,8 @@
 ﻿public class ReviewDTO
 {
+    //Id of review
     public string ReviewId { get; set; }
-    //Revision IRI. An alternative is that documentNumber and revisionNumber
+    //Revision IRI. 
     public string AboutVersion { get; set; }
     //Author of comment. In MEL this is known as comment responsible
     public string IssuedBy { get; set; }

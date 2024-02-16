@@ -63,7 +63,7 @@ exdoc:reply-A123-BC-D-EF-00001.F01 "<p>Test2</p>" exdoc:A123-BC-D-EF-00001.F01ro
 
 ## Query 3
 This query gets the status of the newest revisions for all documents
-Just to show it is possible, this query does not assume materialization into a "head" graph, but in stead assumes the records are in their own named graphs, as in the example files.
+Just to show it is possible, this query does not assume materialization into a "head" graph, but instead assumes the records are in their own named graphs, as in the example files.
 It also assumes that the comment ontology is in the un-named graph
 
 ```sparql
