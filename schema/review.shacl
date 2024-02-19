@@ -81,10 +81,8 @@ rev:CommentReviewShape
         sh:name "ReviewCommentObject";
         sh:message "A comment is about exactly one object";
         sh:severity sh:Violation;
-        sh:node [
-            a sh:NodeShape ;
-            sh:targetClass review:FilterObject ;
-        ] ;
+        sh:class review:FilterObject ;
+
     ] ,
     [ 
         sh:path review:issuedBy;
