@@ -58,13 +58,13 @@ internal class RdfGenerator
             graph.Assert(new Triple(commentId, graph.CreateUriNode("review:issuedBy"), commentIssuedBy));
 
 
-            List<INode> nodes = new List<INode>();
+            var nodes = new List<INode>();
             foreach (var uri in commentDto.AboutData)
             {
                 var dataNode = graph.CreateUriNode(uri);
                 nodes.Add(dataNode);
             }
-            INode listRoot = graph.AssertList(nodes);
+            var listRoot = graph.AssertList(nodes);
 
             graph.Assert(new Triple(commentId, reviewAboutData, listRoot));
 

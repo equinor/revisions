@@ -6,7 +6,7 @@ public class DtoGenerator
 {
     public static ReviewDTO GenerateDto(Graph graph)
     {
-        string reviewQuery = @"
+        var reviewQuery = @"
                 PREFIX review: <https://rdf.equinor.com/ontology/review/>
                 PREFIX prov: <http://www.w3.org/ns/prov#>
                 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -29,11 +29,11 @@ public class DtoGenerator
                     FILTER (?reviewStatus != review:Review)
                 }";
 
-        SparqlResultSet reviewResults = (SparqlResultSet)graph.ExecuteQuery(reviewQuery);
+        var reviewResults = (SparqlResultSet)graph.ExecuteQuery(reviewQuery);
 
 
         // Initialise ReviewDto
-        ReviewDTO reviewDto = new ReviewDTO();
+        var reviewDto = new ReviewDTO();
         if (reviewResults.Count > 0)
         {
             SparqlResult result = (SparqlResult)reviewResults[0];
@@ -82,9 +82,9 @@ public class DtoGenerator
                 GROUP BY ?commentId ?data
                 ORDER BY ?commentId";
 
-        SparqlResultSet aboutDataResults = (SparqlResultSet)graph.ExecuteQuery(aboutDataQuery);
+        var aboutDataResults = (SparqlResultSet)graph.ExecuteQuery(aboutDataQuery);
 
-        string aboutObjectQuery = @"
+        var aboutObjectQuery = @"
                 PREFIX review: <https://rdf.equinor.com/ontology/review/>
                 PREFIX prov: <http://www.w3.org/ns/prov#>
                 PREFIX mel: <https://rdf.equinor.com/ontology/mel/v1#>
@@ -100,13 +100,13 @@ public class DtoGenerator
                 GROUP BY ?commentId ?property ?value
                 ORDER BY ?commentId";
 
-        SparqlResultSet aboutObjectResults = (SparqlResultSet)graph.ExecuteQuery(aboutObjectQuery);
+        var aboutObjectResults = (SparqlResultSet)graph.ExecuteQuery(aboutObjectQuery);
 
 
 
         foreach (SparqlResult result in commentResults)
         {
-            CommentDto commentDto = new CommentDto();
+            var commentDto = new CommentDto();
             commentDto.CommentId = result["commentId"].ToString();
             commentDto.CommentText = ((LiteralNode)result["commentText"]).Value;
             commentDto.IssuedBy = ((LiteralNode)result["issuedBy"]).Value;
