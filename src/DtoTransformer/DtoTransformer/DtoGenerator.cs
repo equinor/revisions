@@ -52,16 +52,12 @@ public class DtoGenerator
                 PREFIX mel: <https://rdf.equinor.com/ontology/mel/v1#>
                 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                 prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-                SELECT ?commentId ?commentText ?issuedBy ?generatedAtTime (GROUP_CONCAT(DISTINCT ?property; separator=',') AS ?filterProperty) (GROUP_CONCAT(DISTINCT ?value; separator=',') AS ?filterValue)
+                SELECT ?commentId ?commentText ?issuedBy ?generatedAtTime
                 WHERE {
                     ?commentId a review:Comment ;
                                rdfs:label ?commentText ;
                                review:issuedBy ?issuedBy ;
-                               prov:generatedAtTime ?generatedAtTime ;
-                               review:aboutObject ?object .
-               
-                    # Use a ?variable to get the property and value of ?object
-                    ?object ?property ?value .
+                               prov:generatedAtTime ?generatedAtTime .
                 }
                 GROUP BY ?commentId ?commentText ?issuedBy ?generatedAtTime
                 ORDER BY ?CommentId";
