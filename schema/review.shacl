@@ -96,7 +96,7 @@ rev:CommentReviewShape
         sh:path review:label;
         sh:minCount 1;
         sh:maxCount 1;
-        sh:name "ReviewCommentComment;
+        sh:name "ReviewCommentComment";
         sh:message "A reply has exactly one comment";
         sh:severity sh:Violation;
     ] , 
