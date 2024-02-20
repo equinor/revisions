@@ -60,7 +60,7 @@ public class DtoGenerator
                                prov:generatedAtTime ?generatedAtTime .
                 }
                 GROUP BY ?commentId ?commentText ?issuedBy ?generatedAtTime
-                ORDER BY ?CommentId";
+                ORDER BY ?commentId";
 
         var commentResults = (SparqlResultSet)graph.ExecuteQuery(commentQuery);
 
