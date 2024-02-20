@@ -97,7 +97,7 @@ rev:CommentReviewShape
         sh:minCount 1;
         sh:maxCount 1;
         sh:name "ReviewCommentComment";
-        sh:message "A reply has exactly one comment";
+        sh:message "A comment has exactly one label";
         sh:severity sh:Violation;
     ] , 
     [ 
