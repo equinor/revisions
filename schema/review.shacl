@@ -93,7 +93,7 @@ rev:CommentReviewShape
         sh:severity sh:Violation;
     ] , 
     [ 
-        sh:path review:label;
+        sh:path rdfs:label;
         sh:minCount 1;
         sh:maxCount 1;
         sh:name "ReviewCommentComment";
