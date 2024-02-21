@@ -13,8 +13,8 @@ importaxioms   > rec:HeadContent
 
 
 #Import shacl shapes
-import > ex:schema ../../../schema/review.shacl
-import > ex:schema ../../../schema/revision.shacl
+import > schema:shacl ../../../schema/review.shacl
+import > schema:shacl ../../../schema/revision.shacl
 
 
 commitproc set commit-procedure.q

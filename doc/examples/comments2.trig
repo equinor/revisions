@@ -37,10 +37,10 @@ exdata:RecordID123.5 {
                             <https://commonlib.equinor.com/rdf/code/LCIContractor/4Do7Yb64WXh> ,
                             <https://commonlib.equinor.com/rdf/code/Contract/1JjvqAHFRbED1YPuaX> , 
                             <https://commonlib.equinor.com/rdf/code/Facility/FM5LjGVt> ;
-                        rec:describes exdoc:A123-BC-D-EF-00001.F01.
+                        rec:describes exdoc:reply-A123-BC-D-EF-00001.F01.
 
     exdoc:reply-A123-BC-D-EF-00001.F01 a review:Review;
-                                review:aboutVersion exdoc:A123-BC-D-EF-00001.F01;
+                                review:aboutRevision exdoc:A123-BC-D-EF-00001.F01;
                                 review:issuedBy "Turi Skogen";
                                 prov:generatedAtTime "2024-01-11"^^xsd:date;
                                 rdf:type review:Code1;

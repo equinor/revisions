@@ -20,7 +20,7 @@ internal class RdfGenerator
         graph.NamespaceMap.AddNamespace("mel", new Uri("https://rdf.equinor.com/ontology/mel/v1#"));
 
         var reviewId = graph.CreateUriNode(new Uri(reviewDto.ReviewId));
-        var aboutVersion = graph.CreateUriNode(new Uri(reviewDto.AboutVersion));
+        var aboutVersion = graph.CreateUriNode(new Uri(reviewDto.AboutRevision));
         var issuedBy = graph.CreateLiteralNode(reviewDto.IssuedBy);
         var generatedAtTime = graph.CreateLiteralNode(reviewDto.GeneratedAtTime.ToString(), UriFactory.Create("http://www.w3.org/2001/XMLSchema#date"));
         var reviewStatus = graph.CreateUriNode(new Uri(reviewDto.ReviewStatus));
@@ -31,7 +31,7 @@ internal class RdfGenerator
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("rdf:type"), reviewStatus));
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("rdfs:label"), label));
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("prov:generatedAtTime"), generatedAtTime));
-        graph.Assert(new Triple(reviewId, graph.CreateUriNode("review:aboutVersion"), aboutVersion));
+        graph.Assert(new Triple(reviewId, graph.CreateUriNode("review:aboutRevision"), aboutVersion));
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("review:issuedBy"), issuedBy));
 
         foreach (var commentDto in reviewDto.HasComments)
