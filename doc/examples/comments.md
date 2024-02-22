@@ -74,7 +74,8 @@ Based on this
     }
 ]
 ```
-We create this
+We create this. This is done using the src/DtoTransformer/DtoTransformer/RdfGenerator.cs and intialising the Json using ReviewDto and CommentDto.
+
 ```turtle
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
@@ -119,7 +120,7 @@ exdata:RecordID123.5 {
                         rec:describes exdoc:A123-BC-D-EF-00001.F01.
 
     exdoc:reply-A123-BC-D-EF-00001.F01 a review:Review;
-                                review:aboutVersion exdoc:A123-BC-D-EF-00001.F01;
+                                review:aboutRevision exdoc:A123-BC-D-EF-00001.F01;
                                 review:issuedBy "Turi Skogen";
                                 prov:generatedAtTime "2022-01-02"^^xsd:date;
                                 rdf:type review:Code1;
@@ -163,7 +164,7 @@ exdata:RecordID123.5 {
 ```
 ### Some of the IDs here are copied from the input revision
 * All scopes except review:Review. (Facility, Project, COntract, Contractor, and MelReportingTemplate). Including all scopes from the revision is also ok, although perhaps slightly misleading. 
-* The object of the relation review:aboutVersion
+* The object of the relation review:aboutRevision
 * The objects of the relation review:aboutObject
 
 ### Some of the IDs are generated
