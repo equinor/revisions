@@ -3,7 +3,7 @@
     //Id of review
     public string ReviewId { get; set; }
     //Revision IRI. 
-    public string AboutRevision { get; set; }
+    public Uri AboutRevision { get; set; }
     //Author of comment. In MEL this is known as comment responsible
     public string IssuedBy { get; set; }
     public DateOnly GeneratedAtTime { get; set; }
