@@ -2,7 +2,7 @@
 using VDS.RDF;
 using VDS.RDF.Writing;
 
-internal class RdfGenerator
+public class RdfGenerator
 {
     public static Graph GenerateRdf(ReviewDTO reviewDto) {
         var graph = new Graph();
