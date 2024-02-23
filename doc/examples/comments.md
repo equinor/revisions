@@ -1,5 +1,5 @@
 # Example 
-Based on this
+Based on this. In json format
 ```json
 [
     {
@@ -74,7 +74,64 @@ Based on this
     }
 ]
 ```
-We create this. This is done using the src/DtoTransformer/DtoTransformer/RdfGenerator.cs and intialising the Json using ReviewDto and CommentDto.
+
+This should be intialised using the ReviewDto and CommentDto like this
+
+```C#
+
+var reviewDto = new ReviewDTO
+{
+    ReviewId = "https://example.com/doc/reply-A123-BC-D-EF-00001.F01",
+    AboutRevision = new Uri("https://example.com/data/A123-BC-D-EF-00001.F01"),
+    IssuedBy = "Turi Skogen",
+    GeneratedAtTime = DateOnly.FromDateTime(DateTime.Now),
+    ReviewStatus = "https://rdf.equinor.com/ontology/review/Code1",
+    Label = "Reply to revision F01",
+    HasComments = new List<CommentDto>()
+};
+
+
+var commentDto = new CommentDto
+{
+    CommentId = "https://example.com/data/first-uuid",
+    CommentText = "A comment",
+    IssuedBy = "Johannes",
+    GeneratedAtTime = DateOnly.FromDateTime(DateTime.Now),
+    AboutData = new List<Uri>()
+    {
+        new Uri("https://example.com/doc/A123-BC-D-EF-00001.F01row1"),
+        new Uri("https://example.com/doc/A123-BC-D-EF-00001.F01row3"),
+        new Uri("https://example.com/doc/A123-BC-D-EF-00001.F01row10")
+    },
+    AboutObject = new List<(Uri property, string value)>()
+    {
+        (new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), "the tag number"),
+        (new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), "The handling code"),
+        (new Uri("https://rdf.equinor.com/ontology/mel/v1#importantField"), "The important field")
+    }
+};
+
+var anotherCommentDto = new CommentDto
+{
+    CommentId = "https://example.com/data/another-uuid",
+    CommentText = "Another comment",
+    IssuedBy = "John Doe",
+    GeneratedAtTime = DateOnly.FromDateTime(DateTime.Now),
+    AboutData = new List<Uri>()
+    {
+        new Uri("https://example.com/doc/AnotherDocument.Row1")
+    },
+    AboutObject = new List<(Uri property, string value)>()
+    {
+        (new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), "the tag number"),
+        (new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), "The handling code")
+    }
+};
+
+reviewDto.HasComments.Add(commentDto);
+reviewDto.HasComments.Add(anotherCommentDto);
+```
+We can then use the src/DtoTransformer/DtoTransformer/RdfGenerator.cs to turn the the input into this.
 
 ```turtle
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
