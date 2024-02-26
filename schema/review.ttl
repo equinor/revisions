@@ -34,6 +34,14 @@ xsd:date rdf:type rdfs:Datatype .
                 rdfs:domain :Comment ;
                 rdfs:comment "Relates a comment to the object it is about." .
 
+###  https://rdf.equinor.com/ontology/review/aboutData
+:aboutData rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf prov:wasAssociatedWith ;
+                rdf:type owl:AsymmetricProperty ,
+                         owl:IrreflexiveProperty ;
+                rdfs:domain :Comment ;
+                rdfs:comment "Relates a comment to the data it is about." .
+
 ###  https://rdf.equinor.com/ontology/review/aboutProperty
 :aboutProperty rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf prov:wasAssociatedWith ;
@@ -41,7 +49,7 @@ xsd:date rdf:type rdfs:Datatype .
                          owl:IrreflexiveProperty ;
                 rdfs:domain :Comment ;
                 rdfs:range owl:DatatypeProperty ;
-                rdfs:comment "Relates a comment to the object it is about." .
+                rdfs:comment "Relates a comment to the property it is about." .
 
 ###  https://rdf.equinor.com/ontology/review/aboutRevision
 :aboutVersion rdf:type owl:ObjectProperty ;

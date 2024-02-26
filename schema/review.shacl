@@ -28,7 +28,7 @@ review:ReviewShape
         sh:severity sh:Violation;
     ] , 
     [ 
-        sh:path review:aboutReview;
+        sh:path review:aboutRevision;
         sh:minCount 1;
         sh:maxCount 1;
         sh:class rev:Revision;
@@ -78,9 +78,41 @@ rev:CommentReviewShape
     [ 
         sh:path review:aboutObject ;
         sh:minCount 1;
-        sh:maxCount 1;
         sh:name "ReviewCommentObject";
         sh:message "A comment is about exactly one object";
         sh:severity sh:Violation;
-    ]
-     .
+        sh:class review:FilterObject ;
+
+    ] ,
+    [ 
+        sh:path review:issuedBy;
+        sh:minCount 1;
+        sh:maxCount 1;
+        sh:name "CommentResponsible";
+        sh:message "A reply has exactly one comment responsible";
+        sh:severity sh:Violation;
+    ] , 
+    [ 
+        sh:path rdfs:label;
+        sh:minCount 1;
+        sh:maxCount 1;
+        sh:name "ReviewCommentComment";
+        sh:message "A comment has exactly one label";
+        sh:severity sh:Violation;
+    ] , 
+    [ 
+        sh:path prov:generatedAtTime;
+        sh:minCount 1;
+        sh:maxCount 1;
+        sh:name "ReviewCommentTime";
+        sh:message "A reply has exactly one value stating the time of generation";
+        sh:severity sh:Violation;
+    ] , 
+    [ 
+        sh:path review:aboutData ;
+        sh:minCount 0;
+        sh:name "ReviewCommentData";
+        sh:message "The comment is on one or several rows ";
+        sh:severity sh:Violation;
+    ] .
+

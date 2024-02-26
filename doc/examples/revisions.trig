@@ -29,9 +29,9 @@ exdata:RecordID123.0 {
 exdata:RecordID123.1 {
     exdata:RecordID123.1 a rec:Record;
                         prov:generatedAtTime "2022-11-03"^^xsd:date;
-                        rec:describes exdoc:B123-EX-W-LA-00001.F01;
+                        rec:describes exdoc:A123-BC-D-EF-00001.F01;
                         rec:isSubRecordOf exdata:RecordID123.0.
-    exdoc:B123-EX-W-LA-00001.F01 a rev:Revision, tie:OfficialProject, tie:RevisionForReview;
+    exdoc:A123-BC-D-EF-00001.F01 a rev:Revision, tie:OfficialProject, tie:RevisionForReview;
                                     rdfs:label "First delivered revision of MEL"^^xsd:string;
                                     rev:revisionNumber "F01"^^xsd:string;
                                     prov:generatedAtTime "2022-11-03"^^xsd:date;
