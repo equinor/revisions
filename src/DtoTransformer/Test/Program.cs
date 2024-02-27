@@ -1,5 +1,8 @@
 ﻿using VDS.RDF.Writing;
 
+
+
+
 var reviewDto = new ReviewDTO
 {
     ReviewId = "https://example.com/doc/reply-A123-BC-D-EF-00001.F01",
@@ -79,6 +82,7 @@ Console.WriteLine(rdfCode);
 reviewDto = DtoGenerator.GenerateDto(graph);
 Console.Write("Third DTO");
 printInfo(reviewDto);
+
 
 
 static void printInfo(ReviewDTO review)
