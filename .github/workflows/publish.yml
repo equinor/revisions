@@ -1,0 +1,26 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ".*src/DtoTransformer/DtoTransformer.*"
+  
+jobs:
+  publish:
+    name: "Nuget publish"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      - name: Restore dependencies
+        run: dotnet restore ./src/DtoTransformer/DtoTransformer
+      - name: Build
+        run: dotnet build ./src/DtoTransformer/DtoTransformer -c release --no-restore  /p:'ReleaseType="";description="A library for using revisions."'
+      - name: Publish
+        run: dotnet nuget push ./src/DtoTransformer/DtoTransformer/bin/release/DtoTransformer*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source https://api.nuget.org/v3/index.json
