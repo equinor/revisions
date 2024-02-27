@@ -23,4 +23,4 @@ jobs:
       - name: Build
         run: dotnet build ./src/DtoTransformer/DtoTransformer -c release --no-restore  /p:'ReleaseType="";description="A library for using revisions."'
       - name: Publish
-        run: dotnet nuget push ./src/DtoTransformer/DtoTransformer/bin/release/Revisions*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push ./src/DtoTransformer/DtoTransformer/bin/release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source https://api.nuget.org/v3/index.json
