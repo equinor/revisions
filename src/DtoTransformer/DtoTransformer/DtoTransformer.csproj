@@ -9,11 +9,14 @@
     <Description>Package for transforming DTO to RDF, and vice-versa</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <PackageId>DtoTransformer</PackageId>
+	  <VersionPrefix>1.0.2</VersionPrefix>
 
 	  <PublishRepositoryUrl>true</PublishRepositoryUrl>
 	  <EmbedUntrackedSources>true</EmbedUntrackedSources>
 	  <IncludeSymbols>true</IncludeSymbols>
 	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	  <!--<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>-->
+	  
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,8 +30,16 @@
     <PackageReference Include="dotNetRdf" Version="3.1.1" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <ProjectReference Include="..\ReviewDto\ReviewDto.csproj" />
   </ItemGroup>
+
+	<Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
+		<ItemGroup>
+			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+			<ProjectReference Include="..\ReviewDto\ReviewDto.csproj" PrivateAssets="all" />
+			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+		</ItemGroup>
+	</Target>-->
 
 </Project>
