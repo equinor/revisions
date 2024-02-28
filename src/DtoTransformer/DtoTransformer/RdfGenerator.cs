@@ -5,7 +5,8 @@ using VDS.RDF;
 namespace Review;
 public class RdfGenerator
 {
-    public static Graph GenerateRdf(ReviewDTO reviewDto) {
+    public static Graph GenerateRdf(ReviewDTO reviewDto)
+    {
         var graph = new Graph();
 
         graph.NamespaceMap.AddNamespace("rdf", new Uri("http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
