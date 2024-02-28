@@ -1,10 +1,8 @@
 ﻿
 using VDS.RDF;
-using VDS.RDF.Writing;
 
 
 namespace Review;
-
 public class RdfGenerator
 {
     public static Graph GenerateRdf(ReviewDTO reviewDto) {

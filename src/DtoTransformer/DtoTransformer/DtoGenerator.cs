@@ -4,7 +4,6 @@ using Graph = VDS.RDF.Graph;
 
 
 namespace Review;
-
 public class DtoGenerator
 {
     public static ReviewDTO GenerateDto(Graph graph)
