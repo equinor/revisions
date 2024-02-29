@@ -101,7 +101,7 @@ public class DtoGenerator
         var aboutObjectResults = (SparqlResultSet)graph.ExecuteQuery(aboutObjectQuery);
 
 
-
+        //Initalise CommentDTOs
         foreach (SparqlResult result in commentResults)
         {
             var commentDto = new CommentDto();
