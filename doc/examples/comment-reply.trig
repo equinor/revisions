@@ -94,6 +94,11 @@ exdata:RecordID123.6 {
             <https://rdf.equinor.com/test/document/dugtrio/C111-AA-A-AA-00001> ;
         rec:describes exdoc:review-reply-A123-BC-D-EF-00001.F01 .
     
+    
+    #Added type and label here to some of the scopes
+    #This is because the label value is used as reception scopes in splinter. 
+    #Also added the document iri as a scope because this iri is used as a reception scope. 
+
     <https://rdf.equinor.com/test/document/dugtrio/C111-AA-A-AA-00001>
             rdf:type    <https://rdf.equinor.com/ontology/fam/v1/MelDocument> ;
             rdfs:label  "C111-AA-A-AA-00001" .
