@@ -8,12 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DtoTransformer" Version="1.0.2" />
+    <PackageReference Include="DtoTransformer" Version="1.0.3" />
   </ItemGroup>
-
-  <!--<ItemGroup>
-    <ProjectReference Include="..\DtoTransformer\DtoTransformer.csproj" />
-    <ProjectReference Include="..\ReviewDto\ReviewDto.csproj" />
-  </ItemGroup>-->
 
 </Project>
