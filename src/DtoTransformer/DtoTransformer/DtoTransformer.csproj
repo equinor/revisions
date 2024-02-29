@@ -5,18 +5,16 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Title>DtoRdfTransformer</Title>
+    <Title>Review dto and rdf helper</Title>
     <Description>Package for transforming DTO to RDF, and vice-versa</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-	  <PackageId>DtoTransformer</PackageId>
-	  <VersionPrefix>1.0.4</VersionPrefix>
+	  <PackageId>Review</PackageId>
+	  <VersionPrefix>1.0.5</VersionPrefix>
 
 	  <PublishRepositoryUrl>true</PublishRepositoryUrl>
 	  <EmbedUntrackedSources>true</EmbedUntrackedSources>
 	  <IncludeSymbols>true</IncludeSymbols>
 	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-	  <!--<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>-->
-	  
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,17 +27,5 @@
   <ItemGroup>
     <PackageReference Include="dotNetRdf" Version="3.1.1" />
   </ItemGroup>
-
-  <!--<ItemGroup>
-    <ProjectReference Include="..\ReviewDto\ReviewDto.csproj" />
-  </ItemGroup>
-
-	<Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
-		<ItemGroup>
-			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
-			<ProjectReference Include="..\ReviewDto\ReviewDto.csproj" PrivateAssets="all" />
-			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
-		</ItemGroup>
-	</Target>-->
 
 </Project>
