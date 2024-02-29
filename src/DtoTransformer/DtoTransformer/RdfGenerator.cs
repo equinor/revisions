@@ -8,7 +8,7 @@ public class RdfGenerator
     public static Graph GenerateRdf(ReviewDTO reviewDto)
     {
         var graph = new Graph();
-
+        //Add nAmespaces
         graph.NamespaceMap.AddNamespace("rdf", new Uri("http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
         graph.NamespaceMap.AddNamespace("rdfs", new Uri("http://www.w3.org/2000/01/rdf-schema#"));
         graph.NamespaceMap.AddNamespace("xsd", new Uri("http://www.w3.org/2001/XMLSchema#"));
@@ -21,6 +21,7 @@ public class RdfGenerator
         graph.NamespaceMap.AddNamespace("rdl", new Uri("http://example.com/rdl/"));
         graph.NamespaceMap.AddNamespace("mel", new Uri("https://rdf.equinor.com/ontology/mel/v1#"));
 
+        // Create and assert Review triples
         var reviewId = graph.CreateUriNode(new Uri(reviewDto.ReviewId));
         var aboutRevision = graph.CreateUriNode(reviewDto.AboutRevision);
         var issuedBy = graph.CreateLiteralNode(reviewDto.IssuedBy);
@@ -28,7 +29,7 @@ public class RdfGenerator
         var reviewStatus = graph.CreateUriNode(new Uri(reviewDto.ReviewStatus));
         var label = graph.CreateLiteralNode(reviewDto.Label);
 
-        // Assert Reviews triples
+        
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("rdf:type"), graph.CreateUriNode("review:Review")));
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("rdf:type"), reviewStatus));
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("rdfs:label"), label));
@@ -36,6 +37,7 @@ public class RdfGenerator
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("review:aboutRevision"), aboutRevision));
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("review:issuedBy"), issuedBy));
 
+        //Create and assert comment triples
         foreach (var commentDto in reviewDto.HasComments)
         {
             var commentId = graph.CreateUriNode(new Uri(commentDto.CommentId));
