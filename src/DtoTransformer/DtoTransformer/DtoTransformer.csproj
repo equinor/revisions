@@ -9,7 +9,7 @@
     <Description>Package for transforming DTO to RDF, and vice-versa</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <PackageId>DtoTransformer</PackageId>
-	  <VersionPrefix>1.0.2</VersionPrefix>
+	  <VersionPrefix>1.0.3</VersionPrefix>
 
 	  <PublishRepositoryUrl>true</PublishRepositoryUrl>
 	  <EmbedUntrackedSources>true</EmbedUntrackedSources>
