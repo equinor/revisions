@@ -1,0 +1,126 @@
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix exdata: <https://example.com/data/>.
+@prefix exdoc: <https://example.com/doc/>.
+@prefix rec: <https://rdf.equinor.com/ontology/record/>.
+@prefix rev: <https://rdf.equinor.com/ontology/revision/>.
+@prefix review: <https://rdf.equinor.com/ontology/review/>.
+@prefix prov: <http://www.w3.org/ns/prov#>.
+@prefix rdl: <http://example.com/rdl/>.
+@prefix mel: <https://rdf.equinor.com/ontology/mel/v1#> .
+@prefix commonlib: <https://commonlib.equinor.com/rdf/code/> .
+
+exdata:RecordID123.1 {
+    exdata:RecordID123.1 a rec:Record;
+        rdfs:comment "This is the revision";
+                        rec:isInScope 
+                            commonlib:Project/TestProject , 
+                            commonlib:LCIContractor/Bouvet ,
+                            commonlib:Contract/TestContract , 
+                            commonlib:Facility/AHA>,
+                            <https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate>, 
+                        rec:describes exdoc:A123-BC-D-EF-00001.F01.
+    exdoc:A123-BC-D-EF-00001.F01 a rev:Revision;
+        rdfs:label "Revision F01 of A123-BC-D-EF-00001";
+        rev:describes exdoc:A123-BC-D-EF-00001.
+    exdoc:A123-BC-D-EF-00001.F01row1 mel:tagNumber "00X0001".
+}
+
+exdata:RecordID123.5 {
+    exdata:RecordID123.5 a rec:Record;
+                        rdfs:comment "This is a revision review"^^xsd:string;
+                        rec:isInScope 
+                            review:Review, 
+                            commonlib:Project/TestProject , 
+                            commonlib:LCIContractor/Bouvet ,
+                            commonlib:Contract/TestContract , 
+                            commonlib:Facility/AHA>,
+                            <https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate>, 
+                            <https://rdf.equinor.com/test/document/dugtrio/C111-AA-A-AA-00001> ;
+                        rec:describes exdoc:review-A123-BC-D-EF-00001.F01 .
+
+    exdoc:review-A123-BC-D-EF-00001.F01 a review:Review;
+                                review:aboutRevision exdoc:A123-BC-D-EF-00001.F01;
+                                rdfs:label "Review of revision F01";
+                                review:issuedBy "Turi Skogen";
+                                rdf:type review:Code1;
+                                review:hasComment exdata:cb086a54-b4af-11ee-9f99-37a86e9a48aa, 
+                                    exdata:d24cca6c-b4af-11ee-ad44-df4f729a38a3, 
+                                    exdata:ff086a54-b4af-11ee-9f99-37a86e9a48aa.
+                            
+    exdata:cb086a54-b4af-11ee-9f99-37a86e9a48aa a review:Comment;
+                                                rdfs:label "Test1";
+                                                prov:generatedAtTime "2022-01-02"^^xsd:date;
+                                                review:aboutData (<https://example.com/doc/A123-BC-D-EF-00001.F01row1>
+                                                                <https://example.com/doc/A123-BC-D-EF-00001.F01row3>
+                                                                <https://example.com/doc/A123-BC-D-EF-00001.F01row10>);
+                                                review:aboutObject [a review:FilterObject ;
+                                                                    mel:tagNumber "the tag number";
+                                                                    mel:weightHandlingCode "The handling code";
+                                                                    mel:importantField "The important field"];
+                                                review:issuedBy "Line Danser".
+
+    exdata:d24cca6c-b4af-11ee-ad44-df4f729a38a3 a review:Comment;
+                                                rdfs:label "Test2";
+                                                prov:generatedAtTime "2022-01-02"^^xsd:date;
+                                                
+                                                review:aboutObject [a review:FilterObject ;
+                                                                    mel:tagNumber "the tag number";
+                                                                    mel:weightHandlingCode "The handling code"];
+                                                review:issuedBy "Turi Skogen".
+
+    exdata:ff086a54-b4af-11ee-9f99-37a86e9a48aa a review:Comment;
+                                                rdfs:label "Test3";
+                                                prov:generatedAtTime "2022-01-02"^^xsd:date;
+                                                review:aboutData (<https://example.com/doc/A123-BC-D-EF-00001.F01row5> <https://example.com/doc/A123-BC-D-EF-00001.F01row7>);
+                                                review:aboutObject [a review:FilterObject ;
+                                                                    mel:tagNumber "the tag number";
+                                                                    mel:weightHandlingCode "The handling code"];
+                                                review:issuedBy "Kari Nordmann".
+}
+
+exdata:RecordID123.6 {
+    exdata:RecordID123.6 a rec:Record;
+        rdfs:comment "This is a reply on the review comments";
+        rec:isInScope 
+            review:Review, 
+            commonlib:Project/TestProject , 
+            commonlib:LCIContractor/Bouvet ,
+            commonlib:Contract/TestContract , 
+            commonlib:Facility/AHA>,
+            <https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate>, 
+            <https://rdf.equinor.com/test/document/dugtrio/C111-AA-A-AA-00001> ;
+        rec:describes exdoc:review-reply-A123-BC-D-EF-00001.F01 .
+    
+    <https://rdf.equinor.com/test/document/dugtrio/C111-AA-A-AA-00001>
+            rdf:type    <https://rdf.equinor.com/ontology/fam/v1/MelDocument> ;
+            rdfs:label  "C111-AA-A-AA-00001" .
+
+    commonlib:Facility/AHA 
+        rdf:type    commonlib:Facility ;
+        rdfs:label  "AHA"
+
+    commonlib:Contract/TestContract 
+        rdf:type    commonlib:Contract ;
+        rdfs:label  "TestContract" .
+
+    exdoc:review-reply-A123-BC-D-EF-00001.F01 a review:ReviewReply ;
+        review:aboutReview exdoc:review-A123-BC-D-EF-00001.F01 ;
+        review:hasCommentReply [
+            exdata:cb086a54-b4af-11ee-9f99-37a86e9a48aa a review:Comment ;
+                review:replyText "OK" ;
+			    review:repliedBy "Embla" .
+        ] ,
+        [
+            exdata:d24cca6c-b4af-11ee-ad44-df4f729a38a3 a review:Comment ;
+                review:replyText "OK" ;
+			    review:repliedBy "Embla" .
+        ] ,
+        [
+            exdata:ff086a54-b4af-11ee-9f99-37a86e9a48aa a review:Comment ;
+                review:replyText "OK" ;
+			    review:repliedBy "Embla" .
+        ] .             
+}
