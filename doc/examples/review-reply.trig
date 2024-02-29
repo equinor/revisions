@@ -1,0 +1,25 @@
+﻿@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+:replies {
+    :replyTo12345 [
+        :commentId :12345 ;
+        :replyText "This is a reply to comment 12345."^^xsd:string ;
+        :hasAuthor "Henriette" ;
+        rdf:type :reply ;
+    ].
+
+    :replyTo12345 [
+        :commentId :12346 ;
+        :replyText "This is a reply to comment 12346."^^xsd:string ;
+        :hasAuthor "Embla" ;
+        rdf:type :reply ;
+    ].
+
+    :replyTo12347 [
+        :commentId :12347 ;
+        :replyText "This is a reply to comment 12347."^^xsd:string ;
+        :hasAuthor "Embriette" ;
+        rdf:type :reply ;
+    ].
+}
