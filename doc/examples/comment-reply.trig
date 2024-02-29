@@ -115,12 +115,12 @@ exdata:RecordID123.6 {
         ] ,
         [
             exdata:d24cca6c-b4af-11ee-ad44-df4f729a38a3 a review:Comment ;
-                review:replyText "OK" ;
-			    review:repliedBy "Embla" .
+                review:replyText "Disagree" ;
+			    review:repliedBy "Henriette" .
         ] ,
         [
             exdata:ff086a54-b4af-11ee-9f99-37a86e9a48aa a review:Comment ;
-                review:replyText "OK" ;
-			    review:repliedBy "Embla" .
+                review:replyText "Fixed" ;
+			    review:repliedBy "Johannes" .
         ] .             
 }
