@@ -2,7 +2,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 
 :replies {
-    :replyTo12345 [
+   :replyID :replyTo12345 [
         :commentId :12345 ;
         :replyText "This is a reply to comment 12345."^^xsd:string ;
         :hasAuthor "Henriette" ;

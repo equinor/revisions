@@ -39,7 +39,7 @@ exdata:RecordID123.5 {
                             commonlib:Facility/AHA>,
                             <https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate>, 
                             <https://rdf.equinor.com/test/document/dugtrio/C111-AA-A-AA-00001> ;
-                        rec:describes exdoc:review-A123-BC-D-EF-00001.F01 .
+                        rec:describes exdoc:review-A123-BC-D-EF-00001.F01 , exdoc:A123-BC-D-EF-00001.F01 .
 
     exdoc:review-A123-BC-D-EF-00001.F01 a review:Review;
                                 review:aboutRevision exdoc:A123-BC-D-EF-00001.F01;
@@ -82,22 +82,17 @@ exdata:RecordID123.5 {
 }
 
 exdata:RecordID123.6 {
-    exdata:RecordID123.6 a rec:Record;
-        rdfs:comment "This is a reply on the review comments";
+    exdata:RecordID123.6 a rec:Record ;
+        rdfs:comment "This is a reply on the review comments" ;
         rec:isInScope 
-            review:Review, 
+            review:ReviewReply , 
             commonlib:Project/TestProject , 
             commonlib:LCIContractor/Bouvet ,
             commonlib:Contract/TestContract , 
-            commonlib:Facility/AHA>,
-            <https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate>, 
+            commonlib:Facility/AHA> ,
+            <https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate> , 
             <https://rdf.equinor.com/test/document/dugtrio/C111-AA-A-AA-00001> ;
         rec:describes exdoc:review-reply-A123-BC-D-EF-00001.F01 .
-    
-    
-    #Added type and label here to some of the scopes
-    #This is because the label value is used as reception scopes in splinter. 
-    #Also added the document iri as a scope because this iri is used as a reception scope. 
 
     <https://rdf.equinor.com/test/document/dugtrio/C111-AA-A-AA-00001>
             rdf:type    <https://rdf.equinor.com/ontology/fam/v1/MelDocument> ;
@@ -106,26 +101,30 @@ exdata:RecordID123.6 {
     commonlib:Facility/AHA 
         rdf:type    commonlib:Facility ;
         rdfs:label  "AHA"
-
+    
     commonlib:Contract/TestContract 
         rdf:type    commonlib:Contract ;
         rdfs:label  "TestContract" .
 
     exdoc:review-reply-A123-BC-D-EF-00001.F01 a review:ReviewReply ;
-        review:aboutReview exdoc:review-A123-BC-D-EF-00001.F01 ;
-        review:hasCommentReply [
-            exdata:cb086a54-b4af-11ee-9f99-37a86e9a48aa a review:Comment ;
-                review:replyText "OK" ;
-			    review:repliedBy "Embla" .
-        ] ,
-        [
-            exdata:d24cca6c-b4af-11ee-ad44-df4f729a38a3 a review:Comment ;
-                review:replyText "Disagree" ;
-			    review:repliedBy "Henriette" .
-        ] ,
-        [
-            exdata:ff086a54-b4af-11ee-9f99-37a86e9a48aa a review:Comment ;
-                review:replyText "Fixed" ;
-			    review:repliedBy "Johannes" .
-        ] .             
+        review:aboutReview exdoc:review-A123-BC-D-EF-00001.F01 .
+    review:replyHasComment [
+        a review:CommentReply;
+        review:isReplyToComment exdata:cb086a54-b4af-11ee-9f99-37a86e9a48aa;
+        review:replyText "OK" ;
+        review:repliedBy "Embla" .
+    ] ,
+    [
+        a review:CommentReply;
+        review:isReplyToComment exdata:d24cca6c-b4af-11ee-ad44-df4f729a38a3;
+        review:replyText "Disagree" ;
+        review:repliedBy "Henriette" .
+    ] ,
+    [
+        a review:CommentReply;
+        review:isReplyToComment exdata:ff086a54-b4af-11ee-9f99-37a86e9a48aa;
+        review:replyText "Fixed" ;
+        review:repliedBy "Johannes" .
+    ] .             
 }
+
