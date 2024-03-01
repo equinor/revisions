@@ -109,19 +109,22 @@ exdata:RecordID123.6 {
             a review:CommentReply;
             review:isReplyToComment exdata:cb086a54-b4af-11ee-9f99-37a86e9a48aa;
             review:replyText "OK" ;
-            review:repliedBy "Embla" 
+            review:repliedBy "Embla";
+            rdfs:label       "Reply to comment"
         ] ,
         [
             a review:CommentReply;
             review:isReplyToComment exdata:d24cca6c-b4af-11ee-ad44-df4f729a38a3;
             review:replyText "Disagree" ;
-            review:repliedBy "Henriette" 
+            review:repliedBy "Henriette" ;
+            rdfs:label       "Reply to comment"
         ] ,
         [
             a review:CommentReply;
             review:isReplyToComment exdata:ff086a54-b4af-11ee-9f99-37a86e9a48aa;
             review:replyText "Fixed" ;
-            review:repliedBy "Johannes" 
+            review:repliedBy "Johannes";
+            rdfs:label       "Reply to comment"
         ] .             
 }
 
