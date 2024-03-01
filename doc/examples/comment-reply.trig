@@ -105,24 +105,24 @@ exdata:RecordID123.6 {
         rdfs:label  "TestContract" .
 
     exdoc:review-reply-A123-BC-D-EF-00001.F01 a review:ReviewReply ;
-        review:aboutReview exdoc:review-A123-BC-D-EF-00001.F01 .
-    review:replyHasComment [
-        a review:CommentReply;
-        review:isReplyToComment exdata:cb086a54-b4af-11ee-9f99-37a86e9a48aa;
-        review:replyText "OK" ;
-        review:repliedBy "Embla" .
-    ] ,
-    [
-        a review:CommentReply;
-        review:isReplyToComment exdata:d24cca6c-b4af-11ee-ad44-df4f729a38a3;
-        review:replyText "Disagree" ;
-        review:repliedBy "Henriette" .
-    ] ,
-    [
-        a review:CommentReply;
-        review:isReplyToComment exdata:ff086a54-b4af-11ee-9f99-37a86e9a48aa;
-        review:replyText "Fixed" ;
-        review:repliedBy "Johannes" .
-    ] .             
+        review:aboutReview exdoc:review-A123-BC-D-EF-00001.F01 ;
+        review:replyHasComment [
+            a review:CommentReply;
+            review:isReplyToComment exdata:cb086a54-b4af-11ee-9f99-37a86e9a48aa;
+            review:replyText "OK" ;
+            review:repliedBy "Embla" 
+        ] ,
+        [
+            a review:CommentReply;
+            review:isReplyToComment exdata:d24cca6c-b4af-11ee-ad44-df4f729a38a3;
+            review:replyText "Disagree" ;
+            review:repliedBy "Henriette" 
+        ] ,
+        [
+            a review:CommentReply;
+            review:isReplyToComment exdata:ff086a54-b4af-11ee-9f99-37a86e9a48aa;
+            review:replyText "Fixed" ;
+            review:repliedBy "Johannes" 
+        ] .             
 }
 
