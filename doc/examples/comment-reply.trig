@@ -98,7 +98,7 @@ exdata:RecordID123.6 {
 
     <https://commonlib.equinor.com/rdf/code/Facility/FM5LjGVt>
         rdf:type    commonlib:Facility ;
-        rdfs:label  "AHA"
+        rdfs:label  "AHA" .
     
     <https://commonlib.equinor.com/rdf/code/Contract/1JjvqAHFRbED1YPuaX> 
         rdf:type    commonlib:Contract ;
