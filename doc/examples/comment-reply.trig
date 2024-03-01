@@ -20,7 +20,7 @@ exdata:RecordID123.1 {
                             <https://commonlib.equinor.com/rdf/code/LCIContractor/4Do7Yb64WXh> ,
                             <https://commonlib.equinor.com/rdf/code/Contract/1JjvqAHFRbED1YPuaX> , 
                             <https://commonlib.equinor.com/rdf/code/Facility/FM5LjGVt> ; 
-                        rec:describes exdoc:A123-BC-D-EF-00001.F01.
+                        rec:describes exdoc:A123-BC-D-EF-00001.F01.  
     exdoc:A123-BC-D-EF-00001.F01 a rev:Revision;
         rdfs:label "Revision F01 of A123-BC-D-EF-00001";
         rev:describes exdoc:A123-BC-D-EF-00001.
@@ -106,7 +106,7 @@ exdata:RecordID123.6 {
 
     exdoc:review-reply-A123-BC-D-EF-00001.F01 a review:ReviewReply ;
         review:aboutReview exdoc:review-A123-BC-D-EF-00001.F01 ;
-        review:replyHasComment [
+        review:hasCommentReply [
             a review:CommentReply;
             review:isReplyToComment exdata:cb086a54-b4af-11ee-9f99-37a86e9a48aa;
             review:replyText "OK" ;
