@@ -1,4 +1,3 @@
-
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
@@ -10,17 +9,16 @@
 @prefix prov: <http://www.w3.org/ns/prov#>.
 @prefix rdl: <http://example.com/rdl/>.
 @prefix mel: <https://rdf.equinor.com/ontology/mel/v1#> .
-@prefix commonlib: <https://commonlib.equinor.com/rdf/code/> .
 
 exdata:RecordID123.1 {
     exdata:RecordID123.1 a rec:Record;
         rdfs:comment "This is the revision";
                         rec:isInScope 
-                            commonlib:Project/TestProject , 
-                            commonlib:LCIContractor/Bouvet ,
-                            commonlib:Contract/TestContract , 
-                            commonlib:Facility/AHA>,
                             <https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate>, 
+                            <https://commonlib.equinor.com/rdf/code/Project/1JjvqAHFRbED1YPuaY> , 
+                            <https://commonlib.equinor.com/rdf/code/LCIContractor/4Do7Yb64WXh> ,
+                            <https://commonlib.equinor.com/rdf/code/Contract/1JjvqAHFRbED1YPuaX> , 
+                            <https://commonlib.equinor.com/rdf/code/Facility/FM5LjGVt> ; 
                         rec:describes exdoc:A123-BC-D-EF-00001.F01.
     exdoc:A123-BC-D-EF-00001.F01 a rev:Revision;
         rdfs:label "Revision F01 of A123-BC-D-EF-00001";
@@ -33,12 +31,11 @@ exdata:RecordID123.5 {
                         rdfs:comment "This is a revision review"^^xsd:string;
                         rec:isInScope 
                             review:Review, 
-                            commonlib:Project/TestProject , 
-                            commonlib:LCIContractor/Bouvet ,
-                            commonlib:Contract/TestContract , 
-                            commonlib:Facility/AHA>,
-                            <https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate>, 
-                            <https://rdf.equinor.com/test/document/dugtrio/C111-AA-A-AA-00001> ;
+                            <https://commonlib.equinor.com/rdf/code/Project/1JjvqAHFRbED1YPuaY> , 
+                            <https://commonlib.equinor.com/rdf/code/LCIContractor/4Do7Yb64WXh> ,
+                            <https://commonlib.equinor.com/rdf/code/Contract/1JjvqAHFRbED1YPuaX> , 
+                            <https://commonlib.equinor.com/rdf/code/Facility/FM5LjGVt> ,
+                            <https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate> ;
                         rec:describes exdoc:review-A123-BC-D-EF-00001.F01 , exdoc:A123-BC-D-EF-00001.F01 .
 
     exdoc:review-A123-BC-D-EF-00001.F01 a review:Review;
@@ -86,10 +83,10 @@ exdata:RecordID123.6 {
         rdfs:comment "This is a reply on the review comments" ;
         rec:isInScope 
             review:ReviewReply , 
-            commonlib:Project/TestProject , 
-            commonlib:LCIContractor/Bouvet ,
-            commonlib:Contract/TestContract , 
-            commonlib:Facility/AHA> ,
+            <https://commonlib.equinor.com/rdf/code/Project/1JjvqAHFRbED1YPuaY> , 
+            <https://commonlib.equinor.com/rdf/code/LCIContractor/4Do7Yb64WXh> ,
+            <https://commonlib.equinor.com/rdf/code/Contract/1JjvqAHFRbED1YPuaX> , 
+            <https://commonlib.equinor.com/rdf/code/Facility/FM5LjGVt> ,
             <https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate> , 
             <https://rdf.equinor.com/test/document/dugtrio/C111-AA-A-AA-00001> ;
         rec:describes exdoc:review-reply-A123-BC-D-EF-00001.F01 .
@@ -98,11 +95,11 @@ exdata:RecordID123.6 {
             rdf:type    <https://rdf.equinor.com/ontology/fam/v1/MelDocument> ;
             rdfs:label  "C111-AA-A-AA-00001" .
 
-    commonlib:Facility/AHA 
+    <https://commonlib.equinor.com/rdf/code/Facility/FM5LjGVt>
         rdf:type    commonlib:Facility ;
         rdfs:label  "AHA"
     
-    commonlib:Contract/TestContract 
+    <https://commonlib.equinor.com/rdf/code/Contract/1JjvqAHFRbED1YPuaX> 
         rdf:type    commonlib:Contract ;
         rdfs:label  "TestContract" .
 
