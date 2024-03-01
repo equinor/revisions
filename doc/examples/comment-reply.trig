@@ -9,6 +9,7 @@
 @prefix prov: <http://www.w3.org/ns/prov#>.
 @prefix rdl: <http://example.com/rdl/>.
 @prefix mel: <https://rdf.equinor.com/ontology/mel/v1#> .
+@prefix commonlib: <https://commonlib.equinor.com/rdf/code/> .
 
 exdata:RecordID123.1 {
     exdata:RecordID123.1 a rec:Record;
