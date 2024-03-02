@@ -66,6 +66,9 @@ var rdfCode = VDS.RDF.Writing.StringWriter.Write(graph, new CompressingTurtleWri
 
 Console.WriteLine(rdfCode);
 
+ExcelGenerator.CreateExcelAt(reviewDto, "output.xlsx");
+Console.WriteLine("Generated excel at output.xlsx");
+
 //SECOND DTO
 reviewDto = DtoGenerator.GenerateDto(graph);
 
