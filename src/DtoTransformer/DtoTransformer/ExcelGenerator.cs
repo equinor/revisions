@@ -1,4 +1,5 @@
 using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using VDS.RDF;
 
 namespace Review;
@@ -10,14 +11,9 @@ public static class ExcelGenerator
         revisionUri.LocalPath.ToString();
 
     
-    // Naive implementation of getting property labels
-    public static string GetPropertyName(Uri propertyUri) =>
-        propertyUri.Fragment.Substring(1);
-
-    
     public static void CreateExcelAt(ReviewDTO review, string path)
     {
-        review.GenerateExcel(GetRevisionName, GetPropertyName).SaveAs(path);
+        review.GenerateExcel(GetRevisionName, getSuffix).SaveAs(path);
     }
     
     public static XLWorkbook GenerateExcel(this ReviewDTO review, Func<Uri, string> getRevisionName, Func<Uri, string> getPropertyName)
@@ -25,13 +21,14 @@ public static class ExcelGenerator
         var workbook = new XLWorkbook();
         var worksheet = workbook.AddWorksheet("Review Comments");
         review.AddReviewHeader(worksheet, getRevisionName);
-        int nextFreeRow = worksheet.AddOttrPrefix(9);
-        review.GenerateCommentRows(worksheet, nextFreeRow, getPropertyName);
+        var prefixes = review.GetCommentIdPrefixes();
+        int nextFreeRow = worksheet.AddOttrPrefix(9, prefixes);
+        review.GenerateCommentRows(worksheet, nextFreeRow, getPropertyName, prefixes);
         return workbook;
     }
 
     public static int GenerateCommentRows(this ReviewDTO review, IXLWorksheet worksheet, int startRow,
-        Func<Uri, string> propertyLabelGetter)
+        Func<Uri, string> propertyLabelGetter, IDictionary<Uri, string> prefixes)
     {
         var filterUriss = GetAllObjectFilters(review.HasComments)
             .ToArray();
@@ -39,7 +36,7 @@ public static class ExcelGenerator
         var commentRow = review.AddOttrTemplateStart(worksheet, startRow, filterNames);
         foreach (var comment in review.HasComments)
         {
-            comment.CommentToExcelRow(worksheet, commentRow, filterUriss);
+            comment.CommentToExcelRow(worksheet, commentRow, filterUriss, prefixes);
             commentRow++;
         }
         return review.AddOttrTemplateEnd(worksheet, commentRow);
@@ -55,14 +52,18 @@ public static class ExcelGenerator
         worksheet.Cell("B4").Value = getRevisionName(review.AboutRevision);
     }
     
-    public static int AddOttrPrefix(this IXLWorksheet worksheet, int startRow)
+    public static int AddOttrPrefix(this IXLWorksheet worksheet, int startRow, IDictionary<Uri, string> prefixes)
     {
-        worksheet.Cell($"A{startRow}").Value = "#OTTR";
-        worksheet.Cell($"B{startRow}").Value = "prefix";
-        worksheet.Cell($"A{startRow+1}").Value = "comment";
-        worksheet.Cell($"B{startRow+1}").Value = "https://example.com/data/";
-        worksheet.Cell($"A{startRow+2}").Value = "#OTTR";
-        return startRow + 3;
+        var currentRow = startRow;
+        worksheet.Cell($"A{currentRow}").Value = "#OTTR";
+        worksheet.Cell($"B{currentRow}").Value = "prefix";
+        currentRow++;
+        foreach (var (prefixUri, prefixNamekeypair) in prefixes)
+        {
+            currentRow = worksheet.AddSheetRow(currentRow, new string[] { prefixNamekeypair, prefixUri.ToString() });
+        }
+        worksheet.Rows(startRow, currentRow).Hide();
+        return worksheet.AddSheetRow(currentRow, new string[]{"#OTTR", "end"});
     }
 
     public static string NextColumn(string columnName)
@@ -92,6 +93,49 @@ public static class ExcelGenerator
 
         return row + 1;
     }
+
+    public static string getPrefix(Uri uri)
+    {
+        if (uri.Fragment.Equals(""))
+            return string.Join("", uri.ToString().Split("/").SkipLast(1));
+        return uri.GetLeftPart(UriPartial.Path);
+    }
+    
+    public static string getSuffix(Uri uri)
+    {
+        if (uri.Fragment.Equals(""))
+            return uri.ToString().Split("/").Last();
+        return uri.Fragment.Substring(1);
+    }
+
+    public static string getCommentQName(this CommentDto comment, IDictionary<Uri, string> prefixes)
+    {
+        var commentUri = new Uri(comment.CommentId);
+        var commentUriLeftPart = new Uri(getPrefix(commentUri));
+        var prefix = prefixes[commentUriLeftPart];
+        return $"{prefix}:{getSuffix(commentUri)}";
+    }
+
+
+    public static IDictionary<Uri, string> GetCommentIdPrefixes(this ReviewDTO review)
+    {
+
+        var namespaces = review.GetCommentIdNamespaces().ToArray();
+        return namespaces
+            .Zip(Enumerable.Range(1, namespaces.Length))
+            .ToDictionary(
+                x => x.First, 
+                x => $"comment{x.Second}");
+    }
+
+    public static IEnumerable<Uri> GetCommentIdNamespaces(this ReviewDTO review) =>
+        review.HasComments
+            .Select(comment => getPrefix(new Uri(comment.CommentId)))
+            .Distinct()
+            .Select(uriString => new Uri(uriString));
+        
+    
+    
     //TODO: This hardcoding of the properties labelled with the fragment is not a good long-term solution
     // But it works with TR1244 and TR1245 ontologies as they are now
     public static IEnumerable<Uri> GetAllObjectFilters(IEnumerable<CommentDto> comments) =>
@@ -102,10 +146,10 @@ public static class ExcelGenerator
             .Select(filter => new Uri(filter));
     
     public static void CommentToExcelRow(this CommentDto commentDto, IXLWorksheet worksheet, int row,
-        Uri[] filternames) =>
+        Uri[] filternames, IDictionary<Uri, string> prefixes) =>
         worksheet.AddSheetRow(row, new string[]
             {
-                commentDto.CommentId,
+                commentDto.getCommentQName(prefixes),
                 commentDto.CommentText,
                 commentDto.IssuedBy,
             }
@@ -128,23 +172,25 @@ public static class ExcelGenerator
     public static int AddOttrTemplateStart(this ReviewDTO review, IXLWorksheet worksheet, int startRow,
         string[] filterNames)
     {
-        worksheet.AddSheetRow(startRow,
+        var currentRow = startRow;
+        currentRow = worksheet.AddSheetRow(currentRow,
             new[] { "#OTTR", "template", "https://rdf.equinor.com/ontology/template#CommentReply" });
         var ottrArgumentIndex =
             new string[] { "1" }
                 .Concat(Enumerable.Repeat("0", 3 + filterNames.Count()))
                 .Concat(new string[] { "2", "3" });
-        startRow = worksheet.AddSheetRow(startRow, ottrArgumentIndex);
+        currentRow = worksheet.AddSheetRow(currentRow, ottrArgumentIndex);
         var ottrArgumentType =
             new string[] { "iri" }
                 .Concat(Enumerable.Repeat("", 3 + filterNames.Count()))
                 .Concat(new string[] { "text", "text" });
-        startRow = worksheet.AddSheetRow(startRow, ottrArgumentType);
+        currentRow = worksheet.AddSheetRow(currentRow, ottrArgumentType);
         var ottrArgumentName =
             new string[] { "Comment Id", "Equinor comment", "Equinor author" }
                 .Concat(filterNames)
                 .Concat(new string[] { "Property", "Contractor reply", "Contractor author" });
-        return worksheet.AddSheetRow(startRow, ottrArgumentName);
+        worksheet.Rows(startRow, currentRow).Hide();
+        return worksheet.AddSheetRow(currentRow, ottrArgumentName);
         
     }
     
