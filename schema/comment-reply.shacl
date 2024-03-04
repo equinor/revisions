@@ -7,7 +7,8 @@ review:HasCommentReplyShape
     a sh:NodeShape ;
     sh:targetObjectsOf review:hasCommentReply ;
     sh:property [
-        sh:class review:CommentReply ;
+        sh:path rdf:type ;
+        sh:hasValue review:CommentReply ;
         sh:name "CommentReplyClass" ;
         sh:message "Each review:hasCommentReply property must link to a blank node of type review:CommentReply" ;
         sh:severity sh:Violation ;
