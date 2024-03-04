@@ -14,17 +14,6 @@ review:HasCommentReplyShape
         sh:severity sh:Violation ;
     ]  .
 
-review:IsReplyToCommentShape
-    a sh:NodeShape ;
-    sh:targetObjectsOf review:isReplyToComment ;
-    sh:property [
-        sh:path rdf:type ;
-        sh:hasValue review:Comment ;
-        sh:name "CommentClass" ;
-        sh:message "Objects of review:isReplyToComment must be of class review:Comment" ;
-        sh:severity sh:Violation ;
-    ]  .
-
 review:CommentReplyShape
     a sh:NodeShape ;
     sh:targetClass review:CommentReply ;
