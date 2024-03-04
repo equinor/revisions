@@ -1,0 +1,64 @@
+﻿@prefix sh: <http://www.w3.org/ns/shacl#>.
+@prefix review: <https://rdf.equinor.com/ontology/review/>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+
+review:HasCommentReplyShape
+    a sh:NodeShape ;
+        sh:targetObjectsOf review:hasCommentReply ;
+        sh:property
+        [
+            sh:path rdf:type ;
+            sh:hasValue review:CommentReply ;
+            sh:name "CommentReplyClass" ;
+            sh:message "Each review:hasCommentReply property must link to a blank node of type review:CommentReply." ;
+            sh:severity sh:Violation ;
+        ]  .
+
+review:IsReplyToCommentShape
+    a sh:NodeShape ;
+    sh:targetObjectsOf review:isReplyToComment ;
+    sh:property
+    [
+        sh:path rdf:type ;
+        sh:hasValue review:Comment ;
+        sh:name "CommentClass" ;
+        sh:message "Objects of review:isReplyToComment must be of class review:Comment." ;
+        sh:severity sh:Violation ;
+    ]  .
+
+review:CommentReplyShape
+    a sh:NodeShape ;
+    sh:targetClass review:CommentReply ;
+    sh:property
+    [
+        sh:path review:repliedBy;
+        sh:minCount 1;
+        sh:maxCount 1;
+        sh:name "CommentResponsible";
+        sh:message "A reply has exactly one comment responsible";
+        sh:severity sh:Violation;
+    ] ,
+    [
+        sh:path rdfs:label;
+        sh:minCount 1;
+        sh:maxCount 1;
+        sh:name "CommentReview";
+        sh:message "A comment reply has exactly one label";
+        sh:severity sh:Violation;
+    ] ,
+  [
+      sh:path review:replyText;
+      sh:minCount 1;
+      sh:maxCount 1;
+      sh:name "CommentReview";
+      sh:message "A comment reply has exactly one text";
+      sh:severity sh:Violation;
+  ],
+  [
+        sh:path review:isReplyToComment;
+        sh:minCount 1;
+        sh:maxCount 1;
+        sh:name "CommentReview";
+        sh:message "A reply is about exactly one comment";
+        sh:severity sh:Violation;
+    ] .
