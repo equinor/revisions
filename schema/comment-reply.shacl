@@ -3,6 +3,25 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: 	<http://www.w3.org/2000/01/rdf-schema#>.
 
+review:ReviewReplyShape
+    a sh:NodeShape ;
+    sh:targetClass review:ReviewReply ;
+    sh:property [
+        sh:path review:hasCommentReply ;
+        sh:minCount 1 ;
+        sh:name "HasCommentReply" ;
+        sh:message "A review reply must have at least one comment reply" ;
+        sh:severity sh:Violation ;
+    ] ,
+    [
+        sh:path review:aboutReview ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "AboutReview" ;
+        sh:message "Each review reply must be about exactly one review" ;
+        sh:severity sh:Violation ;
+    ] .
+
 review:HasCommentReplyShape
     a sh:NodeShape ;
     sh:targetObjectsOf review:hasCommentReply ;
