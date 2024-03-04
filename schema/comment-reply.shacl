@@ -4,7 +4,7 @@
 @prefix rdfs: 	<http://www.w3.org/2000/01/rdf-schema#>.
 
 review:ReviewReplyShape
-    rdf:comment "This shape is for a reply to a review." ;
+    rdf:comment "This shape is for a reply to a review - Can be applied to the review reply record in isolation." ;
     a sh:NodeShape ;
     sh:targetClass review:ReviewReply ;
     sh:property [
@@ -24,7 +24,7 @@ review:ReviewReplyShape
     ] .
 
 review:HasCommentReplyShape
-    rdf:comment "This shape is for the hasCommentReply property" ;
+    rdf:comment "This shape is for the hasCommentReply property - Can be applied to the review reply record in isolation." ;
     a sh:NodeShape ;
     sh:targetObjectsOf review:hasCommentReply ;
     sh:property [
@@ -36,7 +36,7 @@ review:HasCommentReplyShape
     ]  .
 
 review:CommentReplyShape
-    rdf:comment "This shape is for the comment reply" ;
+    rdf:comment "This shape is for the comment reply - Can be applied to the review reply record in isolation." ;
     a sh:NodeShape ;
     sh:targetClass review:CommentReply ;
     sh:property [

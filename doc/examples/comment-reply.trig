@@ -91,18 +91,6 @@ exdata:RecordID123.6 {
             <https://rdf.equinor.com/test/document/dugtrio/C111-AA-A-AA-00001> ;
         rec:describes exdoc:review-reply-A123-BC-D-EF-00001.F01 .
 
-    <https://rdf.equinor.com/test/document/dugtrio/C111-AA-A-AA-00001>
-            rdf:type    <https://rdf.equinor.com/ontology/fam/v1/MelDocument> ;
-            rdfs:label  "C111-AA-A-AA-00001" .
-
-    <https://commonlib.equinor.com/rdf/code/Facility/FM5LjGVt>
-        rdf:type    commonlib:Facility ;
-        rdfs:label  "AHA" .
-    
-    <https://commonlib.equinor.com/rdf/code/Contract/1JjvqAHFRbED1YPuaX> 
-        rdf:type    commonlib:Contract ;
-        rdfs:label  "TestContract" .
-
     exdoc:review-reply-A123-BC-D-EF-00001.F01 a review:ReviewReply ;
         review:aboutReview exdoc:review-A123-BC-D-EF-00001.F01 ;
         review:hasCommentReply [
