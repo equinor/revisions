@@ -4,13 +4,14 @@
 @prefix rdfs: 	<http://www.w3.org/2000/01/rdf-schema#>.
 
 review:ReviewReplyShape
+    rdf:comment "This shape is for a reply to a review." ;
     a sh:NodeShape ;
     sh:targetClass review:ReviewReply ;
     sh:property [
         sh:path review:hasCommentReply ;
         sh:minCount 1 ;
         sh:name "HasCommentReply" ;
-        sh:message "A review reply must have at least one comment reply" ;
+        sh:message "A reply must have at least one comment reply" ;
         sh:severity sh:Violation ;
     ] ,
     [
@@ -18,11 +19,12 @@ review:ReviewReplyShape
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:name "AboutReview" ;
-        sh:message "Each review reply must be about exactly one review" ;
+        sh:message "A reply must be about exactly one review" ;
         sh:severity sh:Violation ;
     ] .
 
 review:HasCommentReplyShape
+    rdf:comment "This shape is for the hasCommentReply property where the object is a blank node" ;
     a sh:NodeShape ;
     sh:targetObjectsOf review:hasCommentReply ;
     sh:property [
@@ -34,13 +36,14 @@ review:HasCommentReplyShape
     ]  .
 
 review:CommentReplyShape
+    rdf:comment "This shape is for the comment reply" ;
     a sh:NodeShape ;
     sh:targetClass review:CommentReply ;
     sh:property [
         sh:path review:repliedBy;
         sh:minCount 1;
         sh:maxCount 1;
-        sh:name "CommentResponsible";
+        sh:name "CommentReplyResponsible";
         sh:message "A reply has exactly one comment responsible";
         sh:severity sh:Violation;
     ] ,
@@ -48,7 +51,7 @@ review:CommentReplyShape
         sh:path rdfs:label;
         sh:minCount 1;
         sh:maxCount 1;
-        sh:name "CommentReview";
+        sh:name "CommentReplyLabel";
         sh:message "A comment reply has exactly one label";
         sh:severity sh:Violation;
     ] ,
@@ -56,7 +59,7 @@ review:CommentReplyShape
         sh:path review:replyText;
         sh:minCount 1;
         sh:maxCount 1;
-        sh:name "CommentReview";
+        sh:name "CommentReplyText";
         sh:message "A comment reply has exactly one text";
         sh:severity sh:Violation;
     ],
@@ -64,7 +67,7 @@ review:CommentReplyShape
         sh:path review:isReplyToComment;
         sh:minCount 1;
         sh:maxCount 1;
-        sh:name "CommentReview";
+        sh:name "CommentReplyToComment";
         sh:message "A reply is about exactly one comment";
         sh:severity sh:Violation;
     ] .
