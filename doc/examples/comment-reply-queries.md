@@ -38,10 +38,10 @@ WHERE {
 ```
 ### Output
 
-| RevisionName                       | ReviewInfo                       | LabelId   | ReplyText |
-|------------------------------------| ---------------------------------|-----------| ----------|
-| Revision F01 of A123-BC-D-EF-00001 | This is a review of revision F01 | Test1     | OK        |
-| Revision F01 of A123-BC-D-EF-00001 | This is a review of revision F01 | Test2     | Fixed     |
-| Revision F01 of A123-BC-D-EF-00001 | This is a review of revision F01 | Test3     | Disagree  |
+| RevisionName                       | ReviewInfo                       | CommentLabel | ReplyText |
+|------------------------------------| ---------------------------------|--------------| ----------|
+| Revision F01 of A123-BC-D-EF-00001 | This is a review of revision F01 | Test1        | OK        |
+| Revision F01 of A123-BC-D-EF-00001 | This is a review of revision F01 | Test2        | Fixed     |
+| Revision F01 of A123-BC-D-EF-00001 | This is a review of revision F01 | Test3        | Disagree  |
 
 

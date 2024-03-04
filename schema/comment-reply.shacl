@@ -24,14 +24,14 @@ review:ReviewReplyShape
     ] .
 
 review:HasCommentReplyShape
-    rdf:comment "This shape is for the hasCommentReply property where the object is a blank node" ;
+    rdf:comment "This shape is for the hasCommentReply property" ;
     a sh:NodeShape ;
     sh:targetObjectsOf review:hasCommentReply ;
     sh:property [
         sh:path rdf:type ;
         sh:hasValue review:CommentReply ;
         sh:name "CommentReplyClass" ;
-        sh:message "Each review:hasCommentReply property must link to a blank node of type review:CommentReply" ;
+        sh:message "Each review:hasCommentReply property must link to a node of type review:CommentReply" ;
         sh:severity sh:Violation ;
     ]  .
 
