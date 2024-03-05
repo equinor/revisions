@@ -13,17 +13,19 @@ public static class ExcelGenerator
     
     public static void CreateExcelAt(ReviewDTO review, string path)
     {
-        review.GenerateExcel(GetRevisionName, getSuffix).SaveAs(path);
+        review.GenerateExcel(getSuffix).SaveAs(path);
     }
     
-    public static XLWorkbook GenerateExcel(this ReviewDTO review, Func<Uri, string> getRevisionName, Func<Uri, string> getPropertyName)
+    public static XLWorkbook GenerateExcel(this ReviewDTO review, Func<Uri, string> getUriLabel)
     {
         var workbook = new XLWorkbook();
         var worksheet = workbook.AddWorksheet("Review Comments");
-        review.AddReviewHeader(worksheet, getRevisionName);
-        var prefixes = review.GetCommentIdPrefixes();
+        review.AddReviewHeader(worksheet, getUriLabel);
+        // TODO Refactor to use a single-element dictionary hardcoded 
+        // SOmething like new Dictionary<Uri, string>(){"https://...." => "comment"}
+        var prefixes = new Dictionary<Uri, string>() { };
         int nextFreeRow = worksheet.AddOttrPrefix(9, prefixes);
-        review.GenerateCommentRows(worksheet, nextFreeRow, getPropertyName, prefixes);
+        review.GenerateCommentRows(worksheet, nextFreeRow, getUriLabel, prefixes);
         return workbook;
     }
 
@@ -51,7 +53,7 @@ public static class ExcelGenerator
         worksheet.Cell("A4").Value = "Revision";
         worksheet.Cell("B4").Value = getRevisionName(review.AboutRevision);
     }
-    
+    // Simplify since only one prefx, or just 
     public static int AddOttrPrefix(this IXLWorksheet worksheet, int startRow, IDictionary<Uri, string> prefixes)
     {
         var currentRow = startRow;
@@ -93,7 +95,7 @@ public static class ExcelGenerator
 
         return row + 1;
     }
-
+    // TODO: Not used after hardcoded comment prefix
     public static string getPrefix(Uri uri)
     {
         if (uri.Fragment.Equals(""))
@@ -101,13 +103,14 @@ public static class ExcelGenerator
         return uri.GetLeftPart(UriPartial.Path);
     }
     
+    // TODO: Move this to Test program, since only used for testing
     public static string getSuffix(Uri uri)
     {
         if (uri.Fragment.Equals(""))
             return uri.ToString().Split("/").Last();
         return uri.Fragment.Substring(1);
     }
-
+    // TODO: Remove since only used by unnecessary prefix getter
     public static string getCommentQName(this CommentDto comment, IDictionary<Uri, string> prefixes)
     {
         var commentUri = new Uri(comment.CommentId);
@@ -116,7 +119,7 @@ public static class ExcelGenerator
         return $"{prefix}:{getSuffix(commentUri)}";
     }
 
-
+    // TODO: This is unnecessary since comment id is a guid
     public static IDictionary<Uri, string> GetCommentIdPrefixes(this ReviewDTO review)
     {
 
@@ -136,8 +139,7 @@ public static class ExcelGenerator
         
     
     
-    //TODO: This hardcoding of the properties labelled with the fragment is not a good long-term solution
-    // But it works with TR1244 and TR1245 ontologies as they are now
+    // Fetches all IRIs used as object filters in aboutObject
     public static IEnumerable<Uri> GetAllObjectFilters(IEnumerable<CommentDto> comments) =>
         comments.SelectMany(comment =>
                 comment.AboutObject
@@ -149,6 +151,7 @@ public static class ExcelGenerator
         Uri[] filternames, IDictionary<Uri, string> prefixes) =>
         worksheet.AddSheetRow(row, new string[]
             {
+                // TODO Use new hardcoded prefix for comment
                 commentDto.getCommentQName(prefixes),
                 commentDto.CommentText,
                 commentDto.IssuedBy,
