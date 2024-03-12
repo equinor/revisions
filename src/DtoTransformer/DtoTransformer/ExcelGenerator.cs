@@ -1,4 +1,5 @@
 using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Drawing.Charts;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using VDS.RDF;
 
@@ -20,12 +21,21 @@ public static class ExcelGenerator
     {
         var workbook = new XLWorkbook();
         var worksheet = workbook.AddWorksheet("Review Comments");
+
         review.AddReviewHeader(worksheet, getUriLabel);
         // TODO Refactor to use a single-element dictionary hardcoded 
-        // SOmething like new Dictionary<Uri, string>(){"https://...." => "comment"}
-        var prefixes = new Dictionary<Uri, string>() { };
+        // Soomething like new Dictionary<Uri, string>(){"https://...." => "comment"}
+        //var prefixes = new Dictionary<Uri, string>() { };
+        var prefixes = new Dictionary<Uri, string>()
+        {
+            { new Uri("https://example.com/data/"), "comment" }
+        };
+
+
         int nextFreeRow = worksheet.AddOttrPrefix(9, prefixes);
         review.GenerateCommentRows(worksheet, nextFreeRow, getUriLabel, prefixes);
+                worksheet.Columns().AdjustToContents(); // This will adjust all columns
+        worksheet.Rows().AdjustToContents();
         return workbook;
     }
 
@@ -46,12 +56,28 @@ public static class ExcelGenerator
     
     public static void AddReviewHeader(this ReviewDTO review, IXLWorksheet worksheet, Func<Uri, string> getRevisionName)
     {
-        worksheet.Cell("A1").Value = review.Label;
-        worksheet.Cell("A2").Value = "MASTER EQUIPMENT LIST";
-        worksheet.Cell("A3").Value = "Status";
-        worksheet.Cell("B3").Value = review.ReviewStatus;
-        worksheet.Cell("A4").Value = "Revision";
-        worksheet.Cell("B4").Value = getRevisionName(review.AboutRevision);
+        var reviewHeaders = new Dictionary<string, string>
+        {
+            ["A1"] = review.Label,
+            ["A2"] = "MASTER EQUIPMENT LIST",
+            ["A3"] = "Status",
+            ["B3"] = review.ReviewStatus,
+            ["A4"] = "Revision",
+            ["B4"] = getRevisionName(review.AboutRevision),
+            ["A5"] = "Comments responsible",
+            ["B5"] = review.IssuedBy
+        };
+
+        foreach (var header in reviewHeaders)
+        {
+            var cell = worksheet.Cell(header.Key);
+            cell.Value = header.Value;
+            if (header.Key.StartsWith("A"))
+            {
+                cell.Style.Font.SetBold();
+            }
+        }
+
     }
     // Simplify since only one prefx, or just 
     public static int AddOttrPrefix(this IXLWorksheet worksheet, int startRow, IDictionary<Uri, string> prefixes)
@@ -98,8 +124,11 @@ public static class ExcelGenerator
     // TODO: Not used after hardcoded comment prefix
     public static string getPrefix(Uri uri)
     {
-        if (uri.Fragment.Equals(""))
+        if (uri.Fragment.Equals("")) {
+            var value1 = string.Join("", uri.ToString().Split("/").SkipLast(1));
             return string.Join("", uri.ToString().Split("/").SkipLast(1));
+        }
+        var value = uri.GetLeftPart(UriPartial.Path);
         return uri.GetLeftPart(UriPartial.Path);
     }
     
@@ -108,17 +137,18 @@ public static class ExcelGenerator
     {
         if (uri.Fragment.Equals(""))
             return uri.ToString().Split("/").Last();
+        var value = uri.Fragment.Substring(1);
         return uri.Fragment.Substring(1);
     }
-    // TODO: Remove since only used by unnecessary prefix getter
-    public static string getCommentQName(this CommentDto comment, IDictionary<Uri, string> prefixes)
-    {
+  // TODO: Remove since only used by unnecessary prefix getter
+    /*public static string getCommentQName(this CommentDto comment, IDictionary<Uri, string> prefixes)
+     {
         var commentUri = new Uri(comment.CommentId);
         var commentUriLeftPart = new Uri(getPrefix(commentUri));
         var prefix = prefixes[commentUriLeftPart];
         return $"{prefix}:{getSuffix(commentUri)}";
-    }
-
+    }*/
+    /*  
     // TODO: This is unnecessary since comment id is a guid
     public static IDictionary<Uri, string> GetCommentIdPrefixes(this ReviewDTO review)
     {
@@ -136,9 +166,9 @@ public static class ExcelGenerator
             .Select(comment => getPrefix(new Uri(comment.CommentId)))
             .Distinct()
             .Select(uriString => new Uri(uriString));
-        
-    
-    
+     */
+
+
     // Fetches all IRIs used as object filters in aboutObject
     public static IEnumerable<Uri> GetAllObjectFilters(IEnumerable<CommentDto> comments) =>
         comments.SelectMany(comment =>
@@ -152,7 +182,8 @@ public static class ExcelGenerator
         worksheet.AddSheetRow(row, new string[]
             {
                 // TODO Use new hardcoded prefix for comment
-                commentDto.getCommentQName(prefixes),
+                //commentDto.getCommentQName(prefixes),
+                commentDto.CommentId,
                 commentDto.CommentText,
                 commentDto.IssuedBy,
             }
@@ -192,7 +223,9 @@ public static class ExcelGenerator
             new string[] { "Comment Id", "Equinor comment", "Equinor author" }
                 .Concat(filterNames)
                 .Concat(new string[] { "Property", "Contractor reply", "Contractor author" });
-        worksheet.Rows(startRow, currentRow).Hide();
+        worksheet.Row(currentRow).Style.Font.SetBold();
+        worksheet.Rows(startRow, currentRow-1).Hide();
+
         return worksheet.AddSheetRow(currentRow, ottrArgumentName);
         
     }
