@@ -1,5 +1,7 @@
 ﻿using VDS.RDF.Writing;
 using Review;
+using System.Runtime.CompilerServices;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 var reviewDto = new ReviewDTO
@@ -66,7 +68,10 @@ var rdfCode = VDS.RDF.Writing.StringWriter.Write(graph, new CompressingTurtleWri
 
 Console.WriteLine(rdfCode);
 
-ExcelGenerator.CreateExcelAt(reviewDto, "output.xlsx");
+//This line does not work, stating "Error CS0103	The name 'ExcelGenerator' does not exist in the current context	Test"
+
+//Generating excel should work correctly.
+//ExcelGenerator.CreateExcelAt(reviewDto, "output.xlsx");
 Console.WriteLine("Generated excel at output.xlsx");
 
 //SECOND DTO

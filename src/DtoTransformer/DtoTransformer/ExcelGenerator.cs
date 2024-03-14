@@ -24,9 +24,6 @@ public static class ExcelGenerator
         var worksheet = workbook.AddWorksheet("Review Comments");
 
         review.AddReviewHeader(worksheet, getUriLabel);
-        // TODO Refactor to use a single-element dictionary hardcoded 
-        // Soomething like new Dictionary<Uri, string>(){"https://...." => "comment"}
-        //var prefixes = new Dictionary<Uri, string>() { };
         var prefixes = new Dictionary<Uri, string>()
         {
             { new Uri("https://example.com/data/"), "comment" }
@@ -122,16 +119,7 @@ public static class ExcelGenerator
 
         return row + 1;
     }
-    // TODO: Not used after hardcoded comment prefix
-    public static string getPrefix(Uri uri)
-    {
-        if (uri.Fragment.Equals("")) {
-            var value1 = string.Join("", uri.ToString().Split("/").SkipLast(1));
-            return string.Join("", uri.ToString().Split("/").SkipLast(1));
-        }
-        var value = uri.GetLeftPart(UriPartial.Path);
-        return uri.GetLeftPart(UriPartial.Path);
-    }
+    
     
     // TODO: Move this to Test program, since only used for testing
     public static string getSuffix(Uri uri)
@@ -141,34 +129,7 @@ public static class ExcelGenerator
         var value = uri.Fragment.Substring(1);
         return uri.Fragment.Substring(1);
     }
-  // TODO: Remove since only used by unnecessary prefix getter
-    public static string getCommentQName(this CommentDto comment, IDictionary<Uri, string> prefixes)
-     {
-        var commentUri = new Uri(comment.CommentId);
-        var commentUriLeftPart = new Uri(getPrefix(commentUri));
-        var prefix = prefixes[commentUriLeftPart];
-        return $"{prefix}:{getSuffix(commentUri)}";
-    }
-      
-    // TODO: This is unnecessary since comment id is a guid
-    public static IDictionary<Uri, string> GetCommentIdPrefixes(this ReviewDTO review)
-    {
-
-        var namespaces = review.GetCommentIdNamespaces().ToArray();
-        return namespaces
-            .Zip(Enumerable.Range(1, namespaces.Length))
-            .ToDictionary(
-                x => x.First, 
-                x => $"comment{x.Second}");
-    }
-    
-    public static IEnumerable<Uri> GetCommentIdNamespaces(this ReviewDTO review) =>
-        review.HasComments
-            .Select(comment => getPrefix(new Uri(comment.CommentId)))
-            .Distinct()
-            .Select(uriString => new Uri(uriString));
-     
-
+  
 
     // Fetches all IRIs used as object filters in aboutObject
     public static IEnumerable<Uri> GetAllObjectFilters(IEnumerable<CommentDto> comments) =>
@@ -184,7 +145,7 @@ public static class ExcelGenerator
             {
                 // TODO Use new hardcoded prefix for comment
                 //commentDto.getCommentQName(prefixes),
-                commentDto.CommentId,
+                commentDto.CommentId.ToString(),
                 commentDto.CommentText,
                 commentDto.IssuedBy,
             }
