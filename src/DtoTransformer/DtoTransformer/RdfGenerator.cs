@@ -40,10 +40,10 @@ public class RdfGenerator
             var commentText = graph.CreateLiteralNode(commentDto.CommentText);
             var commentIssuedBy = graph.CreateLiteralNode(commentDto.IssuedBy);
             var commentGeneratedAtTime = graph.CreateLiteralNode(commentDto.GeneratedAtTime.ToString(), UriFactory.Create(Namespaces.Xsd.Date));
-            var reviewAboutData = graph.CreateUriNode(Namespaces.Review.AboutData);
+            var reviewAboutData = graph.CreateUriNode(new Uri(Namespaces.Review.AboutData));
             var aboutObject = graph.CreateBlankNode();
-            graph.Assert(new Triple(commentId, graph.CreateUriNode(Namespaces.Review.AboutObject), aboutObject));
-            graph.Assert(new Triple(aboutObject, graph.CreateUriNode(Namespaces.Rdf.Type), graph.CreateUriNode(Namespaces.Review.FilterObject)));
+            graph.Assert(new Triple(commentId, graph.CreateUriNode(new Uri(Namespaces.Review.AboutObject)), aboutObject));
+            graph.Assert(new Triple(aboutObject, graph.CreateUriNode(new Uri(Namespaces.Rdf.Type)), graph.CreateUriNode(new Uri(Namespaces.Review.FilterObject))));
             foreach (var pair in commentDto.AboutObject)
             {
                 var propertyNode = graph.CreateUriNode(pair.property);
@@ -52,10 +52,10 @@ public class RdfGenerator
                 graph.Assert(new Triple(aboutObject, propertyNode, valueNode));
             }
 
-            graph.Assert(new Triple(commentId, graph.CreateUriNode(Namespaces.Rdf.Type), graph.CreateUriNode(Namespaces.Review.Comment)));
-            graph.Assert(new Triple(commentId, graph.CreateUriNode(Namespaces.Rdfs.Label), commentText));
-            graph.Assert(new Triple(commentId, graph.CreateUriNode(Namespaces.Prov.GeneratedAtTime), commentGeneratedAtTime));
-            graph.Assert(new Triple(commentId, graph.CreateUriNode(Namespaces.Review.IssuedBy), commentIssuedBy));
+            graph.Assert(new Triple(commentId, graph.CreateUriNode(new Uri(Namespaces.Rdf.Type)), graph.CreateUriNode(new Uri(Namespaces.Review.Comment))));
+            graph.Assert(new Triple(commentId, graph.CreateUriNode(new Uri(Namespaces.Rdfs.Label)), commentText));
+            graph.Assert(new Triple(commentId, graph.CreateUriNode(new Uri(Namespaces.Prov.GeneratedAtTime)), commentGeneratedAtTime));
+            graph.Assert(new Triple(commentId, graph.CreateUriNode(new Uri(Namespaces.Review.IssuedBy)), commentIssuedBy));
 
 
             var nodes = new List<INode>();
@@ -68,7 +68,7 @@ public class RdfGenerator
 
             graph.Assert(new Triple(commentId, reviewAboutData, listRoot));
 
-            graph.Assert(new Triple(reviewId, graph.CreateUriNode(Namespaces.Review.HasComment), commentId));
+            graph.Assert(new Triple(reviewId, graph.CreateUriNode(new Uri(Namespaces.Review.HasComment)), commentId));
         }
 
 

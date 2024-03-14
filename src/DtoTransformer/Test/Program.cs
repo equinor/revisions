@@ -16,7 +16,7 @@ var reviewDto = new ReviewDTO
 
 var commentDto = new CommentDto
 {
-    CommentId = "https://example.com/data/first-uuid",
+    CommentUri = new Uri($"https://rdf.equinor.com/data/review/comment/{Guid.NewGuid()}"),
     CommentText = "A comment",
     IssuedBy = "Johannes",
     GeneratedAtTime = DateOnly.FromDateTime(DateTime.Now),
@@ -36,7 +36,7 @@ var commentDto = new CommentDto
 
 var anotherCommentDto = new CommentDto
 {
-    CommentId = "https://example.com/data/another-uuid",
+    CommentUri = new Uri($"https://rdf.equinor.com/data/review/comment/{Guid.NewGuid()}"),
     CommentText = "Another comment",
     IssuedBy = "John Doe",
     GeneratedAtTime = DateOnly.FromDateTime(DateTime.Now),
