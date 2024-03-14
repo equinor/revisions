@@ -104,13 +104,14 @@ public class DtoGenerator
         //Initalise CommentDTOs
         foreach (SparqlResult result in commentResults)
         {
-            var commentDto = new CommentDto();
-            commentDto.CommentId = result["commentId"].ToString();
-            commentDto.CommentText = ((LiteralNode)result["commentText"]).Value;
-            commentDto.IssuedBy = ((LiteralNode)result["issuedBy"]).Value;
-            commentDto.GeneratedAtTime = DateOnly.Parse(((LiteralNode)result["generatedAtTime"]).Value);
-
-            commentDto.AboutData = new List<Uri>();
+            var commentDto = new CommentDto
+            {
+                CommentId = result["commentId"].ToString(),
+                CommentText = ((LiteralNode)result["commentText"]).Value,
+                IssuedBy = ((LiteralNode)result["issuedBy"]).Value,
+                GeneratedAtTime = DateOnly.Parse(((LiteralNode)result["generatedAtTime"]).Value),
+                AboutData = new List<Uri>()
+            };
             foreach (var data in aboutDataResults)
             {
                 if (data["commentId"].ToString() == commentDto.CommentId)

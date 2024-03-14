@@ -1,6 +1,7 @@
 using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Drawing.Charts;
 using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 using VDS.RDF;
 
 namespace Review;
@@ -96,8 +97,8 @@ public static class ExcelGenerator
 
     public static string NextColumn(string columnName)
     {
-        char lastLetter = columnName[columnName.Length - 1];
-        string prefix = columnName.Substring(0, columnName.Length - 1);
+        char lastLetter = columnName[^1];
+        string prefix = columnName[..^1];
         if (lastLetter == 'Z')
         {
             string newprefix = prefix.Equals("") ? "A" : NextColumn(prefix);
@@ -141,14 +142,14 @@ public static class ExcelGenerator
         return uri.Fragment.Substring(1);
     }
   // TODO: Remove since only used by unnecessary prefix getter
-    /*public static string getCommentQName(this CommentDto comment, IDictionary<Uri, string> prefixes)
+    public static string getCommentQName(this CommentDto comment, IDictionary<Uri, string> prefixes)
      {
         var commentUri = new Uri(comment.CommentId);
         var commentUriLeftPart = new Uri(getPrefix(commentUri));
         var prefix = prefixes[commentUriLeftPart];
         return $"{prefix}:{getSuffix(commentUri)}";
-    }*/
-    /*  
+    }
+      
     // TODO: This is unnecessary since comment id is a guid
     public static IDictionary<Uri, string> GetCommentIdPrefixes(this ReviewDTO review)
     {
@@ -160,13 +161,13 @@ public static class ExcelGenerator
                 x => x.First, 
                 x => $"comment{x.Second}");
     }
-
+    
     public static IEnumerable<Uri> GetCommentIdNamespaces(this ReviewDTO review) =>
         review.HasComments
             .Select(comment => getPrefix(new Uri(comment.CommentId)))
             .Distinct()
             .Select(uriString => new Uri(uriString));
-     */
+     
 
 
     // Fetches all IRIs used as object filters in aboutObject
@@ -230,10 +231,9 @@ public static class ExcelGenerator
         
     }
     
-    public static int AddOttrTemplateEnd(this ReviewDTO review, IXLWorksheet worksheet, int startRow) =>
-        worksheet.AddSheetRow(startRow,
-                new[] { "#OTTR", "end" });
+    public static int AddOttrTemplateEnd(this ReviewDTO review, IXLWorksheet worksheet, int startRow) { 
+        worksheet.Row(startRow).Hide();
+        return worksheet.AddSheetRow(startRow, new[] { "#OTTR", "end" });
+    }
 
-    
-    
 }

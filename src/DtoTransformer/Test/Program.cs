@@ -28,7 +28,7 @@ var commentDto = new CommentDto
     },
     AboutObject = new List<(Uri property, string value)>()
     {
-        (new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), "the tag number"),
+        (new Uri("https://rdf.equinor.com/ontology/melER/v1#tagNumber"), "the tag number"),
         (new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), "The handling code"),
         (new Uri("https://rdf.equinor.com/ontology/mel/v1#importantField"), "The important field")
     }
