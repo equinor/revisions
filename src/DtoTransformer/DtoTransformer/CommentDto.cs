@@ -1,8 +1,24 @@
-﻿namespace Review;
+﻿using VDS.RDF;
+
+namespace Review;
 public class CommentDto
 {
     //Id of comment
-    public string CommentId { get; set; }
+    public Guid CommentId { get; set; }
+    
+
+    public Uri CommentUri
+    {
+        get {  return new Uri(new Uri(Namespaces.CommentData.BaseUrl), CommentId.ToString()); }
+        set
+        {
+            if (!value.ToString().StartsWith(Namespaces.CommentData.BaseUrl) || !Guid.TryParse(value.Segments.Last(), out Guid commentId))
+                throw new Exception(
+                    $"Invalid Uri {value.ToString()} used for comment. Comment URIs must start with {Namespaces.CommentData.BaseUrl} followed by a Guid.");
+            CommentId = commentId;
+        }
+    }
+    
     //Actual commenttext
     public string CommentText { get; set; }
     //Author of comment

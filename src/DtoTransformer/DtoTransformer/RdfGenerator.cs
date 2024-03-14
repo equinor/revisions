@@ -9,17 +9,13 @@ public class RdfGenerator
     {
         var graph = new Graph();
         //Add nAmespaces
-        graph.NamespaceMap.AddNamespace("rdf", new Uri("http://www.w3.org/1999/02/22-rdf-syntax-ns#"));
-        graph.NamespaceMap.AddNamespace("rdfs", new Uri("http://www.w3.org/2000/01/rdf-schema#"));
-        graph.NamespaceMap.AddNamespace("xsd", new Uri("http://www.w3.org/2001/XMLSchema#"));
-        graph.NamespaceMap.AddNamespace("exdata", new Uri("https://example.com/data/"));
-        graph.NamespaceMap.AddNamespace("exdoc", new Uri("https://example.com/doc/"));
-        graph.NamespaceMap.AddNamespace("rec", new Uri("https://rdf.equinor.com/ontology/record/"));
-        graph.NamespaceMap.AddNamespace("rev", new Uri("https://rdf.equinor.com/ontology/revision/"));
-        graph.NamespaceMap.AddNamespace("review", new Uri("https://rdf.equinor.com/ontology/review/"));
-        graph.NamespaceMap.AddNamespace("prov", new Uri("http://www.w3.org/ns/prov#"));
-        graph.NamespaceMap.AddNamespace("rdl", new Uri("http://example.com/rdl/"));
-        graph.NamespaceMap.AddNamespace("mel", new Uri("https://rdf.equinor.com/ontology/mel/v1#"));
+        graph.NamespaceMap.AddNamespace("rdf", new Uri(Namespaces.Rdf.BaseUrl));
+        graph.NamespaceMap.AddNamespace("rdfs", new Uri(Namespaces.Rdfs.BaseUrl));
+        graph.NamespaceMap.AddNamespace("xsd", new Uri(Namespaces.Xsd.BaseUrl));
+        graph.NamespaceMap.AddNamespace("rev", new Uri(Namespaces.Revision.BaseUrl));
+        graph.NamespaceMap.AddNamespace("review", new Uri(Namespaces.Review.BaseUrl));
+        graph.NamespaceMap.AddNamespace("prov", new Uri(Namespaces.Prov.BaseUrl));
+        graph.NamespaceMap.AddNamespace("comment", new Uri(Namespaces.CommentData.BaseUrl));
 
         // Create and assert Review triples
         var reviewId = graph.CreateUriNode(new Uri(reviewDto.ReviewId));
@@ -40,14 +36,14 @@ public class RdfGenerator
         //Create and assert comment triples
         foreach (var commentDto in reviewDto.HasComments)
         {
-            var commentId = graph.CreateUriNode(new Uri(commentDto.CommentId));
+            var commentId = graph.CreateUriNode(commentDto.CommentUri);
             var commentText = graph.CreateLiteralNode(commentDto.CommentText);
             var commentIssuedBy = graph.CreateLiteralNode(commentDto.IssuedBy);
-            var commentGeneratedAtTime = graph.CreateLiteralNode(commentDto.GeneratedAtTime.ToString(), UriFactory.Create("http://www.w3.org/2001/XMLSchema#date"));
-            var reviewAboutData = graph.CreateUriNode("review:aboutData");
+            var commentGeneratedAtTime = graph.CreateLiteralNode(commentDto.GeneratedAtTime.ToString(), UriFactory.Create(Namespaces.Xsd.Date));
+            var reviewAboutData = graph.CreateUriNode(new Uri(Namespaces.Review.AboutData));
             var aboutObject = graph.CreateBlankNode();
-            graph.Assert(new Triple(commentId, graph.CreateUriNode("review:aboutObject"), aboutObject));
-            graph.Assert(new Triple(aboutObject, graph.CreateUriNode("rdf:type"), graph.CreateUriNode("review:FilterObject")));
+            graph.Assert(new Triple(commentId, graph.CreateUriNode(new Uri(Namespaces.Review.AboutObject)), aboutObject));
+            graph.Assert(new Triple(aboutObject, graph.CreateUriNode(new Uri(Namespaces.Rdf.Type)), graph.CreateUriNode(new Uri(Namespaces.Review.FilterObject))));
             foreach (var pair in commentDto.AboutObject)
             {
                 var propertyNode = graph.CreateUriNode(pair.property);
@@ -56,10 +52,10 @@ public class RdfGenerator
                 graph.Assert(new Triple(aboutObject, propertyNode, valueNode));
             }
 
-            graph.Assert(new Triple(commentId, graph.CreateUriNode("rdf:type"), graph.CreateUriNode("review:Comment")));
-            graph.Assert(new Triple(commentId, graph.CreateUriNode("rdfs:label"), commentText));
-            graph.Assert(new Triple(commentId, graph.CreateUriNode("prov:generatedAtTime"), commentGeneratedAtTime));
-            graph.Assert(new Triple(commentId, graph.CreateUriNode("review:issuedBy"), commentIssuedBy));
+            graph.Assert(new Triple(commentId, graph.CreateUriNode(new Uri(Namespaces.Rdf.Type)), graph.CreateUriNode(new Uri(Namespaces.Review.Comment))));
+            graph.Assert(new Triple(commentId, graph.CreateUriNode(new Uri(Namespaces.Rdfs.Label)), commentText));
+            graph.Assert(new Triple(commentId, graph.CreateUriNode(new Uri(Namespaces.Prov.GeneratedAtTime)), commentGeneratedAtTime));
+            graph.Assert(new Triple(commentId, graph.CreateUriNode(new Uri(Namespaces.Review.IssuedBy)), commentIssuedBy));
 
 
             var nodes = new List<INode>();
@@ -72,7 +68,7 @@ public class RdfGenerator
 
             graph.Assert(new Triple(commentId, reviewAboutData, listRoot));
 
-            graph.Assert(new Triple(reviewId, graph.CreateUriNode("review:hasComment"), commentId));
+            graph.Assert(new Triple(reviewId, graph.CreateUriNode(new Uri(Namespaces.Review.HasComment)), commentId));
         }
 
 

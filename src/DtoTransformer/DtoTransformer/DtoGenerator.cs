@@ -1,4 +1,5 @@
 ﻿using VDS.RDF;
+using VDS.RDF.Nodes;
 using VDS.RDF.Query;
 using Graph = VDS.RDF.Graph;
 
@@ -104,17 +105,17 @@ public class DtoGenerator
         //Initalise CommentDTOs
         foreach (SparqlResult result in commentResults)
         {
-            var commentDto = new CommentDto
-            {
-                CommentId = result["commentId"].ToString(),
-                CommentText = ((LiteralNode)result["commentText"]).Value,
-                IssuedBy = ((LiteralNode)result["issuedBy"]).Value,
-                GeneratedAtTime = DateOnly.Parse(((LiteralNode)result["generatedAtTime"]).Value),
-                AboutData = new List<Uri>()
-            };
+            var commentDto = new CommentDto();
+            Uri commentUri = ((UriNode)result["commentId"]).Uri;
+            commentDto.CommentUri = commentUri;
+            commentDto.CommentText = ((LiteralNode)result["commentText"]).Value;
+            commentDto.IssuedBy = ((LiteralNode)result["issuedBy"]).Value;
+            commentDto.GeneratedAtTime = DateOnly.Parse(((LiteralNode)result["generatedAtTime"]).Value);
+
+            commentDto.AboutData = new List<Uri>();
             foreach (var data in aboutDataResults)
             {
-                if (data["commentId"].ToString() == commentDto.CommentId)
+                if (data["commentId"].ToString() == commentUri.ToString())
                 {
                     commentDto.AboutData.Add(new Uri(data["data"].ToString()));
                 }
@@ -123,7 +124,7 @@ public class DtoGenerator
             commentDto.AboutObject = new List<(Uri property, string value)>();
             foreach (var data in aboutObjectResults)
             {
-                if (data["commentId"].ToString() == commentDto.CommentId)
+                if (data["commentId"].ToString() == commentUri.ToString())
                 {
                     commentDto.AboutObject.Add((new Uri(data["property"].ToString()), ((LiteralNode)data["value"]).Value));
                 }
