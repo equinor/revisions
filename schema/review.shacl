@@ -6,6 +6,8 @@
 @prefix lis: <http://standards.iso.org/iso/15926/part14/>.
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
 
 review:ReviewShape
     a sh:NodeShape ;
@@ -31,7 +33,7 @@ review:ReviewShape
         sh:path review:aboutRevision;
         sh:minCount 1;
         sh:maxCount 1;
-        sh:class rev:Revision;
+        sh:path review:aboutRevision; 
         sh:name "ReviewRevision";
         sh:message "A reply is about exactly one revision";
         sh:severity sh:Violation;
