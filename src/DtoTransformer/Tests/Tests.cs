@@ -1,6 +1,7 @@
 using Xunit;
 using VDS.RDF;
 using VDS.RDF.Writing;
+using Review;
 
 
 namespace Review.Tests

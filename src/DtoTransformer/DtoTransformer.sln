@@ -10,7 +10,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", 
 		{23DB99B3-705C-440A-B22D-17A32A898A5F} = {23DB99B3-705C-440A-B22D-17A32A898A5F}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{3226BA83-7DD2-4CDD-B67F-247EEC7F8871}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{3226BA83-7DD2-4CDD-B67F-247EEC7F8871}"
+	ProjectSection(ProjectDependencies) = postProject
+		{23DB99B3-705C-440A-B22D-17A32A898A5F} = {23DB99B3-705C-440A-B22D-17A32A898A5F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

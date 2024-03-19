@@ -193,8 +193,9 @@ public static class ExcelGenerator
     }
     
     public static int AddOttrTemplateEnd(this ReviewDTO review, IXLWorksheet worksheet, int startRow) { 
-        worksheet.Row(startRow).Hide();
-        return worksheet.AddSheetRow(startRow, new[] { "#OTTR", "end" });
+        var row = worksheet.AddSheetRow(startRow, new[] { "#OTTR", "end" });
+        worksheet.Row(row-1).Hide();
+        return row;
     }
 
 }

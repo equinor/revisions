@@ -30,7 +30,7 @@ var commentDto = new CommentDto
     },
     AboutObject = new List<(Uri property, string value)>()
     {
-        (new Uri("https://rdf.equinor.com/ontology/melER/v1#tagNumber"), "the tag number"),
+        (new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), "the tag number"),
         (new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), "The handling code"),
         (new Uri("https://rdf.equinor.com/ontology/mel/v1#importantField"), "The important field")
     }
@@ -53,6 +53,7 @@ var anotherCommentDto = new CommentDto
     }
 };
 
+
 reviewDto.HasComments.Add(commentDto);
 reviewDto.HasComments.Add(anotherCommentDto);
 
@@ -71,7 +72,8 @@ Console.WriteLine(rdfCode);
 //This line does not work, stating "Error CS0103	The name 'ExcelGenerator' does not exist in the current context	Test"
 
 //Generating excel should work correctly.
-//ExcelGenerator.CreateExcelAt(reviewDto, "output.xlsx");
+
+ExcelGenerator.CreateExcelAt(reviewDto, "output.xlsx");
 Console.WriteLine("Generated excel at output.xlsx");
 
 //SECOND DTO
