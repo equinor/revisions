@@ -40,9 +40,9 @@ public static class ExcelGenerator
     public static int GenerateCommentRows(this ReviewDTO review, IXLWorksheet worksheet, int startRow,
         Func<Uri, string> propertyLabelGetter, IDictionary<Uri, string> prefixes)
     {
-        var filterUriss = GetAllObjectFilters(review.HasComments)
+        var filterUris = GetAllObjectFilters(review.HasComments)
             .ToArray();
-        var filterNames = filterUriss.Select(propertyLabelGetter).ToArray();
+        var filterNames = filterUris.Select(propertyLabelGetter).ToArray();
         var commentRow = review.AddOttrTemplateStart(worksheet, startRow, filterNames);
         foreach (var comment in review.HasComments)
         {
