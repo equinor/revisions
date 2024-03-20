@@ -27,6 +27,7 @@ namespace Review.Tests
         [Fact]
         public void ReviewDtoTransformationShouldMaintainEquality()
         {
+            //Arrange
             var reviewDto = CreateReviewDto();
 
             //Act
@@ -49,19 +50,26 @@ namespace Review.Tests
         [Fact]
         public void UseShaclToChekValidityOfRdf()
         {
+            //Arrange
             var reviewDto = CreateReviewDto();
             var graph = RdfGenerator.GenerateRdf(reviewDto);
             var rdfCode = VDS.RDF.Writing.StringWriter.Write(graph, new CompressingTurtleWriter());
-            CheckReview(rdfCode, "C:/Users/johannes.telle/source/repos/revisions/schema/review.shacl");
+            CheckReview(rdfCode, "review.shacl");
         }
         internal void CheckReview(string rdf, string shacl_name)
         {
+             //Act
              var graph = new Graph();
              StringParser.Parse(graph, rdf);
-             var shaclFileLocation = shacl_name;
+             
+             var currentDirectory = Directory.GetCurrentDirectory();
+             var basePath = currentDirectory.Split(new string[] { "\\bin" }, StringSplitOptions.None)[0];
+             var shaclFileLocation = $"{basePath}/TestData/{shacl_name}";
              var shapes = new Graph();
              shapes.LoadFromFile(shaclFileLocation);
              var shapeGraph = new ShapesGraph(shapes);
+
+             //Assert
              var report = shapeGraph.Validate(graph);
              if (!report.Conforms)
              {
