@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <PackageId>RevisionNamespaces.csproj</PackageId>
+        <Description>An automatically generated nuget package for IRIs. Generated from: equinor/revisions:d2f6938139a6edfeaf804fde7d30c875ef4b9c0b</Description>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    </PropertyGroup>
+</Project>
+    
