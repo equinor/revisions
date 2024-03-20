@@ -46,7 +46,7 @@ public static class ExcelGenerator
         var commentRow = review.AddOttrTemplateStart(worksheet, startRow, filterNames);
         foreach (var comment in review.HasComments)
         {
-            comment.CommentToExcelRow(worksheet, commentRow, filterUriss, prefixes);
+            comment.CommentToExcelRow(worksheet, commentRow, filterUris, prefixes);
             commentRow++;
         }
         return review.AddOttrTemplateEnd(worksheet, commentRow);
