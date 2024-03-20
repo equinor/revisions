@@ -77,17 +77,18 @@ public static class ExcelGenerator
         }
 
     }
-    // Simplify since only one prefx, or just 
     public static int AddOttrPrefix(this IXLWorksheet worksheet, int startRow, IDictionary<Uri, string> prefixes)
     {
         var currentRow = startRow;
         worksheet.Cell($"A{currentRow}").Value = "#OTTR";
         worksheet.Cell($"B{currentRow}").Value = "prefix";
         currentRow++;
-        foreach (var (prefixUri, prefixNamekeypair) in prefixes)
+        /*foreach (var (prefixUri, prefixNamekeypair) in prefixes)
         {
             currentRow = worksheet.AddSheetRow(currentRow, new string[] { prefixNamekeypair, prefixUri.ToString() });
-        }
+        }*/
+        var prefix = prefixes.Single();
+        currentRow = worksheet.AddSheetRow(currentRow, new string[] { prefix.Value, prefix.Key.ToString() });
         worksheet.Rows(startRow, currentRow).Hide();
         return worksheet.AddSheetRow(currentRow, new string[]{"#OTTR", "end"});
     }
@@ -120,16 +121,22 @@ public static class ExcelGenerator
         return row + 1;
     }
     
-    
-    // TODO: Move this to Test program, since only used for testing
     public static string getSuffix(Uri uri)
     {
         if (uri.Fragment.Equals(""))
             return uri.ToString().Split("/").Last();
-        var value = uri.Fragment.Substring(1);
         return uri.Fragment.Substring(1);
     }
-  
+
+    public static string getCommentQName(this CommentDto comment, IDictionary<Uri, string> prefixes)
+    {
+        //Returns a string on the form comment:[GUID]
+        var guid = comment.CommentId.ToString();
+        var prefix = prefixes.Single();
+        return $"{prefix.Value}:{guid}";
+    }
+
+
 
     // Fetches all IRIs used as object filters in aboutObject
     public static IEnumerable<Uri> GetAllObjectFilters(IEnumerable<CommentDto> comments) =>
@@ -143,9 +150,7 @@ public static class ExcelGenerator
         Uri[] filternames, IDictionary<Uri, string> prefixes) =>
         worksheet.AddSheetRow(row, new string[]
             {
-                // TODO Use new hardcoded prefix for comment
-                //commentDto.getCommentQName(prefixes),
-                commentDto.CommentId.ToString(),
+                commentDto.getCommentQName(prefixes),
                 commentDto.CommentText,
                 commentDto.IssuedBy,
             }
