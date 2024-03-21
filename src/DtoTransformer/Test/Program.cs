@@ -1,5 +1,7 @@
 ﻿using VDS.RDF.Writing;
 using Review;
+using System.Runtime.CompilerServices;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 var reviewDto = new ReviewDTO
@@ -51,6 +53,7 @@ var anotherCommentDto = new CommentDto
     }
 };
 
+
 reviewDto.HasComments.Add(commentDto);
 reviewDto.HasComments.Add(anotherCommentDto);
 
@@ -65,6 +68,9 @@ Console.Write("First RDF");
 var rdfCode = VDS.RDF.Writing.StringWriter.Write(graph, new CompressingTurtleWriter());
 
 Console.WriteLine(rdfCode);
+
+ExcelGenerator.CreateExcelAt(reviewDto, "output.xlsx");
+Console.WriteLine("Generated excel at output.xlsx");
 
 //SECOND DTO
 reviewDto = DtoGenerator.GenerateDto(graph);

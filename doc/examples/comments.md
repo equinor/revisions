@@ -17,7 +17,7 @@ Based on this. In json format
         "AboutObject": [
             {
                 "property": "https://rdf.equinor.com/ontology/mel/v1#tagNumber",
-                "value": "the tag number"
+                "value": "AB-CD-01"
             },
             {
                 "property": "https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode",
@@ -42,7 +42,7 @@ Based on this. In json format
         "AboutObject": [
             {
                 "property": "https://rdf.equinor.com/ontology/mel/v1#tagNumber",
-                "value": "the tag number"
+                "value": "AB-CD-02"
             },
             {
                 "property": "https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode",
@@ -64,7 +64,7 @@ Based on this. In json format
         "AboutObject": [
             {
                 "property": "https://rdf.equinor.com/ontology/mel/v1#tagNumber",
-                "value": "the tag number"
+                "value": "AB-CD-02"
             },
             {
                 "property": "https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode",
@@ -105,7 +105,7 @@ var commentDto = new CommentDto
     },
     AboutObject = new List<(Uri property, string value)>()
     {
-        (new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), "the tag number"),
+        (new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), "AB-CD-01"),
         (new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), "The handling code"),
         (new Uri("https://rdf.equinor.com/ontology/mel/v1#importantField"), "The important field")
     }
@@ -123,7 +123,7 @@ var anotherCommentDto = new CommentDto
     },
     AboutObject = new List<(Uri property, string value)>()
     {
-        (new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), "the tag number"),
+        (new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), "AB-CD-02"),
         (new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), "The handling code")
     }
 };
@@ -193,7 +193,7 @@ exdata:RecordID123.5 {
                                                                 <https://example.com/doc/A123-BC-D-EF-00001.F01row3>
                                                                 <https://example.com/doc/A123-BC-D-EF-00001.F01row10>);
                                                 review:aboutObject [a review:FilterObject ;
-                                                                    mel:tagNumber "the tag number";
+                                                                    mel:tagNumber "AB-CD-01";
                                                                     mel:weightHandlingCode "The handling code";
                                                                     mel:importantField "The important field"];
                                                 review:issuedBy "Line Danser".
@@ -203,7 +203,7 @@ exdata:RecordID123.5 {
                                                 prov:generatedAtTime "2022-01-02"^^xsd:date;
                                                 review:aboutData (<https://example.com/doc/A123-BC-D-EF-00001.F01row1>);
                                                 review:aboutObject [a review:FilterObject ;
-                                                                    mel:tagNumber "the tag number";
+                                                                    mel:tagNumber "AB-CD-02";
                                                                     mel:weightHandlingCode "The handling code"];
                                                 review:issuedBy "Turi Skogen".
 
@@ -212,7 +212,7 @@ exdata:RecordID123.5 {
                                                 prov:generatedAtTime "2022-01-02"^^xsd:date;
                                                 review:aboutData (<https://example.com/doc/A123-BC-D-EF-00001.F01row5> <https://example.com/doc/A123-BC-D-EF-00001.F01row7>);
                                                 review:aboutObject [a review:FilterObject ;
-                                                                    mel:tagNumber "the tag number";
+                                                                    mel:tagNumber "AB-CD-03";
                                                                     mel:weightHandlingCode "The handling code"];
                                                 review:issuedBy "Kari Nordmann".
 }
