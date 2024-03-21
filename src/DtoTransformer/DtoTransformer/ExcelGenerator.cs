@@ -58,7 +58,7 @@ public static class ExcelGenerator
             ["A1"] = review.Label,
             ["A2"] = "MASTER EQUIPMENT LIST",
             ["A3"] = "Status",
-            ["B3"] = review.ReviewStatus,
+            ["B3"] = review.GetReviewStatusDescription(),
             ["A4"] = "Revision",
             ["B4"] = getRevisionName(review.AboutRevision),
             ["A5"] = "Comments responsible",

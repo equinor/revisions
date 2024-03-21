@@ -14,5 +14,22 @@ public class ReviewDTO
     public string Label { get; set; }
     //The comments in the review
     public List<CommentDto> HasComments { get; set; }
+
+    public string GetReviewStatusDescription()
+    {
+        switch (ReviewStatus)
+        {
+            case "https://rdf.equinor.com/ontology/review/Code1":
+                return "Code 1: Accepted";
+            case "https://rdf.equinor.com/ontology/review/Code2":
+                return "Code 2: Minor Changes Needed";
+            case "https://rdf.equinor.com/ontology/review/Code3":
+                return "Code 3: Major Changes Needed";
+            case "https://rdf.equinor.com/ontology/review/Code4":
+                return "Code 4: Redesign Required";
+            default:
+                return "Status Unknown";
+        }
+    }
 }
 
