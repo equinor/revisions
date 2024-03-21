@@ -58,7 +58,7 @@ public static class ExcelGenerator
             ["A1"] = review.Label,
             ["A2"] = "MASTER EQUIPMENT LIST",
             ["A3"] = "Status",
-            ["B3"] = review.ReviewStatus,
+            ["B3"] = review.GetReviewStatusDescription(),
             ["A4"] = "Revision",
             ["B4"] = getRevisionName(review.AboutRevision),
             ["A5"] = "Comments responsible",
@@ -181,7 +181,8 @@ public static class ExcelGenerator
 
         worksheet.AddSheetRow(row, rowData);
 
-        //worksheet.Cell(row, commentTextColumnIndex).Style.Alignment.WrapText = true;
+        worksheet.Cell(row, commentTextColumnIndex).Style.Alignment.WrapText = true;
+        worksheet.Column(commentTextColumnIndex).Width = 30;
 
         // Unlock the cells for contractor reply and author
         worksheet.Cell(row, contractorReplyColumnIndex).Style.Protection.SetLocked(false);
@@ -189,10 +190,14 @@ public static class ExcelGenerator
 
        foreach (var column in worksheet.ColumnsUsed())
         {
-            //if (column.ColumnNumber() != commentTextColumnIndex)
+            if (column.ColumnNumber() != commentTextColumnIndex)
             {
                 column.AdjustToContents();
             }
+        }
+        if (row % 2 != 0)
+        {
+            worksheet.Row(row).Style.Fill.BackgroundColor = XLColor.LightGray;
         }
     }
 

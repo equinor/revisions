@@ -63,8 +63,7 @@ namespace Review.Tests
              StringParser.Parse(graph, rdf);
              
              var currentDirectory = Directory.GetCurrentDirectory();
-             var basePath = currentDirectory.Split(new string[] { "\\bin" }, StringSplitOptions.None)[0];
-             var shaclFileLocation = $"{basePath}/TestData/{shacl_name}";
+             var shaclFileLocation = $"{currentDirectory}/TestData/{shacl_name}";
              var shapes = new Graph();
              shapes.LoadFromFile(shaclFileLocation);
              var shapeGraph = new ShapesGraph(shapes);

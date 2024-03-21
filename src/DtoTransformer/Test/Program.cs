@@ -19,7 +19,7 @@ var reviewDto = new ReviewDTO
 var commentDto = new CommentDto
 {
     CommentUri = new Uri($"https://rdf.equinor.com/data/review/comment/{Guid.NewGuid()}"),
-    CommentText = "A comment",
+    CommentText = "A comment kjfdfbn hehje  hefhekfje  kjdhfdkj khdjkhdjk k hj h kfhdkjskjdhd kdjfhdjfh jkdhfdj jd kjddj  jjd .",
     IssuedBy = "Johannes",
     GeneratedAtTime = DateOnly.FromDateTime(DateTime.Now),
     AboutData = new List<Uri>()
