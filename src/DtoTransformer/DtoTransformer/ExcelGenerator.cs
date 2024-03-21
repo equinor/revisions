@@ -29,11 +29,10 @@ public static class ExcelGenerator
             { new Uri("https://example.com/data/"), "comment" }
         };
 
-
+       
         int nextFreeRow = worksheet.AddOttrPrefix(9, prefixes);
         review.GenerateCommentRows(worksheet, nextFreeRow, getUriLabel, prefixes);
-                worksheet.Columns().AdjustToContents(); // This will adjust all columns
-        worksheet.Rows().AdjustToContents();
+        worksheet.Protect();
         return workbook;
     }
 
@@ -83,12 +82,11 @@ public static class ExcelGenerator
         worksheet.Cell($"A{currentRow}").Value = "#OTTR";
         worksheet.Cell($"B{currentRow}").Value = "prefix";
         currentRow++;
-        /*foreach (var (prefixUri, prefixNamekeypair) in prefixes)
+
+        foreach (var (prefixUri, prefixNamekeypair) in prefixes)
         {
             currentRow = worksheet.AddSheetRow(currentRow, new string[] { prefixNamekeypair, prefixUri.ToString() });
-        }*/
-        var prefix = prefixes.Single();
-        currentRow = worksheet.AddSheetRow(currentRow, new string[] { prefix.Value, prefix.Key.ToString() });
+        }
         worksheet.Rows(startRow, currentRow).Hide();
         return worksheet.AddSheetRow(currentRow, new string[]{"#OTTR", "end"});
     }
@@ -137,7 +135,6 @@ public static class ExcelGenerator
     }
 
 
-
     // Fetches all IRIs used as object filters in aboutObject
     public static IEnumerable<Uri> GetAllObjectFilters(IEnumerable<CommentDto> comments) =>
         comments.SelectMany(comment =>
@@ -145,30 +142,59 @@ public static class ExcelGenerator
                     .Select(aboutFilter => aboutFilter.property.ToString()))
             .Distinct()
             .Select(filter => new Uri(filter));
-    
+
     public static void CommentToExcelRow(this CommentDto commentDto, IXLWorksheet worksheet, int row,
-        Uri[] filternames, IDictionary<Uri, string> prefixes) =>
-        worksheet.AddSheetRow(row, new string[]
-            {
-                commentDto.getCommentQName(prefixes),
-                commentDto.CommentText,
-                commentDto.IssuedBy,
-            }
-            .Concat(filternames.Select(filterName =>
-                commentDto.AboutObject
-                    .Where(aboutFilter => aboutFilter.property.ToString().Equals(filterName.ToString()))
+    Uri[] filternames, IDictionary<Uri, string> prefixes)
+    {
+        // Define column indexes based on your sheet layout
+        const int commentTextColumnIndex = 2;
+
+        // Calculate the indexes for contractor reply and author by offsetting from the number of filter names
+        int columnOffset = filternames.Length + 4; // 4 for the initial columns (QName, CommentText, IssuedBy) and Property
+        int contractorReplyColumnIndex = columnOffset + 1;
+        int contractorAuthorColumnIndex = contractorReplyColumnIndex + 1;
+
+        // Create the row data
+        var rowData = new string[]
+        {
+        commentDto.getCommentQName(prefixes),
+        commentDto.CommentText,
+        commentDto.IssuedBy,
+        }
+        .Concat(filternames.Select(filterName =>
+            commentDto.AboutObject
+                .Where(aboutFilter => aboutFilter.property.ToString().Equals(filterName.ToString()))
                 .Select(aboutFilter => aboutFilter.value)
                 .DefaultIfEmpty("")
                 .Single()
-                )
             )
-            .Concat(new string[]
+        )
+        .Concat(new string[]
+        {
+        "", // Property is not part of the DTO yet
+        "", // Contractor reply is filled by contractor
+        "" // Contractor author is filled by contractor
+        })
+        .ToArray();
+
+        // Add the row data to the worksheet
+
+        worksheet.AddSheetRow(row, rowData);
+
+        //worksheet.Cell(row, commentTextColumnIndex).Style.Alignment.WrapText = true;
+
+        // Unlock the cells for contractor reply and author
+        worksheet.Cell(row, contractorReplyColumnIndex).Style.Protection.SetLocked(false);
+        worksheet.Cell(row, contractorAuthorColumnIndex).Style.Protection.SetLocked(false);
+
+       foreach (var column in worksheet.ColumnsUsed())
+        {
+            //if (column.ColumnNumber() != commentTextColumnIndex)
             {
-                "", // Property is not part of the DTO yet
-                "", //Contractor reply is filled by contractor
-                "" //Contractor author is filled by contractor
-            })
-            );
+                column.AdjustToContents();
+            }
+        }
+    }
 
     public static int AddOttrTemplateStart(this ReviewDTO review, IXLWorksheet worksheet, int startRow,
         string[] filterNames)

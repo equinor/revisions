@@ -33,7 +33,6 @@ review:ReviewShape
         sh:path review:aboutRevision;
         sh:minCount 1;
         sh:maxCount 1;
-        sh:path review:aboutRevision; 
         sh:name "ReviewRevision";
         sh:message "A reply is about exactly one revision";
         sh:severity sh:Violation;
