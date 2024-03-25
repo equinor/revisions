@@ -1,0 +1,26 @@
+name: "Unit test"
+on:
+  - push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run:  dotnet restore ./src/DtoTransformer/DtoTransformer.sln
+    - name: Build DtoTransformer
+      run: dotnet build ./src/DtoTransformer/DtoTransformer.sln --no-restore 
+    - name: Restore tests
+      run: |
+        dotnet restore ./src/Record.Nuget.Test
+    - name: Build tests
+      run: dotnet build ./src/DtoTransformer/Tests --no-restore
+    - name: Test
+      run: |
+        dotnet test ./src/DtoTransformer/DtoTransformer.sln --no-build --verbosity normal
+        dotnet test ./src/DtoTransformer/Tests --no-build --verbosity normal
