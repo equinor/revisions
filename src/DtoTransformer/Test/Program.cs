@@ -1,7 +1,5 @@
 ﻿using VDS.RDF.Writing;
 using Review;
-using System.Runtime.CompilerServices;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 var reviewDto = new ReviewDTO
@@ -19,7 +17,7 @@ var reviewDto = new ReviewDTO
 var commentDto = new CommentDto
 {
     CommentUri = new Uri($"https://rdf.equinor.com/data/review/comment/{Guid.NewGuid()}"),
-    CommentText = "A comment kjfdfbn hehje  hefhekfje  kjdhfdkj khdjkhdjk k hj h kfhdkjskjdhd kdjfhdjfh jkdhfdj jd kjddj  jjd .",
+    CommentText = "A comment",
     IssuedBy = "Johannes",
     GeneratedAtTime = DateOnly.FromDateTime(DateTime.Now),
     AboutData = new List<Uri>()
@@ -53,10 +51,8 @@ var anotherCommentDto = new CommentDto
     }
 };
 
-
 reviewDto.HasComments.Add(commentDto);
 reviewDto.HasComments.Add(anotherCommentDto);
-
 
 Console.Write("First DTO");
 printInfo(reviewDto);
