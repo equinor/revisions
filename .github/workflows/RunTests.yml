@@ -17,7 +17,7 @@ jobs:
       run: dotnet build ./src/DtoTransformer/DtoTransformer.sln --no-restore 
     - name: Restore tests
       run: |
-        dotnet restore ./src/Record.Nuget.Test
+        dotnet restore ./src/DtoTransformer/Tests
     - name: Build tests
       run: dotnet build ./src/DtoTransformer/Tests --no-restore
     - name: Test
