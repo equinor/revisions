@@ -11,6 +11,7 @@ using VDS.RDF.Shacl.Validation;
 using Xunit.Abstractions;
 using FluentAssertions;
 using ClosedXML.Excel;
+using Lucene.Net.Search.Similarities;
 
 
 namespace Review.Tests
@@ -91,7 +92,6 @@ namespace Review.Tests
         {
             // Arrange
             var reviewDto = CreateReviewDto();
-            var expectedFilePath = "C:/Users/johannes.telle//source/repos/revisions/src/DtoTransformer/Tests/TestData/CorrectOutput.xlsx";
             var actualFilePath = "output.xlsx";
 
             // Act
@@ -99,27 +99,43 @@ namespace Review.Tests
             var reviewDtoAfterTransformation = DtoGenerator.GenerateDto(graph);
             ExcelGenerator.CreateExcelAt(reviewDtoAfterTransformation, actualFilePath);
 
+            var reviewDtoFromExcel = ExcelParser.ParseExcelToReviewDTO(actualFilePath);
+
+
             // Assert
-            using (var expectedWorkbook = new XLWorkbook(expectedFilePath))
-            using (var actualWorkbook = new XLWorkbook(actualFilePath))
+            Assert.Equal(reviewDto.ReviewId, reviewDtoAfterTransformation.ReviewId);
+            Assert.Equal(reviewDto.IssuedBy, reviewDtoAfterTransformation.IssuedBy);
+            Assert.Equal(reviewDto.ReviewStatus, reviewDtoAfterTransformation.ReviewStatus);
+            Assert.Equal(reviewDto.Label, reviewDtoAfterTransformation.Label);
+
+            //sort HasComments CommentDto based on each of the CommentId
+
+            var sortedCommentsDto = reviewDto.HasComments.OrderBy(comment => comment.CommentId).ToList();
+            var sortedCommentsDtoAfterTransformation = reviewDtoAfterTransformation.HasComments.OrderBy(comment => comment.CommentId).ToList();
+
+            for (int i = 0; i < sortedCommentsDto.Count; i++)
             {
-                foreach (var expectedSheet in expectedWorkbook.Worksheets)
+                var commentDto = sortedCommentsDto[i];
+                var commentDtoAfterTransformation = sortedCommentsDtoAfterTransformation[i];
+
+                Assert.Equal(commentDto.CommentId, commentDtoAfterTransformation.CommentId);
+                Assert.Equal(commentDto.IssuedBy, commentDtoAfterTransformation.IssuedBy);
+                Assert.Equal(commentDto.CommentText, commentDtoAfterTransformation.CommentText);
+
+                //Sort CommentDto.AboutObject by Uri for both commentDto and commentDtoAfterTransformation
+                commentDto.AboutObject.Sort((x, y) => Uri.Compare(x.property, y.property, UriComponents.AbsoluteUri, UriFormat.UriEscaped, StringComparison.Ordinal));
+                commentDtoAfterTransformation.AboutObject.Sort((x, y) => Uri.Compare(x.property, y.property, UriComponents.AbsoluteUri, UriFormat.UriEscaped, StringComparison.Ordinal));
+                for (int j = 0; i < commentDto.AboutObject.Count; i++)
                 {
-                    var actualSheet = actualWorkbook.Worksheet(expectedSheet.Name);
-                    foreach (var expectedCell in expectedSheet.CellsUsed())
-                    {
-                        if (expectedCell.GetText().Contains("comment:"))
-                        {
-                            //pass
-                        }
-                        else
-                        {
-                            var actualCell = actualSheet.Cell(expectedCell.Address);
-                            Assert.Equal(expectedCell.Value, actualCell.Value);
-                        }
-                    }
+                    Assert.Equal(commentDto.AboutObject[j], commentDtoAfterTransformation.AboutObject[j]);
                 }
+
+
             }
+
+
+
+
         }
 
         public ReviewDTO CreateReviewDto() {

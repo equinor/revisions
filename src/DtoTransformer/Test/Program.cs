@@ -68,6 +68,12 @@ Console.WriteLine(rdfCode);
 ExcelGenerator.CreateExcelAt(reviewDto, "output.xlsx");
 Console.WriteLine("Generated excel at output.xlsx");
 
+var reviewDTO = ExcelParser.ParseExcelToReviewDTO("output.xlsx");
+Console.WriteLine("DTO FROM EXCEL");
+printInfo(reviewDTO);
+
+
+
 //SECOND DTO
 reviewDto = DtoGenerator.GenerateDto(graph);
 
@@ -107,7 +113,11 @@ static void printInfo(ReviewDTO review)
         Console.WriteLine("Issued By: " + comment.IssuedBy);
         Console.WriteLine("Generated At Time: " + comment.GeneratedAtTime);
 
-        Console.WriteLine("About Data: " + string.Join(", ", comment.AboutData));
+        if (comment.AboutData != null)
+        {
+            Console.WriteLine("About Data: " + string.Join(", ", comment.AboutData));
+        }
+        
         Console.WriteLine("About Object: " + string.Join(", ", comment.AboutObject.Select(x => x.property + " = " + x.value)));
     }
     Console.WriteLine("------------------------------");
