@@ -16,22 +16,20 @@ namespace Review
             var worksheet = workbook.Worksheet("Review Comments");
 
             // Create a new ReviewDTO object
-            //DateTime parsedDateTime = DateTime.ParseExact(GetCellValue(worksheet, "B6"), "M/d/yyyy", null);
             var reviewDto = new ReviewDTO
             {
                 // Assuming ReviewId would be a part of the Excel file, if not, generate or fetch from another source.
                 ReviewId = "https://example.com/doc/reply-"+GetCellValue(worksheet, "B4"),
                 AboutRevision = new Uri("https://example.com/data/"+GetCellValue(worksheet, "B4")),
                 IssuedBy = GetCellValue(worksheet, "B5"),
-                //GeneratedAtTime = GetCellValue(worksheet, "B6"), 
                 ReviewStatus = GetReviewStatusFromDescription(GetCellValue(worksheet, "B3")),
                 Label = GetCellValue(worksheet, "A1"),
                 HasComments = new List<CommentDto>()
             };
 
             // Loop through rows to get CommentDto objects
-            int currentRow = 16; // Assuming data starts from the 9th row
-            int filterStartColumnIndex = 4;
+            var currentRow = 16; // Assuming data starts from the 9th row
+            var filterStartColumnIndex = 4;
             while (true)
             {
                 var idCell = worksheet.Cell($"A{currentRow}");
@@ -48,7 +46,7 @@ namespace Review
                     AboutObject = new List<(Uri property, string value)>()
                 };
                 // Retrieve filter values from the row
-                for (int columnIndex = filterStartColumnIndex; columnIndex < worksheet.ColumnsUsed().Count(); columnIndex++)
+                for (var columnIndex = filterStartColumnIndex; columnIndex < worksheet.ColumnsUsed().Count(); columnIndex++)
                 {
                     var propertyCell = worksheet.Cell(15, columnIndex); // Assuming property URIs are in the 8th row
                     var valueCell = worksheet.Cell(currentRow, columnIndex);
