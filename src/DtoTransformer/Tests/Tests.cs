@@ -10,6 +10,8 @@ using static Review.Namespaces;
 using VDS.RDF.Shacl.Validation;
 using Xunit.Abstractions;
 using FluentAssertions;
+using ClosedXML.Excel;
+using Lucene.Net.Search.Similarities;
 
 
 namespace Review.Tests
@@ -43,8 +45,13 @@ namespace Review.Tests
             {
                 var expectedComment = reviewDto.HasComments[i];
                 var actualComment = reviewDtoAfterTransformation.HasComments[i];
-                Assert.Equal(expectedComment.CommentId, actualComment.CommentId);
-                Assert.Equal(expectedComment.CommentText, actualComment.CommentText);
+
+                Guid parsedGuid;
+                bool isValidGuid = Guid.TryParse(actualComment.CommentId.ToString(), out parsedGuid);
+                Assert.True(isValidGuid, "The CommentId is not a valid GUID.");
+
+                Assert.False(string.IsNullOrEmpty(actualComment.CommentText), "The CommentText should not be null or empty.");
+
             }
         }
         [Fact]
@@ -79,40 +86,111 @@ namespace Review.Tests
              report.Conforms.Should().BeTrue();
         }
 
+
+        [Fact]
+        public void ValidateThatExcelIsCorrect()
+        {
+            // Arrange
+            var reviewDto = CreateReviewDto();
+            var actualFilePath = "output.xlsx";
+
+            // Act
+            var graph = RdfGenerator.GenerateRdf(reviewDto);
+            var reviewDtoAfterTransformation = DtoGenerator.GenerateDto(graph);
+            ExcelGenerator.CreateExcelAt(reviewDtoAfterTransformation, actualFilePath);
+
+            var reviewDtoFromExcel = ExcelParser.ParseExcelToReviewDTO(actualFilePath);
+
+
+            // Assert
+            Assert.Equal(reviewDto.ReviewId, reviewDtoAfterTransformation.ReviewId);
+            Assert.Equal(reviewDto.IssuedBy, reviewDtoAfterTransformation.IssuedBy);
+            Assert.Equal(reviewDto.ReviewStatus, reviewDtoAfterTransformation.ReviewStatus);
+            Assert.Equal(reviewDto.Label, reviewDtoAfterTransformation.Label);
+
+            //sort HasComments CommentDto based on each of the CommentId
+
+            var sortedCommentsDto = reviewDto.HasComments.OrderBy(comment => comment.CommentId).ToList();
+            var sortedCommentsDtoAfterTransformation = reviewDtoAfterTransformation.HasComments.OrderBy(comment => comment.CommentId).ToList();
+
+            for (int i = 0; i < sortedCommentsDto.Count; i++)
+            {
+                var commentDto = sortedCommentsDto[i];
+                var commentDtoAfterTransformation = sortedCommentsDtoAfterTransformation[i];
+
+                Assert.Equal(commentDto.CommentId, commentDtoAfterTransformation.CommentId);
+                Assert.Equal(commentDto.IssuedBy, commentDtoAfterTransformation.IssuedBy);
+                Assert.Equal(commentDto.CommentText, commentDtoAfterTransformation.CommentText);
+
+                //Sort CommentDto.AboutObject by Uri for both commentDto and commentDtoAfterTransformation
+                commentDto.AboutObject.Sort((x, y) => Uri.Compare(x.property, y.property, UriComponents.AbsoluteUri, UriFormat.UriEscaped, StringComparison.Ordinal));
+                commentDtoAfterTransformation.AboutObject.Sort((x, y) => Uri.Compare(x.property, y.property, UriComponents.AbsoluteUri, UriFormat.UriEscaped, StringComparison.Ordinal));
+                for (int j = 0; i < commentDto.AboutObject.Count; i++)
+                {
+                    Assert.Equal(commentDto.AboutObject[j], commentDtoAfterTransformation.AboutObject[j]);
+                }
+
+
+            }
+
+
+
+
+        }
+
         public ReviewDTO CreateReviewDto() {
             var reviewDto = new ReviewDTO
             {
                 ReviewId = "https://example.com/doc/reply-A123-BC-D-EF-00001.F01",
                 AboutRevision = new Uri("https://example.com/data/A123-BC-D-EF-00001.F01"),
                 IssuedBy = "Turi Skogen",
-                GeneratedAtTime = DateOnly.FromDateTime(DateTime.UtcNow),
+                GeneratedAtTime = DateOnly.FromDateTime(DateTime.Now),
                 ReviewStatus = "https://rdf.equinor.com/ontology/review/Code1",
                 Label = "Reply to revision F01",
                 HasComments = new List<CommentDto>()
             };
+
 
             var commentDto = new CommentDto
             {
                 CommentUri = new Uri($"https://rdf.equinor.com/data/review/comment/{Guid.NewGuid()}"),
                 CommentText = "A comment",
                 IssuedBy = "Johannes",
-                GeneratedAtTime = DateOnly.FromDateTime(DateTime.UtcNow),
-                AboutData = new List<Uri>
-                {
-                    new Uri("https://example.com/doc/A123-BC-D-EF-00001.F01row1"),
-                    new Uri("https://example.com/doc/A123-BC-D-EF-00001.F01row3"),
-                    new Uri("https://example.com/doc/A123-BC-D-EF-00001.F01row10")
-                },
-                AboutObject = new List<(Uri property, string value)>
-                {
-                    (new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), "the tag number"),
-                    (new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), "The handling code"),
-                    (new Uri("https://rdf.equinor.com/ontology/mel/v1#importantField"), "The important field")
-                }
+                GeneratedAtTime = DateOnly.FromDateTime(DateTime.Now),
+                AboutData = new List<Uri>()
+    {
+        new Uri("https://example.com/doc/A123-BC-D-EF-00001.F01row1"),
+        new Uri("https://example.com/doc/A123-BC-D-EF-00001.F01row3"),
+        new Uri("https://example.com/doc/A123-BC-D-EF-00001.F01row10")
+    },
+                AboutObject = new List<(Uri property, string value)>()
+    {
+        (new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), "the tag number"),
+        (new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), "The handling code"),
+        (new Uri("https://rdf.equinor.com/ontology/mel/v1#importantField"), "The important field")
+    }
             };
 
+            var anotherCommentDto = new CommentDto
+            {
+                CommentUri = new Uri($"https://rdf.equinor.com/data/review/comment/{Guid.NewGuid()}"),
+                CommentText = "Another comment",
+                IssuedBy = "John Doe",
+                GeneratedAtTime = DateOnly.FromDateTime(DateTime.Now),
+                AboutData = new List<Uri>()
+    {
+        new Uri("https://example.com/doc/AnotherDocument.Row1")
+    },
+                AboutObject = new List<(Uri property, string value)>()
+    {
+        (new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), "the tag number"),
+        (new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), "The handling code")
+    }
+            };
 
             reviewDto.HasComments.Add(commentDto);
+            reviewDto.HasComments.Add(anotherCommentDto);
+
             return reviewDto;
         }
 

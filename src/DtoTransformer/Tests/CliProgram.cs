@@ -1,4 +1,7 @@
-﻿using VDS.RDF.Writing;
+﻿using Review;
+using VDS.RDF.Writing;
+
+using VDS.RDF.Writing;
 using Review;
 
 
@@ -117,7 +120,7 @@ static void printInfo(ReviewDTO review)
         {
             Console.WriteLine("About Data: " + string.Join(", ", comment.AboutData));
         }
-        
+
         Console.WriteLine("About Object: " + string.Join(", ", comment.AboutObject.Select(x => x.property + " = " + x.value)));
     }
     Console.WriteLine("------------------------------");
