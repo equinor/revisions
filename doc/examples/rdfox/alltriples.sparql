@@ -1,0 +1,3 @@
+select ?s where {
+        ?s a review:Comment.
+}
