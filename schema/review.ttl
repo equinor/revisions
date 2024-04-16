@@ -73,7 +73,7 @@ prov:wasAssociatedWith rdf:type owl:ObjectProperty .
              rdfs:label "about review" .
 
 
-###  https://rdf.equinor.com/ontology/review/aboutVersion
+###  https://rdf.equinor.com/ontology/review/aboutRevision
 :aboutRevision rdf:type owl:ObjectProperty ;
               rdfs:subPropertyOf prov:wasAssociatedWith ;
               rdf:type owl:AsymmetricProperty ,
