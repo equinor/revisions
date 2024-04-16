@@ -56,7 +56,7 @@ rev:RevisionReplyShape
     sh:targetClass rev:Revision ;
     sh:property 
     [ 
-        sh:path [ sh:inversePath review:aboutVersion ];
+        sh:path [ sh:inversePath review:aboutRevision ];
         sh:class review:Review;
         sh:maxCount 1;
         sh:name "RevisionReviewPath";

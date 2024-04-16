@@ -1,8 +1,7 @@
 SELECT * WHERE {
-    GRAPH rec:HeadContent {
     ?reply a review:Review;
         review:issuedBy ?comment_responsible;
-        review:aboutVersion ?revision;
+        review:aboutRevision ?revision;
         review:hasComment ?comment.
         ?comment a review:Comment;
         rdfs:label ?comment_text;
@@ -12,5 +11,4 @@ SELECT * WHERE {
         ?row mel:tagNumber ?tagNumber .
        
         ?revision rev:describes ?document.
-    }
 }

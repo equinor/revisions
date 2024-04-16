@@ -74,12 +74,13 @@ prov:wasAssociatedWith rdf:type owl:ObjectProperty .
 
 
 ###  https://rdf.equinor.com/ontology/review/aboutVersion
-:aboutVersion rdf:type owl:ObjectProperty ;
+:aboutRevision rdf:type owl:ObjectProperty ;
               rdfs:subPropertyOf prov:wasAssociatedWith ;
               rdf:type owl:AsymmetricProperty ,
                        owl:IrreflexiveProperty ;
               rdfs:domain :Review ;
-              rdfs:comment "A review must be about a certain version or revision of data. In the case of rev:Revision, the latter contains one or more records. They represent the imutable state which the revision author(s) used for the revision process." ;
+              rdfs:range rev:Revision ;
+              rdfs:comment "A review must be about a revision of data, which contains one or more records. They represent the imutable state which the revision author(s) used for the revision process." ;
               rdfs:label "about version" .
 
 
