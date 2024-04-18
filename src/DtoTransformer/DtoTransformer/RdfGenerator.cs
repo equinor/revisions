@@ -21,11 +21,11 @@ public class RdfGenerator
         var reviewId = graph.CreateUriNode(new Uri(reviewDto.ReviewId));
         var aboutRevision = graph.CreateUriNode(reviewDto.AboutRevision);
         var issuedBy = graph.CreateLiteralNode(reviewDto.IssuedBy);
-        var generatedAtTime = graph.CreateLiteralNode(reviewDto.GeneratedAtTime.ToString(), UriFactory.Create("http://www.w3.org/2001/XMLSchema#date"));
+        var generatedAtTime = graph.CreateLiteralNode(reviewDto.GeneratedAtTime.ToString("yyyy/MM/dd"), UriFactory.Create("http://www.w3.org/2001/XMLSchema#date"));
         var reviewStatus = graph.CreateUriNode(new Uri(reviewDto.ReviewStatus));
         var label = graph.CreateLiteralNode(reviewDto.Label);
 
-        
+
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("rdf:type"), graph.CreateUriNode("review:Review")));
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("rdf:type"), reviewStatus));
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("rdfs:label"), label));
@@ -39,7 +39,7 @@ public class RdfGenerator
             var commentId = graph.CreateUriNode(commentDto.CommentUri);
             var commentText = graph.CreateLiteralNode(commentDto.CommentText);
             var commentIssuedBy = graph.CreateLiteralNode(commentDto.IssuedBy);
-            var commentGeneratedAtTime = graph.CreateLiteralNode(commentDto.GeneratedAtTime.ToString(), UriFactory.Create(Namespaces.Xsd.Date));
+            var commentGeneratedAtTime = graph.CreateLiteralNode(commentDto.GeneratedAtTime.ToString("yyyy/MM/dd"), UriFactory.Create(Namespaces.Xsd.Date));
             var reviewAboutData = graph.CreateUriNode(new Uri(Namespaces.Review.AboutData));
             var aboutObject = graph.CreateBlankNode();
             graph.Assert(new Triple(commentId, graph.CreateUriNode(new Uri(Namespaces.Review.AboutObject)), aboutObject));

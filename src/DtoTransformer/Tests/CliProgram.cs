@@ -1,7 +1,8 @@
-﻿using VDS.RDF.Writing;
+﻿using Review;
+using VDS.RDF.Writing;
+
+using VDS.RDF.Writing;
 using Review;
-using System.Runtime.CompilerServices;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 var reviewDto = new ReviewDTO
@@ -19,7 +20,7 @@ var reviewDto = new ReviewDTO
 var commentDto = new CommentDto
 {
     CommentUri = new Uri($"https://rdf.equinor.com/data/review/comment/{Guid.NewGuid()}"),
-    CommentText = "A comment kjfdfbn hehje  hefhekfje  kjdhfdkj khdjkhdjk k hj h kfhdkjskjdhd kdjfhdjfh jkdhfdj jd kjddj  jjd .",
+    CommentText = "A comment",
     IssuedBy = "Johannes",
     GeneratedAtTime = DateOnly.FromDateTime(DateTime.Now),
     AboutData = new List<Uri>()
@@ -53,17 +54,15 @@ var anotherCommentDto = new CommentDto
     }
 };
 
-
 reviewDto.HasComments.Add(commentDto);
 reviewDto.HasComments.Add(anotherCommentDto);
 
-
-Console.Write("First DTO");
+Console.WriteLine("First DTO");
 printInfo(reviewDto);
 
 var graph = RdfGenerator.GenerateRdf(reviewDto);
 
-Console.Write("First RDF");
+Console.WriteLine("First RDF");
 
 var rdfCode = VDS.RDF.Writing.StringWriter.Write(graph, new CompressingTurtleWriter());
 
@@ -72,20 +71,26 @@ Console.WriteLine(rdfCode);
 ExcelGenerator.CreateExcelAt(reviewDto, "output.xlsx");
 Console.WriteLine("Generated excel at output.xlsx");
 
+var reviewDTO = ExcelParser.ParseExcelToReviewDTO("output.xlsx");
+Console.WriteLine("DTO FROM EXCEL");
+printInfo(reviewDTO);
+
+
+
 //SECOND DTO
 reviewDto = DtoGenerator.GenerateDto(graph);
 
-Console.Write("Second DTO");
+Console.WriteLine("Second DTO");
 printInfo(reviewDto);
 
 graph = RdfGenerator.GenerateRdf(reviewDto);
-Console.Write("Second RDF");
+Console.WriteLine("Second RDF");
 rdfCode = VDS.RDF.Writing.StringWriter.Write(graph, new CompressingTurtleWriter());
 Console.WriteLine(rdfCode);
 
 //SECOND DTO
 reviewDto = DtoGenerator.GenerateDto(graph);
-Console.Write("Third DTO");
+Console.WriteLine("Third DTO");
 printInfo(reviewDto);
 
 
@@ -96,7 +101,9 @@ static void printInfo(ReviewDTO review)
     Console.WriteLine("Review Label: " + review.Label);
     Console.WriteLine("Review Version: " + review.AboutRevision);
     Console.WriteLine("Issued By: " + review.IssuedBy);
-    if (review.GeneratedAtTime != null)
+
+    //When parsing from Excel, the generatedAtTime is not present
+    if (review.GeneratedAtTime != DateOnly.MinValue)
     {
         Console.WriteLine("Generated At Time: " + review.GeneratedAtTime);
     }
@@ -113,12 +120,17 @@ static void printInfo(ReviewDTO review)
 
         Console.WriteLine("Issued By: " + comment.IssuedBy);
 
-        if (comment.GeneratedAtTime != null)
+        //When parsing from Excel, the generatedAtTime is not present
+        if (comment.GeneratedAtTime != DateOnly.MinValue)
         {
             Console.WriteLine("Generated At Time: " + comment.GeneratedAtTime);
         }
 
-        Console.WriteLine("About Data: " + string.Join(", ", comment.AboutData));
+        if (comment.AboutData != null)
+        {
+            Console.WriteLine("About Data: " + string.Join(", ", comment.AboutData));
+        }
+
         Console.WriteLine("About Object: " + string.Join(", ", comment.AboutObject.Select(x => x.property + " = " + x.value)));
     }
     Console.WriteLine("------------------------------");
