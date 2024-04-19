@@ -57,6 +57,7 @@ var anotherCommentDto = new CommentDto
 reviewDto.HasComments.Add(commentDto);
 reviewDto.HasComments.Add(anotherCommentDto);
 
+
 Console.WriteLine("First DTO");
 printInfo(reviewDto);
 
@@ -85,6 +86,7 @@ printInfo(reviewDto);
 
 graph = RdfGenerator.GenerateRdf(reviewDto);
 Console.WriteLine("Second RDF");
+
 rdfCode = VDS.RDF.Writing.StringWriter.Write(graph, new CompressingTurtleWriter());
 Console.WriteLine(rdfCode);
 
@@ -107,6 +109,7 @@ static void printInfo(ReviewDTO review)
     {
         Console.WriteLine("Generated At Time: " + review.GeneratedAtTime);
     }
+
     Console.WriteLine("Review Status: " + review.ReviewStatus);
 
     Console.WriteLine("Has comments");
@@ -125,6 +128,7 @@ static void printInfo(ReviewDTO review)
         {
             Console.WriteLine("Generated At Time: " + comment.GeneratedAtTime);
         }
+
 
         if (comment.AboutData != null)
         {

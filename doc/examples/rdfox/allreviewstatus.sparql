@@ -1,7 +1,7 @@
 SELECT distinct ?document ?newest_revision_name ?status_name ?reply_name ?reply_date ?comment_responsible WHERE {
     GRAPH ?record1 {
         ?reply a review:Review, ?status;
-            review:aboutVersion ?revision;
+            review:aboutRevision ?revision;
             rdfs:label ?reply_name;
             prov:generatedAtTime ?reply_date;
             review:issuedBy ?comment_responsible.

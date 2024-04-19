@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="TestData\" />
 	  <Content Include="..\..\..\schema\review.shacl">
 		  <Link>TestData\review.shacl</Link>
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

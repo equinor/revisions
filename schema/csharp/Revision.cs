@@ -8,19 +8,9 @@ namespace Revision.Iri;
 public static class Revision
 {
 	/// <Summary>
-	/// <see href='https://rdf.equinor.com/ontology/revision/describes'>https://rdf.equinor.com/ontology/revision/describes</see>
+	/// <see href='https://rdf.equinor.com/ontology/revision/v1.0'>https://rdf.equinor.com/ontology/revision/v1.0</see>
 	/// </Summary>
-	public const string describes = "https://rdf.equinor.com/ontology/revision/describes";
-
-	/// <Summary>
-	/// <see href='https://rdf.equinor.com/ontology/revision/Revision'>https://rdf.equinor.com/ontology/revision/Revision</see>
-	/// </Summary>
-	public const string Revision_ = "https://rdf.equinor.com/ontology/revision/Revision";
-
-	/// <Summary>
-	/// <see href='https://rdf.equinor.com/ontology/revision/hasSequenceNumber'>https://rdf.equinor.com/ontology/revision/hasSequenceNumber</see>
-	/// </Summary>
-	public const string hasSequenceNumber = "https://rdf.equinor.com/ontology/revision/hasSequenceNumber";
+	public const string v1_0 = "https://rdf.equinor.com/ontology/revision/v1.0";
 
 	/// <Summary>
 	/// <see href='https://rdf.equinor.com/ontology/revision'>https://rdf.equinor.com/ontology/revision</see>
@@ -33,14 +23,19 @@ public static class Revision
 	public const string revisionNumber = "https://rdf.equinor.com/ontology/revision/revisionNumber";
 
 	/// <Summary>
+	/// <see href='https://rdf.equinor.com/ontology/revision/containsRecord'>https://rdf.equinor.com/ontology/revision/containsRecord</see>
+	/// </Summary>
+	public const string containsRecord = "https://rdf.equinor.com/ontology/revision/containsRecord";
+
+	/// <Summary>
 	/// <see href='https://rdf.equinor.com/ontology/revision/DocumentRevision'>https://rdf.equinor.com/ontology/revision/DocumentRevision</see>
 	/// </Summary>
 	public const string DocumentRevision = "https://rdf.equinor.com/ontology/revision/DocumentRevision";
 
 	/// <Summary>
-	/// <see href='https://rdf.equinor.com/ontology/revision/isNewRevisionOf'>https://rdf.equinor.com/ontology/revision/isNewRevisionOf</see>
+	/// <see href='https://rdf.equinor.com/ontology/revision/describes'>https://rdf.equinor.com/ontology/revision/describes</see>
 	/// </Summary>
-	public const string isNewRevisionOf = "https://rdf.equinor.com/ontology/revision/isNewRevisionOf";
+	public const string describes = "https://rdf.equinor.com/ontology/revision/describes";
 
 	/// <Summary>
 	/// <see href='https://rdf.equinor.com/ontology/revision/issuedBy'>https://rdf.equinor.com/ontology/revision/issuedBy</see>
@@ -48,13 +43,18 @@ public static class Revision
 	public const string issuedBy = "https://rdf.equinor.com/ontology/revision/issuedBy";
 
 	/// <Summary>
-	/// <see href='https://rdf.equinor.com/ontology/revision/v1.0'>https://rdf.equinor.com/ontology/revision/v1.0</see>
+	/// <see href='https://rdf.equinor.com/ontology/revision/isNewRevisionOf'>https://rdf.equinor.com/ontology/revision/isNewRevisionOf</see>
 	/// </Summary>
-	public const string v1_0 = "https://rdf.equinor.com/ontology/revision/v1.0";
+	public const string isNewRevisionOf = "https://rdf.equinor.com/ontology/revision/isNewRevisionOf";
 
 	/// <Summary>
-	/// <see href='https://rdf.equinor.com/ontology/revision/containsRecord'>https://rdf.equinor.com/ontology/revision/containsRecord</see>
+	/// <see href='https://rdf.equinor.com/ontology/revision/Revision'>https://rdf.equinor.com/ontology/revision/Revision</see>
 	/// </Summary>
-	public const string containsRecord = "https://rdf.equinor.com/ontology/revision/containsRecord";
+	public const string Revision_ = "https://rdf.equinor.com/ontology/revision/Revision";
+
+	/// <Summary>
+	/// <see href='https://rdf.equinor.com/ontology/revision/hasSequenceNumber'>https://rdf.equinor.com/ontology/revision/hasSequenceNumber</see>
+	/// </Summary>
+	public const string hasSequenceNumber = "https://rdf.equinor.com/ontology/revision/hasSequenceNumber";
 
 }
