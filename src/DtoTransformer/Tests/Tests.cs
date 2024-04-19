@@ -37,10 +37,10 @@ namespace Review.Tests
             var reviewDtoAfterTransformation = DtoGenerator.GenerateDto(graph);
 
             // Assert
-            Assert.Equal(reviewDto.ReviewId, reviewDtoAfterTransformation.ReviewId);
+            Assert.Equal(reviewDto.ReviewGuid, reviewDtoAfterTransformation.ReviewGuid);
             Assert.Equal(reviewDto.IssuedBy, reviewDtoAfterTransformation.IssuedBy);
             Assert.Equal(reviewDto.Label, reviewDtoAfterTransformation.Label);
-          
+
             for (int i = 0; i < reviewDto.HasComments.Count; i++)
             {
                 var expectedComment = reviewDto.HasComments[i];
@@ -65,25 +65,25 @@ namespace Review.Tests
         }
         internal void CheckReview(string rdf, string shacl_name)
         {
-             //Act
-             var graph = new Graph();
-             StringParser.Parse(graph, rdf);
-             
-             var currentDirectory = Directory.GetCurrentDirectory();
-             var shaclFileLocation = $"{currentDirectory}/TestData/{shacl_name}";
-             var shapes = new Graph();
-             shapes.LoadFromFile(shaclFileLocation);
-             var shapeGraph = new ShapesGraph(shapes);
+            //Act
+            var graph = new Graph();
+            StringParser.Parse(graph, rdf);
 
-             //Assert
-             var report = shapeGraph.Validate(graph);
-             if (!report.Conforms)
-             {
+            var currentDirectory = Directory.GetCurrentDirectory();
+            var shaclFileLocation = $"{currentDirectory}/TestData/{shacl_name}";
+            var shapes = new Graph();
+            shapes.LoadFromFile(shaclFileLocation);
+            var shapeGraph = new ShapesGraph(shapes);
+
+            //Assert
+            var report = shapeGraph.Validate(graph);
+            if (!report.Conforms)
+            {
                 foreach (var res in report.Results)
-                    _testOutputHelper.WriteLine($"{res.FocusNode.ToString()}: {res.Message} detail: {res}");   
-             }
+                    _testOutputHelper.WriteLine($"{res.FocusNode.ToString()}: {res.Message} detail: {res}");
+            }
 
-             report.Conforms.Should().BeTrue();
+            report.Conforms.Should().BeTrue();
         }
 
 
@@ -103,7 +103,7 @@ namespace Review.Tests
 
 
             // Assert
-            Assert.Equal(reviewDto.ReviewId, reviewDtoAfterTransformation.ReviewId);
+            Assert.Equal(reviewDto.ReviewGuid, reviewDtoAfterTransformation.ReviewGuid);
             Assert.Equal(reviewDto.IssuedBy, reviewDtoAfterTransformation.IssuedBy);
             Assert.Equal(reviewDto.ReviewStatus, reviewDtoAfterTransformation.ReviewStatus);
             Assert.Equal(reviewDto.Label, reviewDtoAfterTransformation.Label);
@@ -138,10 +138,11 @@ namespace Review.Tests
 
         }
 
-        public ReviewDTO CreateReviewDto() {
+        public ReviewDTO CreateReviewDto()
+        {
             var reviewDto = new ReviewDTO
             {
-                ReviewId = "https://example.com/doc/reply-A123-BC-D-EF-00001.F01",
+                ReviewIri = "https://example.com/doc/reply-A123-BC-D-EF-00001.F01",
                 AboutRevision = new Uri("https://example.com/data/A123-BC-D-EF-00001.F01"),
                 IssuedBy = "Turi Skogen",
                 GeneratedAtTime = DateOnly.FromDateTime(DateTime.Now),

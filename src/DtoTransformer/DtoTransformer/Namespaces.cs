@@ -34,7 +34,7 @@ public struct Namespaces
         public const string DateTime = $"{BaseUrl}dateTime";
         public const string Date = $"{BaseUrl}date";
     }
-    
+
     public struct Revision
     {
         public const string BaseUrl = "https://rdf.equinor.com/ontology/revision/";
@@ -57,10 +57,12 @@ public struct Namespaces
         public const string IssuedBy = $"{BaseUrl}issuedBy";
         public const string FilterObject = $"{BaseUrl}FilterObject";
         public const string HasComment = $"{BaseUrl}hasComment";
+        public const string HasGuid = $"{BaseUrl}hasGuid";
     }
-    public struct CommentData
+    public struct Data
     {
-        public const string BaseUrl = "https://rdf.equinor.com/data/review/comment/";
-        
+        public const string Comment = "https://rdf.equinor.com/data/review/comment/";
+        public const string Review = "https://rdf.equinor.com/data/review/";
+
     }
 }

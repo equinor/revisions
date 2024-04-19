@@ -21,7 +21,7 @@ public class DtoGenerator
             prefix rev: <https://rdf.equinor.com/ontology/revision/>
             prefix rdl: <http://example.com/rdl/>
             prefix mel: <https://rdf.equinor.com/ontology/mel/v1#>
-            SELECT ?reviewId ?aboutRevision ?issuedBy ?generatedAtTime ?reviewStatus ?label
+            SELECT ?reviewId ?aboutRevision ?issuedBy ?generatedAtTime ?reviewStatus ?label ?guid
             WHERE {
                 ?reviewId a review:Review ;
                             review:aboutRevision ?aboutRevision ;
@@ -29,6 +29,7 @@ public class DtoGenerator
                             prov:generatedAtTime ?generatedAtTime ;
                             rdf:type ?reviewStatus ;
                             rdfs:label ?label .
+                OPTIONAL{?reviewId review:hasGuid ?guid} .
                 FILTER (?reviewStatus != review:Review)
             }";
 
@@ -40,7 +41,9 @@ public class DtoGenerator
         if (reviewResults.Count > 0)
         {
             SparqlResult result = (SparqlResult)reviewResults[0];
-            reviewDto.ReviewId = result["reviewId"].ToString();
+            reviewDto.ReviewIri = result["reviewId"].ToString();
+            if (result.HasValue("guid"))
+                reviewDto.ReviewGuid = Guid.Parse(((LiteralNode) result["guid"]).Value);
             reviewDto.AboutRevision = new Uri(result["aboutRevision"].ToString());
             reviewDto.IssuedBy = ((LiteralNode)result["issuedBy"]).Value;
             reviewDto.GeneratedAtTime = DateOnly.Parse(((LiteralNode)result["generatedAtTime"]).Value);

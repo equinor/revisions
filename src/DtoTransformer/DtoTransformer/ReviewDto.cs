@@ -1,8 +1,30 @@
-﻿namespace Review;
+﻿using IriTools;
+namespace Review;
 public class ReviewDTO
 {
     //Id of review
-    public string ReviewId { get; set; }
+    private Guid?_reviewId;
+    private IriReference? _reviewIri;
+    public Guid ReviewGuid
+    {
+        get => _reviewId ?? throw new InvalidOperationException("ReviewId not set");
+        set
+        {
+            _reviewId = value;
+            _reviewIri ??= new IriReference($"{Namespaces.Data.Review}{value.ToString()}");
+        }
+    }
+
+    public IriReference ReviewIri
+    {
+        get => _reviewIri ?? throw new InvalidOperationException("ReviewIri not set");
+        set
+        {
+            _reviewIri = value;
+            _reviewId ??= Guid.NewGuid();
+        }
+    }
+
     //Revision IRI. 
     public Uri AboutRevision { get; set; }
     //Author of comment. In MEL this is known as comment responsible
