@@ -1,15 +1,15 @@
 # Script for running the comments2 example in rdfox
 # Expects to be run from this folder from inside rdfox after endpoint start
-dstore create comment
-active comment
 set output out
+dstore create comment default-graph-name <https://rdf.equinor.com/ontology/record/HeadContent> 
+active comment
 prefixes.rdfox
 
 #Import ontologies
-import   ../../../schema/revision.ttl
-import   ../../../schema/review.ttl
-import   ../../../../records/schema/record-syntax.ttl
-importaxioms   > rec:HeadContent 
+import > ex:schema  ../../../schema/revision.ttl
+import > ex:schema  ../../../schema/review.ttl
+import > ex:schema  ../../../../records/schema/record-syntax.ttl
+importaxioms  ex:schema > rec:HeadContent 
 
 
 #Import shacl shapes

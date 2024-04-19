@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <PackageId>RevisionNamespaces.csproj</PackageId>
-        <Description>An automatically generated nuget package for IRIs. Generated from: equinor/revisions:d2f6938139a6edfeaf804fde7d30c875ef4b9c0b</Description>
+        <Description>An automatically generated nuget package for IRIs. Generated from: equinor/revisions:faac2936da23f88701c4e867797e6b7666142d82</Description>
     </PropertyGroup>
 
     <PropertyGroup>

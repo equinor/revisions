@@ -21,6 +21,7 @@ namespace Review
                 // Assuming ReviewId would be a part of the Excel file, if not, generate or fetch from another source.
                 ReviewId = "https://example.com/doc/reply-" + GetCellValue(worksheet, "B4"),
                 AboutRevision = new Uri("https://example.com/data/" + GetCellValue(worksheet, "B4")),
+
                 IssuedBy = GetCellValue(worksheet, "B5"),
                 ReviewStatus = GetReviewStatusFromDescription(GetCellValue(worksheet, "B3")),
                 Label = GetCellValue(worksheet, "A1"),
@@ -35,6 +36,7 @@ namespace Review
                 var idCell = worksheet.Cell($"A{currentRow}");
                 var text = idCell.GetText();
                 if (idCell == null || string.IsNullOrEmpty(idCell.Value.ToString()) || idCell.Value.ToString() == "#OTTR")
+
                     break;
 
                 var commentDto = new CommentDto
@@ -54,7 +56,9 @@ namespace Review
                     {
                         var filter = new AboutObjectFilter
                         {
+
                             Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#" + propertyCell.Value.ToString()),
+
                             Value = valueCell.Value.ToString()
                         };
                         commentDto.AboutObject.Add((filter.Property, filter.Value));
