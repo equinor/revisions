@@ -77,7 +77,7 @@ public class RdfGenerator
     // This formatting is necessary because the generatedAtTime property in the RDF graph requires a specific format defined by the XML Schema Definition (XSD) standard.
     // By formatting the date in this way, we ensure that it conforms to the XSD date format and can be properly represented in the RDF graph.
     {
-        return date.ToString("yyyy/MM/dd");
+        return date.ToString("yyyy-MM-dd");
     }
 }
 
