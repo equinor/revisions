@@ -21,7 +21,7 @@ public class RdfGenerator
         var reviewId = graph.CreateUriNode(reviewDto.ReviewIri);
         var aboutRevision = graph.CreateUriNode(reviewDto.AboutRevision);
         var issuedBy = graph.CreateLiteralNode(reviewDto.IssuedBy);
-        var generatedAtTime = graph.CreateLiteralNode(reviewDto.GeneratedAtTime.ToString(), UriFactory.Create("http://www.w3.org/2001/XMLSchema#date"));
+        var generatedAtTime = graph.CreateLiteralNode(formatDate(reviewDto.GeneratedAtTime), UriFactory.Create("http://www.w3.org/2001/XMLSchema#date"));
         var reviewStatus = graph.CreateUriNode(new Uri(reviewDto.ReviewStatus));
         var label = graph.CreateLiteralNode(reviewDto.Label);
         var guidvalue = graph.CreateLiteralNode(reviewDto.ReviewGuid.ToString());
@@ -41,7 +41,7 @@ public class RdfGenerator
             var commentId = graph.CreateUriNode(commentDto.CommentUri);
             var commentText = graph.CreateLiteralNode(commentDto.CommentText);
             var commentIssuedBy = graph.CreateLiteralNode(commentDto.IssuedBy);
-            var commentGeneratedAtTime = graph.CreateLiteralNode(commentDto.GeneratedAtTime.ToString(), UriFactory.Create(Namespaces.Xsd.Date));
+            var commentGeneratedAtTime = graph.CreateLiteralNode(formatDate(commentDto.GeneratedAtTime), UriFactory.Create(Namespaces.Xsd.Date));
             var reviewAboutData = graph.CreateUriNode(new Uri(Namespaces.Review.AboutData));
             var aboutObject = graph.CreateBlankNode();
             graph.Assert(new Triple(commentId, graph.CreateUriNode(new Uri(Namespaces.Review.AboutObject)), aboutObject));
@@ -59,7 +59,6 @@ public class RdfGenerator
             graph.Assert(new Triple(commentId, graph.CreateUriNode(new Uri(Namespaces.Prov.GeneratedAtTime)), commentGeneratedAtTime));
             graph.Assert(new Triple(commentId, graph.CreateUriNode(new Uri(Namespaces.Review.IssuedBy)), commentIssuedBy));
 
-
             var nodes = new List<INode>();
             foreach (var uri in commentDto.AboutData)
             {
@@ -73,9 +72,15 @@ public class RdfGenerator
             graph.Assert(new Triple(reviewId, graph.CreateUriNode(new Uri(Namespaces.Review.HasComment)), commentId));
         }
 
-
         return graph;
+    }
 
+    private static string formatDate(DateOnly date)
+    // The formatDate method is used to format the DateOnly object to a string representation in the format "yyyy-MM-dd".
+    // This formatting is necessary because the generatedAtTime property in the RDF graph requires a specific format defined by the XML Schema Definition (XSD) standard.
+    // By formatting the date in this way, we ensure that it conforms to the XSD date format and can be properly represented in the RDF graph.
+    {
+        return date.ToString("yyyy-MM-dd");
     }
 }
 

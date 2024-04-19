@@ -57,12 +57,13 @@ var anotherCommentDto = new CommentDto
 reviewDto.HasComments.Add(commentDto);
 reviewDto.HasComments.Add(anotherCommentDto);
 
-Console.Write("First DTO");
+
+Console.WriteLine("First DTO");
 printInfo(reviewDto);
 
 var graph = RdfGenerator.GenerateRdf(reviewDto);
 
-Console.Write("First RDF");
+Console.WriteLine("First RDF");
 
 var rdfCode = VDS.RDF.Writing.StringWriter.Write(graph, new CompressingTurtleWriter());
 
@@ -80,17 +81,18 @@ printInfo(reviewDTO);
 //SECOND DTO
 reviewDto = DtoGenerator.GenerateDto(graph);
 
-Console.Write("Second DTO");
+Console.WriteLine("Second DTO");
 printInfo(reviewDto);
 
 graph = RdfGenerator.GenerateRdf(reviewDto);
-Console.Write("Second RDF");
+Console.WriteLine("Second RDF");
+
 rdfCode = VDS.RDF.Writing.StringWriter.Write(graph, new CompressingTurtleWriter());
 Console.WriteLine(rdfCode);
 
 //SECOND DTO
 reviewDto = DtoGenerator.GenerateDto(graph);
-Console.Write("Third DTO");
+Console.WriteLine("Third DTO");
 printInfo(reviewDto);
 
 
@@ -102,7 +104,13 @@ static void printInfo(ReviewDTO review)
     Console.WriteLine("Review Label: " + review.Label);
     Console.WriteLine("Review Version: " + review.AboutRevision);
     Console.WriteLine("Issued By: " + review.IssuedBy);
-    Console.WriteLine("Generated At Time: " + review.GeneratedAtTime);
+
+    //When parsing from Excel, the generatedAtTime is not present
+    if (review.GeneratedAtTime != DateOnly.MinValue)
+    {
+        Console.WriteLine("Generated At Time: " + review.GeneratedAtTime);
+    }
+
     Console.WriteLine("Review Status: " + review.ReviewStatus);
 
     Console.WriteLine("Has comments");
@@ -115,7 +123,13 @@ static void printInfo(ReviewDTO review)
         Console.WriteLine("Comment Text: " + comment.CommentText);
 
         Console.WriteLine("Issued By: " + comment.IssuedBy);
-        Console.WriteLine("Generated At Time: " + comment.GeneratedAtTime);
+
+        //When parsing from Excel, the generatedAtTime is not present
+        if (comment.GeneratedAtTime != DateOnly.MinValue)
+        {
+            Console.WriteLine("Generated At Time: " + comment.GeneratedAtTime);
+        }
+
 
         if (comment.AboutData != null)
         {

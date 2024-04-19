@@ -98,7 +98,10 @@ static void printInfo(ReviewDTO review)
     Console.WriteLine("Review Label: " + review.Label);
     Console.WriteLine("Review Version: " + review.AboutRevision);
     Console.WriteLine("Issued By: " + review.IssuedBy);
-    Console.WriteLine("Generated At Time: " + review.GeneratedAtTime);
+    if (review.GeneratedAtTime != null)
+    {
+        Console.WriteLine("Generated At Time: " + review.GeneratedAtTime);
+    }
     Console.WriteLine("Review Status: " + review.ReviewStatus);
 
     Console.WriteLine("Has comments");
@@ -111,7 +114,11 @@ static void printInfo(ReviewDTO review)
         Console.WriteLine("Comment Text: " + comment.CommentText);
 
         Console.WriteLine("Issued By: " + comment.IssuedBy);
-        Console.WriteLine("Generated At Time: " + comment.GeneratedAtTime);
+
+        if (comment.GeneratedAtTime != null)
+        {
+            Console.WriteLine("Generated At Time: " + comment.GeneratedAtTime);
+        }
 
         if (comment.AboutData != null)
         {
