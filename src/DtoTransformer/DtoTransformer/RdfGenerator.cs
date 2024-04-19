@@ -73,11 +73,11 @@ public class RdfGenerator
     }
 
     private static string formatDate(DateOnly date)
-    // The formatDate method is used to format the DateOnly object to a string representation in the format "yyyy/MM/dd".
+    // The formatDate method is used to format the DateOnly object to a string representation in the format "yyyy-MM-dd".
     // This formatting is necessary because the generatedAtTime property in the RDF graph requires a specific format defined by the XML Schema Definition (XSD) standard.
     // By formatting the date in this way, we ensure that it conforms to the XSD date format and can be properly represented in the RDF graph.
     {
-        return date.ToString("yyyy/MM/dd");
+        return date.ToString("yyyy-MM-dd");
     }
 }
 
