@@ -153,6 +153,12 @@ prov:wasAttributedTo rdf:type owl:DatatypeProperty ;
            rdfs:comment "The reply text in the comment reply" ;
            rdfs:label "reply text" .
 
+###  https://rdf.equinor.com/ontology/review/hasGuid
+:hasGuid rdf:type owl:DatatypeProperty ;
+           rdfs:domain :Review ;
+           rdfs:range xsd:string ;
+           rdfs:comment "The guid code of the review" ;
+           rdfs:label "Review Guid" .
 
 #################################################################
 #    Classes
@@ -179,7 +185,7 @@ prov:Entity rdf:type owl:Class .
        rdfs:comment "Review code 2 is a conditional acceptance with minor changes are needed" ;
        rdfs:label "Reviewed with comments" .
 
-
+guid
 ###  https://rdf.equinor.com/ontology/review/Code3
 :Code3 rdf:type owl:Class ;
        rdfs:subClassOf :ReviewState ;
