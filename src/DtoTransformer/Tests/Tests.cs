@@ -101,14 +101,6 @@ namespace Review.Tests
         }
 
         [Fact]
-        public void testdotnetrdf()
-        {
-            var trigParser = new TriGParser();
-            var tStore = new TripleStore();
-            trigParser.Load(tStore, new StringReader("@prefix exdata: <https://example.com/data/>. exdata:test1 { exdata:1test a <http://example.com/Thing> .}"));
-        }
-
-        [Fact]
         public void TransformerShouldHandleExampleCommentsTrig()
         {
             ITripleStore exampleRdf = new TripleStore();
