@@ -21,7 +21,7 @@ public class DtoGenerator
             prefix rev: <https://rdf.equinor.com/ontology/revision/>
             prefix rdl: <http://example.com/rdl/>
             prefix mel: <https://rdf.equinor.com/ontology/mel/v1#>
-            SELECT ?reviewId ?aboutRevision ?issuedBy ?generatedAtTime ?reviewStatus ?label ?guid
+            SELECT DISTINCT ?reviewId ?aboutRevision ?issuedBy ?generatedAtTime ?reviewStatus ?label ?guid
             WHERE {
                 ?reviewId a review:Review ;
                             review:aboutRevision ?aboutRevision ;
