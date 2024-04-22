@@ -24,6 +24,14 @@
   </ItemGroup>
 
   <ItemGroup>
+	  <Content Include="..\..\..\doc\examples\comments.trig">
+	    <Link>TestData\comments.trig</Link>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="..\..\..\doc\examples\comments2.trig">
+	    <Link>TestData\comments2.trig</Link>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	  <Content Include="..\..\..\schema\review.shacl">
 		  <Link>TestData\review.shacl</Link>
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

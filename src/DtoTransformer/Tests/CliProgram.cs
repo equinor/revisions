@@ -7,7 +7,7 @@ using Review;
 
 var reviewDto = new ReviewDTO
 {
-    ReviewId = "https://example.com/doc/reply-A123-BC-D-EF-00001.F01",
+    ReviewIri = "https://example.com/doc/reply-A123-BC-D-EF-00001.F01",
     AboutRevision = new Uri("https://example.com/data/A123-BC-D-EF-00001.F01"),
     IssuedBy = "Turi Skogen",
     GeneratedAtTime = DateOnly.FromDateTime(DateTime.Now),
@@ -99,7 +99,8 @@ printInfo(reviewDto);
 
 static void printInfo(ReviewDTO review)
 {
-    Console.WriteLine("Review ID: " + review.ReviewId);
+    Console.WriteLine("Review Guid: " + review.ReviewGuid);
+    Console.WriteLine("Review Iri: " + review.ReviewIri);
     Console.WriteLine("Review Label: " + review.Label);
     Console.WriteLine("Review Version: " + review.AboutRevision);
     Console.WriteLine("Issued By: " + review.IssuedBy);

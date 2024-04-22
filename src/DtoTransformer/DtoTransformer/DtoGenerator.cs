@@ -7,7 +7,7 @@ using Graph = VDS.RDF.Graph;
 namespace Review;
 public class DtoGenerator
 {
-    public static ReviewDTO GenerateDto(Graph graph)
+    public static ReviewDTO GenerateDto(IGraph graph)
     {
         var reviewQuery = @"
             PREFIX review: <https://rdf.equinor.com/ontology/review/>
@@ -21,7 +21,7 @@ public class DtoGenerator
             prefix rev: <https://rdf.equinor.com/ontology/revision/>
             prefix rdl: <http://example.com/rdl/>
             prefix mel: <https://rdf.equinor.com/ontology/mel/v1#>
-            SELECT ?reviewId ?aboutRevision ?issuedBy ?generatedAtTime ?reviewStatus ?label
+            SELECT DISTINCT ?reviewId ?aboutRevision ?issuedBy ?generatedAtTime ?reviewStatus ?label ?guid
             WHERE {
                 ?reviewId a review:Review ;
                             review:aboutRevision ?aboutRevision ;
@@ -29,6 +29,7 @@ public class DtoGenerator
                             prov:generatedAtTime ?generatedAtTime ;
                             rdf:type ?reviewStatus ;
                             rdfs:label ?label .
+                OPTIONAL{?reviewId review:hasGuid ?guid} .
                 FILTER (?reviewStatus != review:Review)
             }";
 
@@ -37,17 +38,21 @@ public class DtoGenerator
 
         // Initialise ReviewDto
         var reviewDto = new ReviewDTO();
-        if (reviewResults.Count > 0)
+        if (reviewResults.Count != 1)
         {
-            SparqlResult result = (SparqlResult)reviewResults[0];
-            reviewDto.ReviewId = result["reviewId"].ToString();
-            reviewDto.AboutRevision = new Uri(result["aboutRevision"].ToString());
-            reviewDto.IssuedBy = ((LiteralNode)result["issuedBy"]).Value;
-            reviewDto.GeneratedAtTime = DateOnly.Parse(((LiteralNode)result["generatedAtTime"]).Value);
-            reviewDto.ReviewStatus = result["reviewStatus"].ToString();
-            reviewDto.Label = ((LiteralNode)result["label"]).Value;
-            reviewDto.HasComments = new List<CommentDto>();
+            throw new InvalidOperationException($"The IGraph contained {reviewResults.Count} reviews. There should be exactly one.");
         }
+        SparqlResult reviewResult = (SparqlResult)reviewResults[0];
+        reviewDto._reviewIri = reviewResult["reviewId"].ToString();
+        if (reviewResult.HasValue("guid"))
+            reviewDto.ReviewGuid = Guid.Parse(((LiteralNode)reviewResult["guid"]).Value);
+        reviewDto.AboutRevision = new Uri(reviewResult["aboutRevision"].ToString());
+        reviewDto.IssuedBy = ((LiteralNode)reviewResult["issuedBy"]).Value;
+        reviewDto.GeneratedAtTime = DateOnly.Parse(((LiteralNode)reviewResult["generatedAtTime"]).Value);
+        reviewDto.ReviewStatus = reviewResult["reviewStatus"].ToString();
+        reviewDto.Label = ((LiteralNode)reviewResult["label"]).Value;
+        reviewDto.HasComments = new List<CommentDto>();
+
 
         var commentQuery = @"
             PREFIX review: <https://rdf.equinor.com/ontology/review/>

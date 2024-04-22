@@ -9,7 +9,7 @@
     <Description>Package for transforming DTO to RDF, and vice-versa</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <PackageId>Review</PackageId>
-	  <VersionPrefix>2.0.4</VersionPrefix>
+	  <VersionPrefix>2.1.0</VersionPrefix>
 
 	  <PublishRepositoryUrl>true</PublishRepositoryUrl>
 	  <EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -27,6 +27,7 @@
   <ItemGroup>
     <PackageReference Include="ClosedXml" Version="0.102.2" />
     <PackageReference Include="dotNetRdf" Version="3.1.1" />
+    <PackageReference Include="IriTools" Version="1.0.0" />
   </ItemGroup>
 
 </Project>

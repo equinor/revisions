@@ -15,15 +15,17 @@ public class RdfGenerator
         graph.NamespaceMap.AddNamespace("rev", new Uri(Namespaces.Revision.BaseUrl));
         graph.NamespaceMap.AddNamespace("review", new Uri(Namespaces.Review.BaseUrl));
         graph.NamespaceMap.AddNamespace("prov", new Uri(Namespaces.Prov.BaseUrl));
-        graph.NamespaceMap.AddNamespace("comment", new Uri(Namespaces.CommentData.BaseUrl));
+        graph.NamespaceMap.AddNamespace("comment", new Uri(Namespaces.Data.Comment));
 
         // Create and assert Review triples
-        var reviewId = graph.CreateUriNode(new Uri(reviewDto.ReviewId));
+        var reviewId = graph.CreateUriNode(reviewDto.ReviewIri);
         var aboutRevision = graph.CreateUriNode(reviewDto.AboutRevision);
         var issuedBy = graph.CreateLiteralNode(reviewDto.IssuedBy);
         var generatedAtTime = graph.CreateLiteralNode(formatDate(reviewDto.GeneratedAtTime), UriFactory.Create("http://www.w3.org/2001/XMLSchema#date"));
         var reviewStatus = graph.CreateUriNode(new Uri(reviewDto.ReviewStatus));
         var label = graph.CreateLiteralNode(reviewDto.Label);
+        var guidvalue = graph.CreateLiteralNode(reviewDto.ReviewGuid.ToString());
+
 
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("rdf:type"), graph.CreateUriNode("review:Review")));
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("rdf:type"), reviewStatus));
@@ -31,6 +33,7 @@ public class RdfGenerator
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("prov:generatedAtTime"), generatedAtTime));
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("review:aboutRevision"), aboutRevision));
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("review:issuedBy"), issuedBy));
+        graph.Assert(new Triple(reviewId, graph.CreateUriNode(new Uri(Namespaces.Review.HasGuid)), guidvalue));
 
         //Create and assert comment triples
         foreach (var commentDto in reviewDto.HasComments)

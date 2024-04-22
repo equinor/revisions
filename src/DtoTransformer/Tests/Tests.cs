@@ -37,10 +37,10 @@ namespace Review.Tests
             var reviewDtoAfterTransformation = DtoGenerator.GenerateDto(graph);
 
             // Assert
-            Assert.Equal(reviewDto.ReviewId, reviewDtoAfterTransformation.ReviewId);
+            Assert.Equal(reviewDto.ReviewGuid, reviewDtoAfterTransformation.ReviewGuid);
             Assert.Equal(reviewDto.IssuedBy, reviewDtoAfterTransformation.IssuedBy);
             Assert.Equal(reviewDto.Label, reviewDtoAfterTransformation.Label);
-          
+
             for (int i = 0; i < reviewDto.HasComments.Count; i++)
             {
                 var expectedComment = reviewDto.HasComments[i];
@@ -65,25 +65,57 @@ namespace Review.Tests
         }
         internal void CheckReview(string rdf, string shacl_name)
         {
-             //Act
-             var graph = new Graph();
-             StringParser.Parse(graph, rdf);
-             
-             var currentDirectory = Directory.GetCurrentDirectory();
-             var shaclFileLocation = $"{currentDirectory}/TestData/{shacl_name}";
-             var shapes = new Graph();
-             shapes.LoadFromFile(shaclFileLocation);
-             var shapeGraph = new ShapesGraph(shapes);
+            //Act
+            var graph = new Graph();
+            StringParser.Parse(graph, rdf);
 
-             //Assert
-             var report = shapeGraph.Validate(graph);
-             if (!report.Conforms)
-             {
+            var currentDirectory = Directory.GetCurrentDirectory();
+            var shaclFileLocation = $"{currentDirectory}/TestData/{shacl_name}";
+            var shapes = new Graph();
+            shapes.LoadFromFile(shaclFileLocation);
+            var shapeGraph = new ShapesGraph(shapes);
+
+            //Assert
+            var report = shapeGraph.Validate(graph);
+            if (!report.Conforms)
+            {
                 foreach (var res in report.Results)
-                    _testOutputHelper.WriteLine($"{res.FocusNode.ToString()}: {res.Message} detail: {res}");   
-             }
+                    _testOutputHelper.WriteLine($"{res.FocusNode.ToString()}: {res.Message} detail: {res}");
+            }
 
-             report.Conforms.Should().BeTrue();
+            report.Conforms.Should().BeTrue();
+        }
+
+        [Fact]
+        public void TransformerShouldHandleExampleComments2Trig()
+        {
+            ITripleStore exampleRdf = new TripleStore();
+            exampleRdf.LoadFromFile("TestData/comments2.trig");
+            IGraph graph = exampleRdf[new UriNode(new Uri("https://example.com/data/RecordID123_5"))] ??
+                           throw new Exception("File comments2.trig should have a record with id exdata:RecordID123_5");
+            var reviewDto = DtoGenerator.GenerateDto(graph);
+            reviewDto.Should().NotBeNull();
+            reviewDto.HasComments.Count.Should().Be(3, "exdoc:reply-A123-BC-D-EF-00001_F01 has three comments");
+            reviewDto.GeneratedAtTime.Should().Be(new DateOnly(2024, 1, 11));
+            reviewDto.ReviewStatus.Should().Be("https://rdf.equinor.com/ontology/review/Code1");
+        }
+
+        [Fact]
+        public void TransformerShouldHandleExampleCommentsTrig()
+        {
+            ITripleStore exampleRdf = new TripleStore();
+            exampleRdf.LoadFromFile("TestData/comments.trig");
+            IGraph graph = exampleRdf[new UriNode(new Uri("https://example.com/data/RecordID123_5"))] ??
+                           throw new Exception("File comments2.trig should have a record with id exdata:RecordID123_5");
+            var reviewDto = DtoGenerator.GenerateDto(graph);
+            reviewDto.Should().NotBeNull();
+            reviewDto.HasComments.Count.Should().Be(3, "exdoc:reply-A123-BC-D-EF-00001_F01 has three comments");
+            reviewDto.GeneratedAtTime.Should().Be(new DateOnly(2023, 6, 15));
+            reviewDto.ReviewStatus.Should().Be("https://rdf.equinor.com/ontology/review/Code1");
+            var act = Record.Exception(() => reviewDto.ReviewGuid);
+            act.Should().NotBeNull()
+                .And.BeOfType<InvalidOperationException>();
+            act?.Message.Should().Be("ReviewId not set");
         }
 
 
@@ -103,7 +135,7 @@ namespace Review.Tests
 
 
             // Assert
-            Assert.Equal(reviewDto.ReviewId, reviewDtoAfterTransformation.ReviewId);
+            Assert.Equal(reviewDto.ReviewGuid, reviewDtoAfterTransformation.ReviewGuid);
             Assert.Equal(reviewDto.IssuedBy, reviewDtoAfterTransformation.IssuedBy);
             Assert.Equal(reviewDto.ReviewStatus, reviewDtoAfterTransformation.ReviewStatus);
             Assert.Equal(reviewDto.Label, reviewDtoAfterTransformation.Label);
@@ -138,10 +170,11 @@ namespace Review.Tests
 
         }
 
-        public ReviewDTO CreateReviewDto() {
+        public ReviewDTO CreateReviewDto()
+        {
             var reviewDto = new ReviewDTO
             {
-                ReviewId = "https://example.com/doc/reply-A123-BC-D-EF-00001.F01",
+                ReviewIri = "https://example.com/doc/reply-A123-BC-D-EF-00001.F01",
                 AboutRevision = new Uri("https://example.com/data/A123-BC-D-EF-00001.F01"),
                 IssuedBy = "Turi Skogen",
                 GeneratedAtTime = DateOnly.FromDateTime(DateTime.Now),

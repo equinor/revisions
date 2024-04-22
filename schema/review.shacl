@@ -36,6 +36,14 @@ review:ReviewShape
         sh:name "ReviewRevision";
         sh:message "A reply is about exactly one revision";
         sh:severity sh:Violation;
+    ] , 
+    [ 
+        sh:path review:hasGuid;
+        sh:minCount 0;
+        sh:maxCount 1;
+        sh:name "ReviewGuid";
+        sh:message "A review has at most one Guid";
+        sh:severity sh:Violation;
     ] .
 
 review:ReviewedWithCommentsShape
