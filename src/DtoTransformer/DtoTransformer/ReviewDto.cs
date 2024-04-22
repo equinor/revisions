@@ -3,7 +3,7 @@ namespace Review;
 public class ReviewDTO
 {
     //Id of review
-    private Guid?_reviewId;
+    private Guid? _reviewId;
     internal IriReference? _reviewIri;
     public Guid ReviewGuid
     {

@@ -45,14 +45,14 @@ public class DtoGenerator
         SparqlResult reviewResult = (SparqlResult)reviewResults[0];
         reviewDto._reviewIri = reviewResult["reviewId"].ToString();
         if (reviewResult.HasValue("guid"))
-            reviewDto.ReviewGuid = Guid.Parse(((LiteralNode) reviewResult["guid"]).Value);
+            reviewDto.ReviewGuid = Guid.Parse(((LiteralNode)reviewResult["guid"]).Value);
         reviewDto.AboutRevision = new Uri(reviewResult["aboutRevision"].ToString());
         reviewDto.IssuedBy = ((LiteralNode)reviewResult["issuedBy"]).Value;
         reviewDto.GeneratedAtTime = DateOnly.Parse(((LiteralNode)reviewResult["generatedAtTime"]).Value);
         reviewDto.ReviewStatus = reviewResult["reviewStatus"].ToString();
         reviewDto.Label = ((LiteralNode)reviewResult["label"]).Value;
         reviewDto.HasComments = new List<CommentDto>();
-    
+
 
         var commentQuery = @"
             PREFIX review: <https://rdf.equinor.com/ontology/review/>

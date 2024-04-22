@@ -96,7 +96,7 @@ namespace Review.Tests
             var reviewDto = DtoGenerator.GenerateDto(graph);
             reviewDto.Should().NotBeNull();
             reviewDto.HasComments.Count.Should().Be(3, "exdoc:reply-A123-BC-D-EF-00001_F01 has three comments");
-            reviewDto.GeneratedAtTime.Should().Be(new DateOnly(2024,1,11));
+            reviewDto.GeneratedAtTime.Should().Be(new DateOnly(2024, 1, 11));
             reviewDto.ReviewStatus.Should().Be("https://rdf.equinor.com/ontology/review/Code1");
         }
 
