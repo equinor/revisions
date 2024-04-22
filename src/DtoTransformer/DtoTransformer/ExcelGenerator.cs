@@ -12,12 +12,12 @@ public static class ExcelGenerator
     public static string GetRevisionName(Uri revisionUri) =>
         revisionUri.LocalPath.ToString();
 
-    
+
     public static void CreateExcelAt(ReviewDTO review, string path)
     {
         review.GenerateExcel(getSuffix).SaveAs(path);
     }
-    
+
     public static XLWorkbook GenerateExcel(this ReviewDTO review, Func<Uri, string> getUriLabel)
     {
         var workbook = new XLWorkbook();
@@ -29,7 +29,7 @@ public static class ExcelGenerator
             { new Uri("https://example.com/data/"), "comment" }
         };
 
-       
+
         int nextFreeRow = worksheet.AddOttrPrefix(9, prefixes);
         review.GenerateCommentRows(worksheet, nextFreeRow, getUriLabel, prefixes);
         worksheet.Protect();
@@ -50,7 +50,7 @@ public static class ExcelGenerator
         }
         return review.AddOttrTemplateEnd(worksheet, commentRow);
     }
-    
+
     public static void AddReviewHeader(this ReviewDTO review, IXLWorksheet worksheet, Func<Uri, string> getRevisionName)
     {
         var reviewHeaders = new Dictionary<string, string>
@@ -88,7 +88,7 @@ public static class ExcelGenerator
             currentRow = worksheet.AddSheetRow(currentRow, new string[] { prefixNamekeypair, prefixUri.ToString() });
         }
         worksheet.Rows(startRow, currentRow).Hide();
-        return worksheet.AddSheetRow(currentRow, new string[]{"#OTTR", "end"});
+        return worksheet.AddSheetRow(currentRow, new string[] { "#OTTR", "end" });
     }
 
     public static string NextColumn(string columnName)
@@ -106,7 +106,7 @@ public static class ExcelGenerator
             return $"{prefix}{nextLetter}";
         }
     }
-    
+
     public static int AddSheetRow(this IXLWorksheet worksheet, int row, IEnumerable<string> cellValues)
     {
         var colName = "A";
@@ -118,7 +118,7 @@ public static class ExcelGenerator
 
         return row + 1;
     }
-    
+
     public static string getSuffix(Uri uri)
     {
         if (uri.Fragment.Equals(""))
@@ -188,7 +188,7 @@ public static class ExcelGenerator
         worksheet.Cell(row, contractorReplyColumnIndex).Style.Protection.SetLocked(false);
         worksheet.Cell(row, contractorAuthorColumnIndex).Style.Protection.SetLocked(false);
 
-       foreach (var column in worksheet.ColumnsUsed())
+        foreach (var column in worksheet.ColumnsUsed())
         {
             if (column.ColumnNumber() != commentTextColumnIndex)
             {
@@ -222,15 +222,16 @@ public static class ExcelGenerator
                 .Concat(filterNames)
                 .Concat(new string[] { "Property", "Contractor reply", "Contractor author" });
         worksheet.Row(currentRow).Style.Font.SetBold();
-        worksheet.Rows(startRow, currentRow-1).Hide();
+        worksheet.Rows(startRow, currentRow - 1).Hide();
 
         return worksheet.AddSheetRow(currentRow, ottrArgumentName);
-        
+
     }
-    
-    public static int AddOttrTemplateEnd(this ReviewDTO review, IXLWorksheet worksheet, int startRow) { 
+
+    public static int AddOttrTemplateEnd(this ReviewDTO review, IXLWorksheet worksheet, int startRow)
+    {
         var row = worksheet.AddSheetRow(startRow, new[] { "#OTTR", "end" });
-        worksheet.Row(row-1).Hide();
+        worksheet.Row(row - 1).Hide();
         return row;
     }
 

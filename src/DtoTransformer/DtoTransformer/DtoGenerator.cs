@@ -7,7 +7,7 @@ using Graph = VDS.RDF.Graph;
 namespace Review;
 public class DtoGenerator
 {
-    public static ReviewDTO GenerateDto(Graph graph)
+    public static ReviewDTO GenerateDto(IGraph graph)
     {
         var reviewQuery = @"
             PREFIX review: <https://rdf.equinor.com/ontology/review/>
@@ -38,19 +38,21 @@ public class DtoGenerator
 
         // Initialise ReviewDto
         var reviewDto = new ReviewDTO();
-        if (reviewResults.Count > 0)
+        if (reviewResults.IsEmpty)
         {
-            SparqlResult result = (SparqlResult)reviewResults[0];
-            reviewDto.ReviewIri = result["reviewId"].ToString();
-            if (result.HasValue("guid"))
-                reviewDto.ReviewGuid = Guid.Parse(((LiteralNode) result["guid"]).Value);
-            reviewDto.AboutRevision = new Uri(result["aboutRevision"].ToString());
-            reviewDto.IssuedBy = ((LiteralNode)result["issuedBy"]).Value;
-            reviewDto.GeneratedAtTime = DateOnly.Parse(((LiteralNode)result["generatedAtTime"]).Value);
-            reviewDto.ReviewStatus = result["reviewStatus"].ToString();
-            reviewDto.Label = ((LiteralNode)result["label"]).Value;
-            reviewDto.HasComments = new List<CommentDto>();
+            throw new InvalidOperationException("No review found in graph");
         }
+        SparqlResult reviewResult = (SparqlResult)reviewResults[0];
+        reviewDto._reviewIri = reviewResult["reviewId"].ToString();
+        if (reviewResult.HasValue("guid"))
+            reviewDto.ReviewGuid = Guid.Parse(((LiteralNode) reviewResult["guid"]).Value);
+        reviewDto.AboutRevision = new Uri(reviewResult["aboutRevision"].ToString());
+        reviewDto.IssuedBy = ((LiteralNode)reviewResult["issuedBy"]).Value;
+        reviewDto.GeneratedAtTime = DateOnly.Parse(((LiteralNode)reviewResult["generatedAtTime"]).Value);
+        reviewDto.ReviewStatus = reviewResult["reviewStatus"].ToString();
+        reviewDto.Label = ((LiteralNode)reviewResult["label"]).Value;
+        reviewDto.HasComments = new List<CommentDto>();
+    
 
         var commentQuery = @"
             PREFIX review: <https://rdf.equinor.com/ontology/review/>

@@ -4,7 +4,7 @@ public class ReviewDTO
 {
     //Id of review
     private Guid?_reviewId;
-    private IriReference? _reviewIri;
+    internal IriReference? _reviewIri;
     public Guid ReviewGuid
     {
         get => _reviewId ?? throw new InvalidOperationException("ReviewId not set");
