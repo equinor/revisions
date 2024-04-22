@@ -185,7 +185,6 @@ prov:Entity rdf:type owl:Class .
        rdfs:comment "Review code 2 is a conditional acceptance with minor changes are needed" ;
        rdfs:label "Reviewed with comments" .
 
-guid
 ###  https://rdf.equinor.com/ontology/review/Code3
 :Code3 rdf:type owl:Class ;
        rdfs:subClassOf :ReviewState ;
