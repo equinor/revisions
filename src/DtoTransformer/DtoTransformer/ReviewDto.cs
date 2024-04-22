@@ -3,14 +3,14 @@ namespace Review;
 public class ReviewDTO
 {
     //Id of review
-    private Guid? _reviewId;
+    private Guid? _reviewGuid;
     internal IriReference? _reviewIri;
     public Guid ReviewGuid
     {
-        get => _reviewId ?? throw new InvalidOperationException("ReviewId not set");
+        get => _reviewGuid ?? throw new InvalidOperationException("ReviewId not set");
         set
         {
-            _reviewId = value;
+            _reviewGuid = value;
             _reviewIri ??= new IriReference($"{Namespaces.Data.Review}{value.ToString()}");
         }
     }
@@ -21,7 +21,7 @@ public class ReviewDTO
         set
         {
             _reviewIri = value;
-            _reviewId ??= Guid.NewGuid();
+            _reviewGuid ??= Guid.NewGuid();
         }
     }
 
