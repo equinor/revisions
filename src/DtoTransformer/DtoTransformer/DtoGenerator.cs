@@ -40,7 +40,7 @@ public class DtoGenerator
         var reviewDto = new ReviewDTO();
         if (reviewResults.Count != 1)
         {
-            throw new InvalidOperationException("No review found in graph");
+            throw new InvalidOperationException($"The IGraph contained {reviewResults.Count} reviews. There should be exactly one.");
         }
         SparqlResult reviewResult = (SparqlResult)reviewResults[0];
         reviewDto._reviewIri = reviewResult["reviewId"].ToString();
