@@ -38,7 +38,7 @@ public class DtoGenerator
 
         // Initialise ReviewDto
         var reviewDto = new ReviewDTO();
-        if (reviewResults.IsEmpty)
+        if (reviewResults.Count != 1)
         {
             throw new InvalidOperationException("No review found in graph");
         }
