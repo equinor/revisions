@@ -16,7 +16,7 @@ SELECT ?r ?status_name ?author WHERE {
         ?new rev:replaces ?r.
     }
     ?review a review:Review;
-        review:aboutVersion ?r.
+        review:aboutRevision ?r.
     ?review a ?status;
         review:issuedBy ?author.
     ?status rdfs:subClassOf review:ReviewState;
@@ -40,7 +40,7 @@ prefix review: <https://rdf.equinor.com/ontology/review/>
 SELECT ?reply ?comment ?object ?author  WHERE {
   
     ?reply a review:Review;
-        review:aboutVersion exdoc:A123-BC-D-EF-00001.F01;
+        review:aboutRevision exdoc:A123-BC-D-EF-00001.F01;
         review:hasComment ?c.
     ?c review:aboutObject ?object ;
         rdfs:label ?comment ;
@@ -73,7 +73,7 @@ prefix rev: <https://rdf.equinor.com/ontology/revision/>
 SELECT distinct ?document ?newest_revision_name ?status_name ?reply_name ?reply_date ?comment_responsible WHERE {
     GRAPH ?record1 {
         ?reply a review:Review, ?status;
-            review:aboutVersion ?revision;
+            review:aboutRevision ?revision;
             rdfs:label ?reply_name;
             prov:generatedAtTime ?reply_date;
             review:issuedBy ?comment_responsible.
@@ -114,7 +114,7 @@ SELECT distinct ?document ?revision ?comment_text ?author ?comment_responsible ?
     GRAPH rec:HeadContent {
         ?reply a review:Review;
             review:issuedBy ?comment_responsible;
-            review:aboutVersion ?revision;
+            review:aboutRevision ?revision;
             review:hasComment ?comment.
         ?comment a review:Comment;
             rdfs:label ?comment_text;

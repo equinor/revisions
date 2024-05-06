@@ -3,6 +3,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 @prefix exdata: <https://example.com/data/>.
+@prefix comment: <https://rdf.equinor.com/data/review/comment/> .
 @prefix exdoc: <https://example.com/doc/>.
 @prefix rec: <https://rdf.equinor.com/ontology/record/>.
 @prefix rev: <https://rdf.equinor.com/ontology/revision/>.
@@ -11,8 +12,8 @@
 @prefix rdl: <http://example.com/rdl/>.
 @prefix mel:            <https://rdf.equinor.com/ontology/mel/v1#> .
 
-exdata:RecordID123.1 {
-    exdata:RecordID123.1 a rec:Record;
+exdata:RecordID123_1 {
+    exdata:RecordID123_1 a rec:Record;
         rdfs:comment "This is the revision";
                         rec:isInScope 
                             <https://rdf.equinor.com/ontology/technical-requirement/v1#MelReportingTemplate>, 
@@ -20,15 +21,15 @@ exdata:RecordID123.1 {
                             <https://commonlib.equinor.com/rdf/code/LCIContractor/4Do7Yb64WXh> ,
                             <https://commonlib.equinor.com/rdf/code/Contract/1JjvqAHFRbED1YPuaX> , 
                             <https://commonlib.equinor.com/rdf/code/Facility/FM5LjGVt> ;
-                        rec:describes exdoc:A123-BC-D-EF-00001.F01.
-    exdoc:A123-BC-D-EF-00001.F01 a rev:Revision;
+                        rec:describes exdoc:A123-BC-D-EF-00001_F01.
+    exdoc:A123-BC-D-EF-00001_F01 a rev:Revision;
         rdfs:label "Revision F01 of A123-BC-D-EF-00001";
         rev:describes exdoc:A123-BC-D-EF-00001.
-    exdoc:A123-BC-D-EF-00001.F01row1 mel:tagNumber "00X0001".
+    exdoc:A123-BC-D-EF-00001_F01row1 mel:tagNumber "00X0001".
 }
 
-exdata:RecordID123.5 {
-    exdata:RecordID123.5 a rec:Record;
+exdata:RecordID123_5 {
+    exdata:RecordID123_5 a rec:Record;
                         rdfs:comment "Based on example data from Sondre"^^xsd:string;
                         prov:generatedAtTime "2024-01-11"^^xsd:date;
                         rec:isInScope review:Review, 
@@ -37,19 +38,19 @@ exdata:RecordID123.5 {
                             <https://commonlib.equinor.com/rdf/code/LCIContractor/4Do7Yb64WXh> ,
                             <https://commonlib.equinor.com/rdf/code/Contract/1JjvqAHFRbED1YPuaX> , 
                             <https://commonlib.equinor.com/rdf/code/Facility/FM5LjGVt> ;
-                        rec:describes exdoc:reply-A123-BC-D-EF-00001.F01.
+                        rec:describes exdoc:reply-A123-BC-D-EF-00001_F01.
 
-    exdoc:reply-A123-BC-D-EF-00001.F01 a review:Review;
-                                review:aboutRevision exdoc:A123-BC-D-EF-00001.F01;
+    exdoc:reply-A123-BC-D-EF-00001_F01 a review:Review;
+                                review:aboutRevision exdoc:A123-BC-D-EF-00001_F01;
                                 review:issuedBy "Turi Skogen";
                                 prov:generatedAtTime "2024-01-11"^^xsd:date;
                                 rdf:type review:Code1;
                                 rdfs:label "Reply to revision F01";
-                                review:hasComment exdata:cb086a54-b4af-11ee-9f99-37a86e9a48aa, 
-                                    exdata:d24cca6c-b4af-11ee-ad44-df4f729a38a3, 
-                                    exdata:ff086a54-b4af-11ee-9f99-37a86e9a48aa.
+                                review:hasComment comment:cb086a54-b4af-11ee-9f99-37a86e9a48aa, 
+                                    comment:d24cca6c-b4af-11ee-ad44-df4f729a38a3, 
+                                    comment:ff086a54-b4af-11ee-9f99-37a86e9a48aa.
                             
-    exdata:cb086a54-b4af-11ee-9f99-37a86e9a48aa a review:Comment;
+    comment:cb086a54-b4af-11ee-9f99-37a86e9a48aa a review:Comment;
                                                 rdfs:label "Test1";
                                                 prov:generatedAtTime "2022-01-02"^^xsd:date;
                                                 review:aboutData (<https://example.com/doc/A123-BC-D-EF-00001.F01row1>
@@ -61,7 +62,7 @@ exdata:RecordID123.5 {
                                                                     mel:importantField "The important field"];
                                                 review:issuedBy "Line Danser".
 
-    exdata:d24cca6c-b4af-11ee-ad44-df4f729a38a3 a review:Comment;
+    comment:d24cca6c-b4af-11ee-ad44-df4f729a38a3 a review:Comment;
                                                 rdfs:label "Test2";
                                                 prov:generatedAtTime "2022-01-02"^^xsd:date;
                                                 
@@ -70,7 +71,7 @@ exdata:RecordID123.5 {
                                                                     mel:weightHandlingCode "The handling code"];
                                                 review:issuedBy "Turi Skogen".
 
-    exdata:ff086a54-b4af-11ee-9f99-37a86e9a48aa a review:Comment;
+    comment:ff086a54-b4af-11ee-9f99-37a86e9a48aa a review:Comment;
                                                 rdfs:label "Test3";
                                                 prov:generatedAtTime "2022-01-02"^^xsd:date;
                                                 review:aboutData (<https://example.com/doc/A123-BC-D-EF-00001.F01row5> <https://example.com/doc/A123-BC-D-EF-00001.F01row7>);
