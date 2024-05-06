@@ -32,6 +32,8 @@ public class RdfGenerator
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("prov:generatedAtTime"), generatedAtTime));
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("review:aboutRevision"), aboutRevision));
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("review:issuedBy"), issuedBy));
+        //IRefNode rdfSubject = graph.CreateUriNode(new Uri("http://example.com/subject"));
+        
 
         //Create and assert comment triples
         foreach (var commentDto in reviewDto.HasComments)
@@ -71,9 +73,47 @@ public class RdfGenerator
             graph.Assert(new Triple(reviewId, graph.CreateUriNode(new Uri(Namespaces.Review.HasComment)), commentId));
         }
 
+        AddBlankNodeToReview(graph, reviewId);
 
         return graph;
 
+    }
+    public static void AddBlankNodeToReview(Graph graph, IRefNode rdfSubject)
+    {
+        IRefNode activity = graph.CreateBlankNode();
+        AddProvenance(graph, activity);
+
+        var wasGeneratedByPredicate = new Triple(
+            rdfSubject,
+            new UriNode(new Uri(Namespaces.Prov.WasGeneratedBy)),
+            activity);
+
+        graph.Assert(wasGeneratedByPredicate);
+    }
+
+    private static void AddProvenance(Graph graph, IRefNode activity)
+    {
+        var versionUri = new UriNode(new Uri(CreateReviewVersionUri()));
+        graph.Assert(new Triple(
+            activity,
+            new UriNode(new Uri(Namespaces.Prov.WasAssociatedWith)),
+            versionUri));
+
+        graph.Assert(new Triple(
+            activity,
+            new UriNode(new Uri(Namespaces.Rdfs.Comment)),
+            new LiteralNode("Version of ReviewDto used to create the Rdf")));
+
+        graph.Assert(new Triple(
+            activity,
+            new UriNode(new Uri(Namespaces.Rdfs.Label)),
+            new LiteralNode(GetReviewVersion())));
+    }
+    private static string CreateReviewVersionUri() =>
+        $"https://www.nuget.org/packages/Review/{GetReviewVersion()}";
+    private static string GetReviewVersion()
+    {
+        return typeof(RdfGenerator).Assembly.GetName().Version?.ToString() ?? throw new Exception("Could not get version of Review");
     }
 }
 
