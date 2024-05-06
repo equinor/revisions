@@ -30,6 +30,13 @@ review:ReviewShape
         sh:severity sh:Violation;
     ] , 
     [ 
+        sh:path prov:wasGeneratedBy;
+        sh:minCount 0;
+        sh:maxCount 1;
+        sh:message "A reply must have exactly one blank node WasGeneratedBy";
+        sh:severity sh:Violation;
+    ] , 
+    [ 
         sh:path review:aboutRevision;
         sh:minCount 1;
         sh:maxCount 1;
