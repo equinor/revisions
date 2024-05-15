@@ -22,7 +22,7 @@ public class RdfGenerator
         var aboutRevision = graph.CreateUriNode(reviewDto.AboutRevision);
         var issuedBy = graph.CreateLiteralNode(reviewDto.IssuedBy);
         var generatedAtTime = graph.CreateLiteralNode(formatDate(reviewDto.GeneratedAtTime), UriFactory.Create("http://www.w3.org/2001/XMLSchema#date"));
-        var reviewStatus = graph.CreateLiteralNode(reviewDto.Status.ToString());
+        var reviewStatus = graph.CreateUriNode(new Uri(GetFullIri(reviewDto.Status)));
         var label = graph.CreateLiteralNode(reviewDto.Label);
         var guidvalue = graph.CreateLiteralNode(reviewDto.ReviewGuid.ToString());
 
@@ -121,6 +121,24 @@ public class RdfGenerator
     private static string GetReviewVersion()
     {
         return typeof(RdfGenerator).Assembly.GetName().Version?.ToString() ?? throw new Exception("Could not get version of Review");
+    }
+    public static string GetFullIri(ReviewStatus value)
+    {
+        switch (value)
+        {
+            case ReviewStatus.Code1:
+                return "https://rdf.equinor.com/ontology/review/Code1";
+            case ReviewStatus.Code2:
+                return "https://rdf.equinor.com/ontology/review/Code2";
+            case ReviewStatus.Code3:
+                return "https://rdf.equinor.com/ontology/review/Code3";
+            case ReviewStatus.Code4:
+                return "https://rdf.equinor.com/ontology/review/Code4";
+            case ReviewStatus.Code5:
+                return "https://rdf.equinor.com/ontology/review/Code5";
+            default:
+                throw new ArgumentException("Invalid value");
+        }
     }
 }
 

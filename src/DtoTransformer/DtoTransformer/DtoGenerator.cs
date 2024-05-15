@@ -49,7 +49,7 @@ public class DtoGenerator
         reviewDto.AboutRevision = new Uri(reviewResult["aboutRevision"].ToString());
         reviewDto.IssuedBy = ((LiteralNode)reviewResult["issuedBy"]).Value;
         reviewDto.GeneratedAtTime = DateOnly.Parse(((LiteralNode)reviewResult["generatedAtTime"]).Value);
-        reviewDto.Status = ParseReviewStatus(((LiteralNode) reviewResult["reviewStatus"]).Value);
+        reviewDto.Status = ParseReviewStatus(reviewResult["reviewStatus"].ToString());
         reviewDto.Label = ((LiteralNode)reviewResult["label"]).Value;
         reviewDto.HasComments = new List<CommentDto>();
 
@@ -145,11 +145,11 @@ public class DtoGenerator
     {
         return status switch
         {
-            "Code1" => ReviewStatus.Code1,
-            "Code2" => ReviewStatus.Code2,
-            "Code3" => ReviewStatus.Code3,
-            "Code4" => ReviewStatus.Code4,
-            "Code5" => ReviewStatus.Code5,
+            "https://rdf.equinor.com/ontology/review/Code1" => ReviewStatus.Code1,
+            "https://rdf.equinor.com/ontology/review/Code2" => ReviewStatus.Code2,
+            "https://rdf.equinor.com/ontology/review/Code3" => ReviewStatus.Code3,
+            "https://rdf.equinor.com/ontology/review/Code4" => ReviewStatus.Code4,
+            "https://rdf.equinor.com/ontology/review/Code5" => ReviewStatus.Code5,
             _ => throw new ArgumentException($"Invalid review status: {status}")
         };
     }
