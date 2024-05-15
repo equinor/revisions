@@ -22,7 +22,7 @@ public class RdfGenerator
         var aboutRevision = graph.CreateUriNode(reviewDto.AboutRevision);
         var issuedBy = graph.CreateLiteralNode(reviewDto.IssuedBy);
         var generatedAtTime = graph.CreateLiteralNode(formatDate(reviewDto.GeneratedAtTime), UriFactory.Create("http://www.w3.org/2001/XMLSchema#date"));
-        var reviewStatus = graph.CreateUriNode(new Uri(reviewDto.ReviewStatus));
+        var reviewStatus = graph.CreateLiteralNode(reviewDto.Status.ToString());
         var label = graph.CreateLiteralNode(reviewDto.Label);
         var guidvalue = graph.CreateLiteralNode(reviewDto.ReviewGuid.ToString());
 

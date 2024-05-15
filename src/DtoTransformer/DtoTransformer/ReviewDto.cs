@@ -1,5 +1,6 @@
 ﻿using IriTools;
 namespace Review;
+
 public class ReviewDTO
 {
     //Id of review
@@ -31,7 +32,8 @@ public class ReviewDTO
     public string IssuedBy { get; set; }
     public DateOnly GeneratedAtTime { get; set; }
     //Number indicating status of review. Plaintext for now
-    public string ReviewStatus { get; set; }
+    public ReviewStatus Status { get; set; }
+    //public string ReviewStatus { get; set; }
     //Optional description of whole review
     public string Label { get; set; }
     //The comments in the review
@@ -39,15 +41,15 @@ public class ReviewDTO
 
     public string GetReviewStatusDescription()
     {
-        switch (ReviewStatus)
+        switch (Status)
         {
-            case "https://rdf.equinor.com/ontology/review/Code1":
+            case ReviewStatus.Code1:
                 return "Code 1: Accepted";
-            case "https://rdf.equinor.com/ontology/review/Code2":
+            case ReviewStatus.Code2:
                 return "Code 2: Minor Changes Needed";
-            case "https://rdf.equinor.com/ontology/review/Code3":
+            case ReviewStatus.Code3:
                 return "Code 3: Major Changes Needed";
-            case "https://rdf.equinor.com/ontology/review/Code4":
+            case ReviewStatus.Code4:
                 return "Code 4: Redesign Required";
             default:
                 return "Status Unknown";

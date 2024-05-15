@@ -11,7 +11,7 @@ var reviewDto = new ReviewDTO
     AboutRevision = new Uri("https://example.com/data/A123-BC-D-EF-00001.F01"),
     IssuedBy = "Turi Skogen",
     GeneratedAtTime = DateOnly.FromDateTime(DateTime.Now),
-    ReviewStatus = "https://rdf.equinor.com/ontology/review/Code1",
+    Status = ReviewStatus.Code1,
     Label = "Reply to revision F01",
     HasComments = new List<CommentDto>()
 };
@@ -111,7 +111,7 @@ static void printInfo(ReviewDTO review)
         Console.WriteLine("Generated At Time: " + review.GeneratedAtTime);
     }
 
-    Console.WriteLine("Review Status: " + review.ReviewStatus);
+    Console.WriteLine("Review Status: " + review.Status);
 
     Console.WriteLine("Has comments");
 
