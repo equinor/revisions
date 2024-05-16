@@ -44,13 +44,15 @@ public class ReviewDTO
         switch (Status)
         {
             case ReviewStatus.Code1:
-                return "Code 1: Accepted";
+                return "Code 1: Reviewed. No comments ";
             case ReviewStatus.Code2:
-                return "Code 2: Minor Changes Needed";
+                return "Code 2: Reviewed with comments. Implement comments and submit for information";
             case ReviewStatus.Code3:
-                return "Code 3: Major Changes Needed";
+                return "Code 3: Reviewed with comments. Implement comments and submit for new review";
             case ReviewStatus.Code4:
-                return "Code 4: Redesign Required";
+                return "Code 4: Not reviewed";
+            case ReviewStatus.Code5:
+                return "Code 5: For continous updating. Resubmit for review";
             default:
                 return "Status Unknown";
         }
