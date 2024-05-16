@@ -143,15 +143,7 @@ public class DtoGenerator
 
     private static ReviewStatus ParseReviewStatus(string status)
     {
-        return status switch
-        {
-            "https://rdf.equinor.com/ontology/review/Code1" => ReviewStatus.Code1,
-            "https://rdf.equinor.com/ontology/review/Code2" => ReviewStatus.Code2,
-            "https://rdf.equinor.com/ontology/review/Code3" => ReviewStatus.Code3,
-            "https://rdf.equinor.com/ontology/review/Code4" => ReviewStatus.Code4,
-            "https://rdf.equinor.com/ontology/review/Code5" => ReviewStatus.Code5,
-            _ => throw new ArgumentException($"Invalid review status: {status}")
-        };
+        return ReviewStatusHelper.GetStatus(status);
     }
 }
 

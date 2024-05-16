@@ -189,20 +189,20 @@ prov:Entity rdf:type owl:Class .
 :Code3 rdf:type owl:Class ;
        rdfs:subClassOf :ReviewState ;
        rdfs:comment "Review Code3 means reviewed with comments. Implement comments and submit for new review." ;
-       rdfs:label "Resubmit" .
+       rdfs:label "Reviewed with comments" .
 
 
 ###  https://rdf.equinor.com/ontology/review/Code4
 :Code4 rdf:type owl:Class ;
        rdfs:subClassOf :ReviewState ;
        rdfs:comment "Review Code4 means not reviewed." ;
-       rdfs:label "Out of scope" .
+       rdfs:label "Not reviewed" .
 
 ###  https://rdf.equinor.com/ontology/review/Code5
-:Code4 rdf:type owl:Class ;
+:Code5 rdf:type owl:Class ;
        rdfs:subClassOf :ReviewState ;
        rdfs:comment "Review Code5 means: for continous updating. Resubmit for review" ;
-       rdfs:label "Out of scope" .
+       rdfs:label "Continuous updating" .
 
 
 ###  https://rdf.equinor.com/ontology/review/Comment

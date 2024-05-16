@@ -124,21 +124,8 @@ public class RdfGenerator
     }
     public static string GetFullIri(ReviewStatus value)
     {
-        switch (value)
-        {
-            case ReviewStatus.Code1:
-                return "https://rdf.equinor.com/ontology/review/Code1";
-            case ReviewStatus.Code2:
-                return "https://rdf.equinor.com/ontology/review/Code2";
-            case ReviewStatus.Code3:
-                return "https://rdf.equinor.com/ontology/review/Code3";
-            case ReviewStatus.Code4:
-                return "https://rdf.equinor.com/ontology/review/Code4";
-            case ReviewStatus.Code5:
-                return "https://rdf.equinor.com/ontology/review/Code5";
-            default:
-                throw new ArgumentException("Invalid value");
-        }
+        return ReviewStatusHelper.GetIri(value);
     }
+
 }
 
