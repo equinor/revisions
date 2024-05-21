@@ -1,5 +1,8 @@
 ﻿using IriTools;
+using VDS.RDF;
+using VDS.RDF.Parsing;
 namespace Review;
+
 public class ReviewDTO
 {
     //Id of review
@@ -31,27 +34,27 @@ public class ReviewDTO
     public string IssuedBy { get; set; }
     public DateOnly GeneratedAtTime { get; set; }
     //Number indicating status of review. Plaintext for now
-    public string ReviewStatus { get; set; }
+    public ReviewStatus Status { get; set; }
+    //public string ReviewStatus { get; set; }
     //Optional description of whole review
     public string Label { get; set; }
     //The comments in the review
     public List<CommentDto> HasComments { get; set; }
 
+
     public string GetReviewStatusDescription()
     {
-        switch (ReviewStatus)
-        {
-            case "https://rdf.equinor.com/ontology/review/Code1":
-                return "Code 1: Accepted";
-            case "https://rdf.equinor.com/ontology/review/Code2":
-                return "Code 2: Minor Changes Needed";
-            case "https://rdf.equinor.com/ontology/review/Code3":
-                return "Code 3: Major Changes Needed";
-            case "https://rdf.equinor.com/ontology/review/Code4":
-                return "Code 4: Redesign Required";
-            default:
-                return "Status Unknown";
-        }
+        //Get reviewstatus comment text from ontology
+        Graph g = new Graph();
+        g.LoadFromFile("review.ttl");
+
+        string statusUri = $"https://rdf.equinor.com/ontology/review/{Status}";
+        INode statusNode = g.CreateUriNode(UriFactory.Create(statusUri));
+        INode commentPredicate = g.CreateUriNode(UriFactory.Create("http://www.w3.org/2000/01/rdf-schema#comment"));
+        Triple commentTriple = g.GetTriplesWithSubjectPredicate(statusNode, commentPredicate).FirstOrDefault();
+
+        // Return the value of the comment triple's object if it exists, otherwise return "Status Unknown"
+        return commentTriple != null ? ((LiteralNode)commentTriple.Object).Value : "Status Unknown";
     }
 }
 

@@ -175,28 +175,34 @@ prov:Entity rdf:type owl:Class .
 ###  https://rdf.equinor.com/ontology/review/Code1
 :Code1 rdf:type owl:Class ;
        rdfs:subClassOf :ReviewState ;
-       rdfs:comment "Review code 1 means accepted" ;
+       rdfs:comment "Code 1: Reviewed. No Comments" ;
        rdfs:label "Reviewed" .
 
 
 ###  https://rdf.equinor.com/ontology/review/Code2
 :Code2 rdf:type owl:Class ;
        rdfs:subClassOf :ReviewState ;
-       rdfs:comment "Review code 2 is a conditional acceptance with minor changes are needed" ;
+       rdfs:comment "Code 2: Reviewed with comments. Implement comments and submit for information." ;
        rdfs:label "Reviewed with comments" .
 
 ###  https://rdf.equinor.com/ontology/review/Code3
 :Code3 rdf:type owl:Class ;
        rdfs:subClassOf :ReviewState ;
-       rdfs:comment "Review code 3 means revise and resubmit: major changes are needed" ;
-       rdfs:label "Resubmit" .
+       rdfs:comment "Code3: Reviewed with comments. Implement comments and submit for new review." ;
+       rdfs:label "Reviewed with comments" .
 
 
 ###  https://rdf.equinor.com/ontology/review/Code4
 :Code4 rdf:type owl:Class ;
        rdfs:subClassOf :ReviewState ;
-       rdfs:comment "Review code 4 means the design is completely off and must be redone" ;
-       rdfs:label "Out of scope" .
+       rdfs:comment "Code4: Not reviewed." ;
+       rdfs:label "Not reviewed" .
+
+###  https://rdf.equinor.com/ontology/review/Code5
+:Code5 rdf:type owl:Class ;
+       rdfs:subClassOf :ReviewState ;
+       rdfs:comment "Code5: For continous updating. Resubmit for review." ;
+       rdfs:label "For continuous updating" .
 
 
 ###  https://rdf.equinor.com/ontology/review/Comment
@@ -233,8 +239,9 @@ prov:Entity rdf:type owl:Class .
                                    :Code2
                                    :Code3
                                    :Code4
+                                   :Code5
                                  ) ;
-             rdfs:comment "Corresponds to the revision code 1-4" ;
+             rdfs:comment "Corresponds to the revision code 1-5" ;
              rdfs:label "review state" .
 
 

@@ -97,7 +97,7 @@ namespace Review.Tests
             reviewDto.Should().NotBeNull();
             reviewDto.HasComments.Count.Should().Be(3, "exdoc:reply-A123-BC-D-EF-00001_F01 has three comments");
             reviewDto.GeneratedAtTime.Should().Be(new DateOnly(2024, 1, 11));
-            reviewDto.ReviewStatus.Should().Be("https://rdf.equinor.com/ontology/review/Code1");
+            reviewDto.Status.Should().Be(ReviewStatus.Code1);
         }
 
         [Fact]
@@ -111,7 +111,7 @@ namespace Review.Tests
             reviewDto.Should().NotBeNull();
             reviewDto.HasComments.Count.Should().Be(3, "exdoc:reply-A123-BC-D-EF-00001_F01 has three comments");
             reviewDto.GeneratedAtTime.Should().Be(new DateOnly(2023, 6, 15));
-            reviewDto.ReviewStatus.Should().Be("https://rdf.equinor.com/ontology/review/Code1");
+            reviewDto.Status.Should().Be(ReviewStatus.Code1);
             var act = Record.Exception(() => reviewDto.ReviewGuid);
             act.Should().NotBeNull()
                 .And.BeOfType<InvalidOperationException>();
@@ -137,7 +137,7 @@ namespace Review.Tests
             // Assert
             Assert.Equal(reviewDto.ReviewGuid, reviewDtoAfterTransformation.ReviewGuid);
             Assert.Equal(reviewDto.IssuedBy, reviewDtoAfterTransformation.IssuedBy);
-            Assert.Equal(reviewDto.ReviewStatus, reviewDtoAfterTransformation.ReviewStatus);
+            Assert.Equal(reviewDto.Status, reviewDtoAfterTransformation.Status);
             Assert.Equal(reviewDto.Label, reviewDtoAfterTransformation.Label);
 
             //sort HasComments CommentDto based on each of the CommentId
@@ -178,7 +178,7 @@ namespace Review.Tests
                 AboutRevision = new Uri("https://example.com/data/A123-BC-D-EF-00001.F01"),
                 IssuedBy = "Turi Skogen",
                 GeneratedAtTime = DateOnly.FromDateTime(DateTime.Now),
-                ReviewStatus = "https://rdf.equinor.com/ontology/review/Code1",
+                Status = ReviewStatus.Code1,
                 Label = "Reply to revision F01",
                 HasComments = new List<CommentDto>()
             };

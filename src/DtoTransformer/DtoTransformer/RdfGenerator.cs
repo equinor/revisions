@@ -22,7 +22,7 @@ public class RdfGenerator
         var aboutRevision = graph.CreateUriNode(reviewDto.AboutRevision);
         var issuedBy = graph.CreateLiteralNode(reviewDto.IssuedBy);
         var generatedAtTime = graph.CreateLiteralNode(formatDate(reviewDto.GeneratedAtTime), UriFactory.Create("http://www.w3.org/2001/XMLSchema#date"));
-        var reviewStatus = graph.CreateUriNode(new Uri(reviewDto.ReviewStatus));
+        var reviewStatus = graph.CreateUriNode(new Uri(GetFullIri(reviewDto.Status)));
         var label = graph.CreateLiteralNode(reviewDto.Label);
         var guidvalue = graph.CreateLiteralNode(reviewDto.ReviewGuid.ToString());
 
@@ -122,5 +122,10 @@ public class RdfGenerator
     {
         return typeof(RdfGenerator).Assembly.GetName().Version?.ToString() ?? throw new Exception("Could not get version of Review");
     }
+    public static string GetFullIri(ReviewStatus value)
+    {
+        return ReviewStatusHelper.GetIri(value);
+    }
+
 }
 

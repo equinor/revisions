@@ -24,6 +24,15 @@
     </None>
   </ItemGroup>
 
+	<ItemGroup>
+		<EmbeddedResource Include="..\..\..\schema\review.ttl">
+			<Link>review.ttl</Link>
+			<IncludeInPackage>true</IncludeInPackage>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="ClosedXml" Version="0.102.2" />
     <PackageReference Include="dotNetRdf" Version="3.1.1" />

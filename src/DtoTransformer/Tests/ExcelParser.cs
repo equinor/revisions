@@ -22,7 +22,7 @@ namespace Review
                 ReviewIri = "https://example.com/doc/reply-" + GetCellValue(worksheet, "B4"),
                 AboutRevision = new Uri("https://example.com/data/" + GetCellValue(worksheet, "B4")),
                 IssuedBy = GetCellValue(worksheet, "B5"),
-                ReviewStatus = GetReviewStatusFromDescription(GetCellValue(worksheet, "B3")),
+                Status = GetReviewStatusFromDescription(GetCellValue(worksheet, "B3")),
                 Label = GetCellValue(worksheet, "A1"),
                 HasComments = new List<CommentDto>()
             };
@@ -74,21 +74,21 @@ namespace Review
             return value;
         }
 
-        private static string GetReviewStatusFromDescription(string description)
+        private static ReviewStatus GetReviewStatusFromDescription(string description)
         {
             // Parse the review status code from the description text
             switch (description)
             {
                 case "Code 1: Accepted":
-                    return "https://rdf.equinor.com/ontology/review/Code1";
+                    return ReviewStatus.Code1;
                 case "Code 2: Minor Changes Needed":
-                    return "https://rdf.equinor.com/ontology/review/Code2";
+                    return ReviewStatus.Code2;
                 case "Code 3: Major Changes Needed":
-                    return "https://rdf.equinor.com/ontology/review/Code3";
+                    return ReviewStatus.Code3;
                 case "Code 4: Redesign Required":
-                    return "https://rdf.equinor.com/ontology/review/Code4";
+                    return ReviewStatus.Code4;
                 default:
-                    return "Status Unknown";
+                    return ReviewStatus.Code5;
             }
         }
 
