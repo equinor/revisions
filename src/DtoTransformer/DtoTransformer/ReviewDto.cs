@@ -44,25 +44,18 @@ public class ReviewDTO
 
     public string GetReviewStatusDescription()
     {
-        // Load the Turtle file
+ 
+        //Get reviewstatus comment text from ontology
         Graph g = new Graph();
-        TurtleParser ttlparser = new TurtleParser();
-        ttlparser.Load(g, "review.ttl"); // replace with your file path
+        g.LoadFromFile("review.ttl");
 
-        // Get the comment for the current status
         string statusUri = $"https://rdf.equinor.com/ontology/review/{Status}";
         INode statusNode = g.CreateUriNode(UriFactory.Create(statusUri));
-        INode commentPredicate = g.CreateUriNode("rdfs:comment");
+        INode commentPredicate = g.CreateUriNode(UriFactory.Create("rdfs:comment"));
         Triple commentTriple = g.GetTriplesWithSubjectPredicate(statusNode, commentPredicate).FirstOrDefault();
 
-        if (commentTriple != null)
-        {
-            return ((LiteralNode)commentTriple.Object).Value;
-        }
-        else
-        {
-            return "Status Unknown";
-        }
+        // Return the value of the comment triple's object if it exists, otherwise return "Status Unknown"
+        return commentTriple != null ? ((LiteralNode)commentTriple.Object).Value : "Status Unknown";
     }
 }
 
