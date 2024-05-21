@@ -44,14 +44,13 @@ public class ReviewDTO
 
     public string GetReviewStatusDescription()
     {
- 
         //Get reviewstatus comment text from ontology
         Graph g = new Graph();
         g.LoadFromFile("review.ttl");
 
         string statusUri = $"https://rdf.equinor.com/ontology/review/{Status}";
         INode statusNode = g.CreateUriNode(UriFactory.Create(statusUri));
-        INode commentPredicate = g.CreateUriNode(UriFactory.Create("rdfs:comment"));
+        INode commentPredicate = g.CreateUriNode(UriFactory.Create("http://www.w3.org/2000/01/rdf-schema#comment"));
         Triple commentTriple = g.GetTriplesWithSubjectPredicate(statusNode, commentPredicate).FirstOrDefault();
 
         // Return the value of the comment triple's object if it exists, otherwise return "Status Unknown"
