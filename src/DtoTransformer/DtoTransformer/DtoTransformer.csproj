@@ -31,9 +31,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="review.ttl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	  <EmbeddedResource Include="..\..\schema\review.ttl">
+	    <Link>review.ttl</Link>
+	    <IncludeInPackage>true</IncludeInPackage>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	    <PackageCopyToOutput>true</PackageCopyToOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
 
 </Project>
