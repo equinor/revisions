@@ -1,4 +1,6 @@
 ﻿using IriTools;
+using VDS.RDF;
+using VDS.RDF.Parsing;
 namespace Review;
 
 public class ReviewDTO
@@ -39,22 +41,27 @@ public class ReviewDTO
     //The comments in the review
     public List<CommentDto> HasComments { get; set; }
 
+
     public string GetReviewStatusDescription()
     {
-        switch (Status)
+        // Load the Turtle file
+        Graph g = new Graph();
+        TurtleParser ttlparser = new TurtleParser();
+        ttlparser.Load(g, "review.ttl"); // replace with your file path
+
+        // Get the comment for the current status
+        string statusUri = $"https://rdf.equinor.com/ontology/review/{Status}";
+        INode statusNode = g.CreateUriNode(UriFactory.Create(statusUri));
+        INode commentPredicate = g.CreateUriNode("rdfs:comment");
+        Triple commentTriple = g.GetTriplesWithSubjectPredicate(statusNode, commentPredicate).FirstOrDefault();
+
+        if (commentTriple != null)
         {
-            case ReviewStatus.Code1:
-                return "Code 1: Reviewed. No comments ";
-            case ReviewStatus.Code2:
-                return "Code 2: Reviewed with comments. Implement comments and submit for information";
-            case ReviewStatus.Code3:
-                return "Code 3: Reviewed with comments. Implement comments and submit for new review";
-            case ReviewStatus.Code4:
-                return "Code 4: Not reviewed";
-            case ReviewStatus.Code5:
-                return "Code 5: For continous updating. Resubmit for review";
-            default:
-                return "Status Unknown";
+            return ((LiteralNode)commentTriple.Object).Value;
+        }
+        else
+        {
+            return "Status Unknown";
         }
     }
 }

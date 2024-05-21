@@ -171,7 +171,6 @@ owl:DatatypeProperty rdf:type owl:Class .
 ###  http://www.w3.org/ns/prov#Entity
 prov:Entity rdf:type owl:Class .
 
-
 ###  https://rdf.equinor.com/ontology/review/Code1
 :Code1 rdf:type owl:Class ;
        rdfs:subClassOf :ReviewState ;
@@ -203,7 +202,6 @@ prov:Entity rdf:type owl:Class .
        rdfs:subClassOf :ReviewState ;
        rdfs:comment "Code5: For continous updating. Resubmit for review." ;
        rdfs:label "For continuous updating" .
-
 
 ###  https://rdf.equinor.com/ontology/review/Comment
 :Comment rdf:type owl:Class ;
