@@ -1,4 +1,5 @@
-﻿public static class ReviewStatusHelper
+﻿namespace Review;
+public static class ReviewStatusHelper
 {
     private static readonly Dictionary<ReviewStatus, string> StatusToIriMap = new()
     {
