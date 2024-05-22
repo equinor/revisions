@@ -19,8 +19,14 @@ jobs:
       run: |
         dotnet restore ./src/DtoTransformer/Tests
     - name: Build tests
-      run: dotnet build ./src/DtoTransformer/Tests --no-restore
+      run: dotnet build ./src/DtoTransformer/Tests --no-restore -c Debug
+    - name: Build Review Nuget package
+      run: dotnet publish ./src/DtoTransformer/DtoTransformer/DtoTransformer.csproj -c Debug
+    - name: Build Nuget package tester
+      run: |
+       dotnet build ./src/DtoTransformerNugetTest -c Debug
     - name: Test
       run: |
         dotnet test ./src/DtoTransformer/DtoTransformer.sln --no-build --verbosity normal
         dotnet test ./src/DtoTransformer/Tests --no-build --verbosity normal
+        dotnet test ./src/DtoTransformerNugetTest --verbosity normal
