@@ -3,6 +3,7 @@ using VDS.RDF.Writing;
 
 using VDS.RDF.Writing;
 using Review;
+using Review.Tests;
 
 var reviewDto = new ReviewDTO
 {
