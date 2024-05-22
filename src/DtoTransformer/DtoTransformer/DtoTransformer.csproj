@@ -9,8 +9,8 @@
     <Description>Package for transforming DTO to RDF, and vice-versa</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <PackageId>Review</PackageId>
-	  <VersionPrefix>4.0.1</VersionPrefix>
-
+	  <VersionPrefix>4.0.2</VersionPrefix>
+      <PackageLicenseExpression>GPL-2.0-or-later</PackageLicenseExpression>
 	  <PublishRepositoryUrl>true</PublishRepositoryUrl>
 	  <EmbedUntrackedSources>true</EmbedUntrackedSources>
 	  <IncludeSymbols>true</IncludeSymbols>
@@ -23,6 +23,13 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\..\..\schema\review.ttl">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+    </ItemGroup>
 
 	<ItemGroup>
 		<EmbeddedResource Include="..\..\..\schema\review.ttl">
