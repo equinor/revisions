@@ -6,7 +6,7 @@ using System.Linq;
 using VDS.RDF.Query.Algebra;
 using static System.Net.WebRequestMethods;
 
-namespace Review
+namespace Review.Tests
 {
     public static class ExcelParser
     {

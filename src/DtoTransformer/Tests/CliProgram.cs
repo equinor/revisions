@@ -4,7 +4,6 @@ using VDS.RDF.Writing;
 using VDS.RDF.Writing;
 using Review;
 
-
 var reviewDto = new ReviewDTO
 {
     ReviewIri = "https://example.com/doc/reply-A123-BC-D-EF-00001.F01",
