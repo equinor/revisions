@@ -24,4 +24,17 @@ public class TestDtoTransformer
             .And.BeOfType<InvalidOperationException>();
         act?.Message.Should().Be("ReviewId not set");
     }
+
+    [Fact]
+    public void ShouldReadReviewFile()
+    {
+        ITripleStore exampleRdf = new TripleStore();
+        exampleRdf.LoadFromFile("comments.trig");
+        IGraph graph = exampleRdf[new UriNode(new Uri("https://example.com/data/RecordID123_5"))] ??
+                       throw new Exception("File comments2.trig should have a record with id exdata:RecordID123_5");
+        var reviewDto = DtoGenerator.GenerateDto(graph);
+        var statusText = reviewDto.GetReviewStatusDescription();
+        statusText.Should().Be("Code 1: Reviewed. No Comments");
+
+    }
 }

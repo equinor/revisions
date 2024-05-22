@@ -41,12 +41,30 @@ public class ReviewDTO
     //The comments in the review
     public List<CommentDto> HasComments { get; set; }
 
+    
+    public static string GetReviewFilePath()
+    {
+        // Get the assembly that contains the ReviewDTO class
+        var assembly = typeof(Review.ReviewDTO).Assembly;
+
+        // Get the location of that assembly
+        var assemblyLocation = assembly.Location;
+
+        // Get the directory that contains the assembly
+        var assemblyDirectory = Path.GetDirectoryName(assemblyLocation);
+
+        // Construct a path to the review.ttl file
+        var reviewFilePath = Path.Combine(assemblyDirectory, "review.ttl");
+
+        return reviewFilePath;
+    }
 
     public string GetReviewStatusDescription()
     {
         //Get reviewstatus comment text from ontology
         Graph g = new Graph();
-        g.LoadFromFile("review.ttl");
+        var reviewFilePath = GetReviewFilePath();
+        g.LoadFromFile(reviewFilePath);
 
         string statusUri = $"https://rdf.equinor.com/ontology/review/{Status}";
         INode statusNode = g.CreateUriNode(UriFactory.Create(statusUri));
