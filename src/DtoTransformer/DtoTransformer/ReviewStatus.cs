@@ -1,4 +1,5 @@
-﻿public enum ReviewStatus
+﻿namespace Review;
+public enum ReviewStatus
 {
     Code1,
     Code2,
