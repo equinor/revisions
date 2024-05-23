@@ -46,8 +46,7 @@ public class ReviewDTO
     {
         //Get reviewstatus comment text from ontology
         Graph g = new Graph();
-        var reviewFilePath = "review.ttl";
-        g.LoadFromFile(reviewFilePath);
+        g.LoadFromFile("review.ttl");
 
         string statusUri = $"https://rdf.equinor.com/ontology/review/{Status}";
         INode statusNode = g.CreateUriNode(UriFactory.Create(statusUri));
