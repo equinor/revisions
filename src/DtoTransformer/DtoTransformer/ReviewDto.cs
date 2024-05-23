@@ -46,7 +46,7 @@ public class ReviewDTO
     {
         var reviewGraph = new Graph();
         var outputFolderPath = Assembly.GetExecutingAssembly()
-                                   .GetManifestResourceStream("DtoTransformers.review.ttl") ??
+                                   .GetManifestResourceStream("DtoTransformer.review.ttl") ??
                                throw new Exception("Could not get assembly path of review.ttl.");
         var shapeString = new StreamReader(outputFolderPath).ReadToEnd();
         reviewGraph.LoadFromString(shapeString);
