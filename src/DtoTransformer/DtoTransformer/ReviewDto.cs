@@ -44,7 +44,6 @@ public class ReviewDTO
 
     private static Graph GetReviewGraph()
     {
-        Console.WriteLine("Using local review package");
         var reviewGraph = new Graph();
         var outputFolderPath = Assembly.GetExecutingAssembly()
                                    .GetManifestResourceStream("DtoTransformers.review.ttl") ??
