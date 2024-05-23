@@ -9,7 +9,7 @@
     <Description>Package for transforming DTO to RDF, and vice-versa</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <PackageId>Review</PackageId>
-	  <VersionPrefix>4.0.2</VersionPrefix>
+	  <VersionPrefix>4.0.3</VersionPrefix>
       <PackageLicenseExpression>GPL-2.0-or-later</PackageLicenseExpression>
 	  <PublishRepositoryUrl>true</PublishRepositoryUrl>
 	  <EmbedUntrackedSources>true</EmbedUntrackedSources>
@@ -25,20 +25,15 @@
   </ItemGroup>
 
     <ItemGroup>
-        <None Include="..\..\..\schema\review.ttl">
+        <Content Include="..\..\..\schema\review.ttl">
             <Pack>True</Pack>
-            <PackagePath>\</PackagePath>
-        </None>
+            <Link>review.ttl</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <BuildAction>EmbeddedResource</BuildAction>
+            <PackageCopyToOutput>true</PackageCopyToOutput>
+            
+        </Content>
     </ItemGroup>
-
-	<ItemGroup>
-		<EmbeddedResource Include="..\..\..\schema\review.ttl">
-			<Link>review.ttl</Link>
-			<IncludeInPackage>true</IncludeInPackage>
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-			<PackageCopyToOutput>true</PackageCopyToOutput>
-		</EmbeddedResource>
-	</ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="ClosedXml" Version="0.102.2" />
