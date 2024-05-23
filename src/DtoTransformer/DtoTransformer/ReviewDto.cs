@@ -1,4 +1,5 @@
-﻿using IriTools;
+﻿using System.Reflection;
+using IriTools;
 using VDS.RDF;
 using VDS.RDF.Parsing;
 namespace Review;
@@ -41,12 +42,22 @@ public class ReviewDTO
     //The comments in the review
     public List<CommentDto> HasComments { get; set; }
 
-
+    private static Graph GetReviewGraph()
+    {
+        Console.WriteLine("Using local review package");
+        var reviewGraph = new Graph();
+        var outputFolderPath = Assembly.GetExecutingAssembly()
+                                   .GetManifestResourceStream("DtoTransformers.review.ttl") ??
+                               throw new Exception("Could not get assembly path of review.ttl.");
+        var shapeString = new StreamReader(outputFolderPath).ReadToEnd();
+        reviewGraph.LoadFromString(shapeString);
+        return reviewGraph;
+    }
+    
     public string GetReviewStatusDescription()
     {
         //Get reviewstatus comment text from ontology
-        Graph g = new Graph();
-        g.LoadFromFile("review.ttl");
+        Graph g = GetReviewGraph();
 
         string statusUri = $"https://rdf.equinor.com/ontology/review/{Status}";
         INode statusNode = g.CreateUriNode(UriFactory.Create(statusUri));
