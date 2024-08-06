@@ -4,6 +4,7 @@ using VDS.RDF.Parsing;
 using VDS.RDF.Shacl;
 using Xunit.Abstractions;
 using FluentAssertions;
+using System.Text.Json;
 
 
 namespace Review.Tests
@@ -152,6 +153,22 @@ namespace Review.Tests
             }
 
         }
+
+
+        [Fact]
+        public void ReviewDTO__CanBe__Serialized()
+        {
+            // Arrange 
+            var reviewDto = CreateReviewDto();
+
+            // Act
+            var serialized = JsonSerializer.Serialize(reviewDto);
+            var deserialized = JsonSerializer.Deserialize<ReviewDTO>(serialized);
+
+            // Assert
+            reviewDto.Should().BeEquivalentTo(deserialized);
+        }
+
 
         public static ReviewDTO CreateReviewDto()
         {
