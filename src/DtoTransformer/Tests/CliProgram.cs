@@ -1,8 +1,5 @@
 ﻿using Review;
 using VDS.RDF.Writing;
-
-using VDS.RDF.Writing;
-using Review;
 using Review.Tests;
 
 var reviewDto = new ReviewDTO
@@ -29,11 +26,13 @@ var commentDto = new CommentDto
         new Uri("https://example.com/doc/A123-BC-D-EF-00001.F01row3"),
         new Uri("https://example.com/doc/A123-BC-D-EF-00001.F01row10")
     },
-    AboutObject = new List<(Uri property, string value)>()
+
+    AboutObject = new List<PropertyValuePair>
     {
-        (new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), "the tag number"),
-        (new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), "The handling code"),
-        (new Uri("https://rdf.equinor.com/ontology/mel/v1#importantField"), "The important field")
+        new PropertyValuePair{Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), Value = "The tag number"},
+        new PropertyValuePair{Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), Value = "The handling code"},
+        new PropertyValuePair{Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#importantField"), Value = "The important field"}
+
     }
 };
 
@@ -43,15 +42,15 @@ var anotherCommentDto = new CommentDto
     CommentText = "Another comment",
     IssuedBy = "John Doe",
     GeneratedAtTime = DateOnly.FromDateTime(DateTime.Now),
-    AboutData = new List<Uri>()
-    {
+    AboutData =
+    [
         new Uri("https://example.com/doc/AnotherDocument.Row1")
-    },
-    AboutObject = new List<(Uri property, string value)>()
-    {
-        (new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), "the tag number"),
-        (new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), "The handling code")
-    }
+    ],
+    AboutObject =
+    [
+        new PropertyValuePair{Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), Value = "The tag number"},
+        new PropertyValuePair{Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), Value = "The handling code"}
+    ]
 };
 
 reviewDto.HasComments.Add(commentDto);
@@ -95,8 +94,6 @@ reviewDto = DtoGenerator.GenerateDto(graph);
 Console.WriteLine("Third DTO");
 printInfo(reviewDto);
 
-
-
 static void printInfo(ReviewDTO review)
 {
     Console.WriteLine("Review Guid: " + review.ReviewGuid);
@@ -136,7 +133,7 @@ static void printInfo(ReviewDTO review)
             Console.WriteLine("About Data: " + string.Join(", ", comment.AboutData));
         }
 
-        Console.WriteLine("About Object: " + string.Join(", ", comment.AboutObject.Select(x => x.property + " = " + x.value)));
+        Console.WriteLine("About Object: " + string.Join(", ", comment.AboutObject.Select(x => x.Property + " = " + x.Value)));
     }
     Console.WriteLine("------------------------------");
 }

@@ -52,7 +52,7 @@ public class ReviewDTO
         reviewGraph.LoadFromString(shapeString);
         return reviewGraph;
     }
-    
+
     public string GetReviewStatusDescription()
     {
         //Get reviewstatus comment text from ontology

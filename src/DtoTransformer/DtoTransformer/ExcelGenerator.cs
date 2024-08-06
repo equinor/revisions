@@ -139,7 +139,7 @@ public static class ExcelGenerator
     public static IEnumerable<Uri> GetAllObjectFilters(IEnumerable<CommentDto> comments) =>
         comments.SelectMany(comment =>
                 comment.AboutObject
-                    .Select(aboutFilter => aboutFilter.property.ToString()))
+                    .Select(aboutFilter => aboutFilter.Property.ToString()))
             .Distinct()
             .Select(filter => new Uri(filter));
 
@@ -163,8 +163,8 @@ public static class ExcelGenerator
         }
         .Concat(filternames.Select(filterName =>
             commentDto.AboutObject
-                .Where(aboutFilter => aboutFilter.property.ToString().Equals(filterName.ToString()))
-                .Select(aboutFilter => aboutFilter.value)
+                .Where(aboutFilter => aboutFilter.Property.ToString().Equals(filterName.ToString()))
+                .Select(aboutFilter => aboutFilter.Value)
                 .DefaultIfEmpty("")
                 .Single()
             )

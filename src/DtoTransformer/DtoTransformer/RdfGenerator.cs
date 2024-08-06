@@ -48,8 +48,8 @@ public class RdfGenerator
             graph.Assert(new Triple(aboutObject, graph.CreateUriNode(new Uri(Namespaces.Rdf.Type)), graph.CreateUriNode(new Uri(Namespaces.Review.FilterObject))));
             foreach (var pair in commentDto.AboutObject)
             {
-                var propertyNode = graph.CreateUriNode(pair.property);
-                var valueNode = graph.CreateLiteralNode(pair.value);
+                var propertyNode = graph.CreateUriNode(pair.Property);
+                var valueNode = graph.CreateLiteralNode(pair.Value);
 
                 graph.Assert(new Triple(aboutObject, propertyNode, valueNode));
             }

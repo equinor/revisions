@@ -1,30 +1,18 @@
-using Xunit;
 using VDS.RDF;
 using VDS.RDF.Writing;
-using Review;
 using VDS.RDF.Parsing;
 using VDS.RDF.Shacl;
-using DocumentFormat.OpenXml.Bibliography;
-using DocumentFormat.OpenXml.Spreadsheet;
-using static Review.Namespaces;
-using VDS.RDF.Shacl.Validation;
 using Xunit.Abstractions;
 using FluentAssertions;
-using ClosedXML.Excel;
-using Lucene.Net.Search.Similarities;
+using static System.Net.WebRequestMethods;
 
 
 namespace Review.Tests
 {
-    public class Tests
+    public class Tests(ITestOutputHelper testOutputHelper)
     {
 
-        private readonly ITestOutputHelper _testOutputHelper;
-
-        public Tests(ITestOutputHelper testOutputHelper)
-        {
-            this._testOutputHelper = testOutputHelper;
-        }
+        private readonly ITestOutputHelper _testOutputHelper = testOutputHelper;
 
         [Fact]
         public void ReviewDtoTransformationShouldMaintainEquality()
@@ -54,6 +42,7 @@ namespace Review.Tests
 
             }
         }
+
         [Fact]
         public void UseShaclToChekValidityOfRdf()
         {
@@ -63,6 +52,7 @@ namespace Review.Tests
             var rdfCode = VDS.RDF.Writing.StringWriter.Write(graph, new CompressingTurtleWriter());
             CheckReview(rdfCode, "review.shacl");
         }
+
         internal void CheckReview(string rdf, string shacl_name)
         {
             //Act
@@ -118,7 +108,6 @@ namespace Review.Tests
             act?.Message.Should().Be("ReviewId not set");
         }
 
-
         [Fact]
         public void ValidateThatExcelIsCorrect()
         {
@@ -155,22 +144,17 @@ namespace Review.Tests
                 Assert.Equal(commentDto.CommentText, commentDtoAfterTransformation.CommentText);
 
                 //Sort CommentDto.AboutObject by Uri for both commentDto and commentDtoAfterTransformation
-                commentDto.AboutObject.Sort((x, y) => Uri.Compare(x.property, y.property, UriComponents.AbsoluteUri, UriFormat.UriEscaped, StringComparison.Ordinal));
-                commentDtoAfterTransformation.AboutObject.Sort((x, y) => Uri.Compare(x.property, y.property, UriComponents.AbsoluteUri, UriFormat.UriEscaped, StringComparison.Ordinal));
+                commentDto.AboutObject.Sort((x, y) => Uri.Compare(x.Property, y.Property, UriComponents.AbsoluteUri, UriFormat.UriEscaped, StringComparison.Ordinal));
+                commentDtoAfterTransformation.AboutObject.Sort((x, y) => Uri.Compare(x.Property, y.Property, UriComponents.AbsoluteUri, UriFormat.UriEscaped, StringComparison.Ordinal));
                 for (int j = 0; i < commentDto.AboutObject.Count; i++)
                 {
-                    Assert.Equal(commentDto.AboutObject[j], commentDtoAfterTransformation.AboutObject[j]);
+                    commentDto.AboutObject[j].Should().BeEquivalentTo(commentDtoAfterTransformation.AboutObject[j]);
                 }
-
-
             }
-
-
-
 
         }
 
-        public ReviewDTO CreateReviewDto()
+        public static ReviewDTO CreateReviewDto()
         {
             var reviewDto = new ReviewDTO
             {
@@ -190,18 +174,18 @@ namespace Review.Tests
                 CommentText = "A comment",
                 IssuedBy = "Johannes",
                 GeneratedAtTime = DateOnly.FromDateTime(DateTime.Now),
-                AboutData = new List<Uri>()
-    {
-        new Uri("https://example.com/doc/A123-BC-D-EF-00001.F01row1"),
-        new Uri("https://example.com/doc/A123-BC-D-EF-00001.F01row3"),
-        new Uri("https://example.com/doc/A123-BC-D-EF-00001.F01row10")
-    },
-                AboutObject = new List<(Uri property, string value)>()
-    {
-        (new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), "the tag number"),
-        (new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), "The handling code"),
-        (new Uri("https://rdf.equinor.com/ontology/mel/v1#importantField"), "The important field")
-    }
+                AboutData =
+                [
+                    new Uri("https://example.com/doc/A123-BC-D-EF-00001.F01row1"),
+                    new Uri("https://example.com/doc/A123-BC-D-EF-00001.F01row3"),
+                    new Uri("https://example.com/doc/A123-BC-D-EF-00001.F01row10")
+                ],
+                AboutObject =
+                [
+                    new PropertyValuePair{Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), Value = "The tag number"},
+                    new PropertyValuePair{Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), Value = "The handling code"},
+                    new PropertyValuePair{Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#importantField"), Value = "The important field" }
+                ]
             };
 
             var anotherCommentDto = new CommentDto
@@ -211,14 +195,14 @@ namespace Review.Tests
                 IssuedBy = "John Doe",
                 GeneratedAtTime = DateOnly.FromDateTime(DateTime.Now),
                 AboutData = new List<Uri>()
-    {
-        new Uri("https://example.com/doc/AnotherDocument.Row1")
-    },
-                AboutObject = new List<(Uri property, string value)>()
-    {
-        (new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), "the tag number"),
-        (new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), "The handling code")
-    }
+                {
+                    new("https://example.com/doc/AnotherDocument.Row1")
+                },
+                AboutObject =
+                [
+                    new PropertyValuePair{Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), Value = "The tag number"},
+                    new PropertyValuePair{Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), Value = "The handling code"}
+                ]
             };
 
             reviewDto.HasComments.Add(commentDto);

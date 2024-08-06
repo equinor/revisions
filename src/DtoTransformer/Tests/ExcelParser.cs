@@ -43,7 +43,7 @@ namespace Review.Tests
                     CommentId = Guid.Parse(idCell.Value.ToString().Split(':').Last()),
                     CommentText = GetCellValue(worksheet, $"B{currentRow}"),
                     IssuedBy = GetCellValue(worksheet, $"C{currentRow}"),
-                    AboutObject = new List<(Uri property, string value)>()
+                    AboutObject = []
                 };
                 // Retrieve filter values from the row
                 for (var columnIndex = filterStartColumnIndex; columnIndex < worksheet.ColumnsUsed().Count(); columnIndex++)
@@ -57,7 +57,7 @@ namespace Review.Tests
                             Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#" + propertyCell.Value.ToString()),
                             Value = valueCell.Value.ToString()
                         };
-                        commentDto.AboutObject.Add((filter.Property, filter.Value));
+                        commentDto.AboutObject.Add(new PropertyValuePair { Property = filter.Property, Value = filter.Value });
                     }
                 }
 
