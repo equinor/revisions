@@ -182,9 +182,9 @@ namespace Review.Tests
                 ],
                 AboutObject =
                 [
-                    new PropertyValuePair{Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), Value = "The tag number"},
-                    new PropertyValuePair{Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), Value = "The handling code"},
-                    new PropertyValuePair{Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#importantField"), Value = "The important field" }
+                    new PropertyValuePair { Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), Value = "The tag number" },
+                    new PropertyValuePair { Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), Value = "The handling code" },
+                    new PropertyValuePair { Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#importantField"), Value = "The important field" }
                 ]
             };
 
@@ -200,8 +200,8 @@ namespace Review.Tests
                 },
                 AboutObject =
                 [
-                    new PropertyValuePair{Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), Value = "The tag number"},
-                    new PropertyValuePair{Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), Value = "The handling code"}
+                    new PropertyValuePair { Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#tagNumber"), Value = "The tag number" },
+                    new PropertyValuePair { Property = new Uri("https://rdf.equinor.com/ontology/mel/v1#weightHandlingCode"), Value = "The handling code" }
                 ]
             };
 
