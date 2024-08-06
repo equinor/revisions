@@ -1,7 +1,5 @@
 ﻿using VDS.RDF;
-using VDS.RDF.Nodes;
 using VDS.RDF.Query;
-using Graph = VDS.RDF.Graph;
 
 
 namespace Review;
@@ -126,12 +124,13 @@ public class DtoGenerator
                 }
             }
 
-            commentDto.AboutObject = new List<(Uri property, string value)>();
+            commentDto.AboutObject = new List<PropertyValuePair>();
             foreach (var data in aboutObjectResults)
             {
                 if (data["commentId"].ToString() == commentUri.ToString())
                 {
-                    commentDto.AboutObject.Add((new Uri(data["property"].ToString()), ((LiteralNode)data["value"]).Value));
+                    var propertyValuePair = new PropertyValuePair { Property = new Uri(data["property"].ToString()), Value = ((LiteralNode)data["value"]).Value };
+                    commentDto.AboutObject.Add(propertyValuePair);
                 }
             }
 

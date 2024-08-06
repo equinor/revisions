@@ -1,11 +1,8 @@
-﻿using VDS.RDF;
-
-namespace Review;
+﻿namespace Review;
 public class CommentDto
 {
     //Id of comment
     public Guid CommentId { get; set; }
-
 
     public Uri CommentUri
     {
@@ -27,6 +24,13 @@ public class CommentDto
     //What the Filter is commenting on. For mel this will be row IRIs.
     public List<Uri> AboutData { get; set; }
     //Filter that makes sense within a context. For Mel this could be Tagnumber and WeightHandlingCode
-    public List<(Uri property, string value)> AboutObject { get; set; }
+    public List<PropertyValuePair> AboutObject { get; set; }
+}
+
+public class PropertyValuePair()
+{
+    public required Uri Property { get; set; }
+    public required string Value { get; set; }
+
 }
 

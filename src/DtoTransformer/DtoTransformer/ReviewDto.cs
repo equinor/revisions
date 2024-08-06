@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
+using DtoTransformer;
 using IriTools;
 using VDS.RDF;
-using VDS.RDF.Parsing;
 namespace Review;
 
 public class ReviewDTO
@@ -34,6 +34,8 @@ public class ReviewDTO
     //Author of comment. In MEL this is known as comment responsible
     public string IssuedBy { get; set; }
     public DateOnly GeneratedAtTime { get; set; }
+    //The Technical requirement of the document that the review is about
+    public TR TechnicalRequirement { get; set; }
     //Number indicating status of review. Plaintext for now
     public ReviewStatus Status { get; set; }
     //public string ReviewStatus { get; set; }
@@ -52,7 +54,7 @@ public class ReviewDTO
         reviewGraph.LoadFromString(shapeString);
         return reviewGraph;
     }
-    
+
     public string GetReviewStatusDescription()
     {
         //Get reviewstatus comment text from ontology

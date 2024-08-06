@@ -1,6 +1,4 @@
 namespace Review;
-
-
 public struct Namespaces
 {
     public struct Prov
