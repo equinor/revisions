@@ -30,8 +30,8 @@ public class CommentDto
 
 public class PropertyValuePair()
 {
-    public required string Property { get; set; }
-    public required string? Value { get; set; }
+    public required Uri Property { get; set; }
+    public required string Value { get; set; }
 
 }
 
