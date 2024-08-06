@@ -4,7 +4,6 @@ using VDS.RDF.Parsing;
 using VDS.RDF.Shacl;
 using Xunit.Abstractions;
 using FluentAssertions;
-using static System.Net.WebRequestMethods;
 
 
 namespace Review.Tests

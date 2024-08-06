@@ -1,8 +1,5 @@
 ﻿using VDS.RDF;
-using VDS.RDF.Nodes;
 using VDS.RDF.Query;
-using VDS.RDF.Query.Paths;
-using Graph = VDS.RDF.Graph;
 
 
 namespace Review;

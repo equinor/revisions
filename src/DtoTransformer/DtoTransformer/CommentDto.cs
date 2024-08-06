@@ -1,5 +1,4 @@
-﻿
-namespace Review;
+﻿namespace Review;
 public class CommentDto
 {
     //Id of comment

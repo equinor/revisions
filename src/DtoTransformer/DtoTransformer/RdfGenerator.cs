@@ -1,6 +1,4 @@
-﻿
-using VDS.RDF;
-
+﻿using VDS.RDF;
 
 namespace Review;
 public class RdfGenerator

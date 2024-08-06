@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using IriTools;
 using VDS.RDF;
-using VDS.RDF.Parsing;
 namespace Review;
 
 public class ReviewDTO
