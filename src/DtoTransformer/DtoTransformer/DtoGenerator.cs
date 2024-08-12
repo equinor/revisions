@@ -50,7 +50,7 @@ public class DtoGenerator
         reviewDto.GeneratedAtTime = DateOnly.Parse(((LiteralNode)reviewResult["generatedAtTime"]).Value);
         reviewDto.Status = ParseReviewStatus(reviewResult["reviewStatus"].ToString());
         reviewDto.Label = ((LiteralNode)reviewResult["label"]).Value;
-        reviewDto.TechnicalRequirement = TRExtensions.StringUriToTR(reviewResult["tr"].ToString()); 
+        reviewDto.TechnicalRequirement = reviewResult.HasValue("tr") ? TRExtensions.StringUriToTR(reviewResult["tr"].ToString()) : TR.None;
         reviewDto.HasComments = new List<CommentDto>();
 
 
