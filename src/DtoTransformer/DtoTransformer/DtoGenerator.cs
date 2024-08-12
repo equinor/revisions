@@ -1,4 +1,5 @@
-﻿using VDS.RDF;
+﻿using DtoTransformer;
+using VDS.RDF;
 using VDS.RDF.Query;
 
 
@@ -13,13 +14,12 @@ public class DtoGenerator
                 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                 prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                 prefix xsd: <http://www.w3.org/2001/XMLSchema#>
-                prefix exdata: <https://example.com/data/>
-                prefix exdoc: <https://example.com/doc/>
                 prefix rec: <https://rdf.equinor.com/ontology/record/>
                 prefix rev: <https://rdf.equinor.com/ontology/revision/>
                 prefix rdl: <http://example.com/rdl/>
                 prefix mel: <https://rdf.equinor.com/ontology/mel/v1#>
-                SELECT DISTINCT ?reviewId ?aboutRevision ?issuedBy ?generatedAtTime ?reviewStatus ?label ?guid
+                prefix eq: <https://rdf.equinor.com/>
+                SELECT DISTINCT ?reviewId ?aboutRevision ?tr ?issuedBy ?generatedAtTime ?reviewStatus ?label ?guid
                 WHERE {
                     ?reviewId a review:Review ;
                                 review:aboutRevision ?aboutRevision ;
@@ -28,6 +28,7 @@ public class DtoGenerator
                                 rdf:type ?reviewStatus ;
                                 rdfs:label ?label .
                     OPTIONAL{?reviewId review:hasGuid ?guid} .
+                    OPTIONAL{?reviewId review:reviewOfClass ?tr} .
                     FILTER (?reviewStatus != review:Review)
                 }";
 
@@ -49,6 +50,7 @@ public class DtoGenerator
         reviewDto.GeneratedAtTime = DateOnly.Parse(((LiteralNode)reviewResult["generatedAtTime"]).Value);
         reviewDto.Status = ParseReviewStatus(reviewResult["reviewStatus"].ToString());
         reviewDto.Label = ((LiteralNode)reviewResult["label"]).Value;
+        reviewDto.TechnicalRequirement = TRExtensions.StringUriToTR(reviewResult["tr"].ToString()); 
         reviewDto.HasComments = new List<CommentDto>();
 
 

@@ -25,22 +25,7 @@ namespace Review.Tests
             var reviewDtoAfterTransformation = DtoGenerator.GenerateDto(graph);
 
             // Assert
-            Assert.Equal(reviewDto.ReviewGuid, reviewDtoAfterTransformation.ReviewGuid);
-            Assert.Equal(reviewDto.IssuedBy, reviewDtoAfterTransformation.IssuedBy);
-            Assert.Equal(reviewDto.Label, reviewDtoAfterTransformation.Label);
-
-            for (int i = 0; i < reviewDto.HasComments.Count; i++)
-            {
-                var expectedComment = reviewDto.HasComments[i];
-                var actualComment = reviewDtoAfterTransformation.HasComments[i];
-
-                Guid parsedGuid;
-                bool isValidGuid = Guid.TryParse(actualComment.CommentId.ToString(), out parsedGuid);
-                Assert.True(isValidGuid, "The CommentId is not a valid GUID.");
-
-                Assert.False(string.IsNullOrEmpty(actualComment.CommentText), "The CommentText should not be null or empty.");
-
-            }
+            reviewDtoAfterTransformation.Should().BeEquivalentTo(reviewDto);
         }
 
         [Fact]
@@ -176,6 +161,7 @@ namespace Review.Tests
             {
                 ReviewIri = "https://example.com/doc/reply-A123-BC-D-EF-00001.F01",
                 AboutRevision = new Uri("https://example.com/data/A123-BC-D-EF-00001.F01"),
+                TechnicalRequirement = DtoTransformer.TR.MelReportingTemplate,
                 IssuedBy = "Turi Skogen",
                 GeneratedAtTime = DateOnly.FromDateTime(DateTime.Now),
                 Status = ReviewStatus.Code1,

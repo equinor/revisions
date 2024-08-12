@@ -1,11 +1,13 @@
-﻿using VDS.RDF;
+﻿using DtoTransformer;
+using VDS.RDF;
+using VDS.RDF.Query.Algebra;
 
 namespace Review;
 public class RdfGenerator
 {
-    public static Graph GenerateRdf(ReviewDTO reviewDto)
+    public static VDS.RDF.Graph GenerateRdf(ReviewDTO reviewDto)
     {
-        var graph = new Graph();
+        var graph = new VDS.RDF.Graph();
         //Add nAmespaces
         graph.NamespaceMap.AddNamespace("rdf", new Uri(Namespaces.Rdf.BaseUrl));
         graph.NamespaceMap.AddNamespace("rdfs", new Uri(Namespaces.Rdfs.BaseUrl));
@@ -29,9 +31,13 @@ public class RdfGenerator
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("rdf:type"), reviewStatus));
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("rdfs:label"), label));
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("prov:generatedAtTime"), generatedAtTime));
-        graph.Assert(new Triple(reviewId, graph.CreateUriNode("review:aboutRevision"), aboutRevision));
         graph.Assert(new Triple(reviewId, graph.CreateUriNode("review:issuedBy"), issuedBy));
         graph.Assert(new Triple(reviewId, graph.CreateUriNode(new Uri(Namespaces.Review.HasGuid)), guidvalue));
+        graph.Assert(new Triple(reviewId, graph.CreateUriNode("review:aboutRevision"), aboutRevision));
+        if (reviewDto.TechnicalRequirement != TR.None)
+            graph.Assert(new Triple(reviewId, graph.CreateUriNode(new Uri(Namespaces.Review.ReviewOfClass)), graph.CreateUriNode(reviewDto.TechnicalRequirement.ToUri())));
+       
+
 
         //Create and assert comment triples
         foreach (var commentDto in reviewDto.HasComments)
@@ -83,7 +89,7 @@ public class RdfGenerator
         return date.ToString("yyyy-MM-dd");
     }
 
-    public static void AddBlankNodeToReview(Graph graph, IRefNode rdfSubject)
+    public static void AddBlankNodeToReview(VDS.RDF.Graph graph, IRefNode rdfSubject)
     {
         IRefNode activity = graph.CreateBlankNode();
         AddProvenance(graph, activity);
@@ -96,7 +102,7 @@ public class RdfGenerator
         graph.Assert(wasGeneratedByPredicate);
     }
 
-    private static void AddProvenance(Graph graph, IRefNode activity)
+    private static void AddProvenance(VDS.RDF.Graph graph, IRefNode activity)
     {
         var versionUri = new UriNode(new Uri(CreateReviewVersionUri()));
         graph.Assert(new Triple(

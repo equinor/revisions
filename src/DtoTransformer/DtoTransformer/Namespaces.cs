@@ -50,6 +50,7 @@ public struct Namespaces
         public const string hasAttachment = $"{BaseUrl}hasAttachment";
         public const string revisionSequenceNumber = $"{BaseUrl}hasSequenceNumber";
     }
+
     public struct Review
     {
         public const string BaseUrl = "https://rdf.equinor.com/ontology/review/";
@@ -62,6 +63,7 @@ public struct Namespaces
         public const string FilterObject = $"{BaseUrl}FilterObject";
         public const string HasComment = $"{BaseUrl}hasComment";
         public const string HasGuid = $"{BaseUrl}hasGuid";
+        public const string ReviewOfClass = $"{BaseUrl}reviewOfClass";
     }
     public struct Data
     {
