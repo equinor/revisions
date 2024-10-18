@@ -35,9 +35,9 @@
     </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ClosedXml" Version="0.102.3" />
-    <PackageReference Include="dotNetRdf" Version="3.2.1" />
-    <PackageReference Include="IriTools" Version="1.1.0" />
+    <PackageReference Include="ClosedXml" Version="0.104.1" />
+    <PackageReference Include="dotNetRdf" Version="3.3.0" />
+    <PackageReference Include="IriTools" Version="2.2.0" />
   </ItemGroup>
 
 </Project>
