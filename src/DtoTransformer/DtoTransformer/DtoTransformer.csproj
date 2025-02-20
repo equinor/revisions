@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -38,7 +38,7 @@
     <PackageReference Include="ClosedXml" Version="0.104.2" />
     <PackageReference Include="dotNetRdf" Version="3.3.2" />
     <PackageReference Include="IriTools" Version="2.2.0" />
-    <PackageReference Include="System.IO.Packaging" Version="8.0.1" />
+    <PackageReference Include="System.IO.Packaging" Version="9.0.2" />
   </ItemGroup>
 
 </Project>
