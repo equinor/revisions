@@ -28,6 +28,7 @@ namespace Review.Tests
             reviewDtoAfterTransformation.Should().BeEquivalentTo(reviewDto);
         }
 
+
         [Fact]
         public void UseShaclToChekValidityOfRdf()
         {
