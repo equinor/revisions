@@ -131,4 +131,3 @@ rev:CommentReviewShape
         sh:message "The comment is on one or several rows ";
         sh:severity sh:Violation;
     ] .
-
